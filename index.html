@@ -115,7 +115,7 @@ svg text{user-select:none}
 <!-- L-SHAPED EXTERIOR OUTLINE -->
 <!-- Main house body: x=40-468 (42'-10" = 428px), y=50-360 (31') -->
 <!-- Garage projects DOWN from LEFT side: x=40-290, y=360-580 -->
-<path d="M 40,50 L 468,50 L 468,360 L 290,360 L 290,580 L 40,580 Z" class="ew" fill="var(--panel)"/>
+<path d="M 40,50 L 468,50 L 468,360 L 290,360 L 290,630 L 40,630 Z" class="ew" fill="var(--panel)"/>
 
 <!-- Labels -->
 <text x="254" y="40" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">BACKYARD</text>
@@ -327,52 +327,56 @@ svg text{user-select:none}
 <line x1="466" y1="260" x2="466" y2="295" class="wn"/>
 </g></g>
 
-<!-- ===== GARAGE (left side, projecting down) ===== -->
+<!-- ===== GARAGE (left side, projecting down, 3-CAR) ===== -->
+<!-- 9' door = 90px, center post = 8px, 16' door = 160px = 258px total on right wall -->
+<!-- Garage depth (left-right): 25'-1" = 251px -->
 <g class="rg" onclick="sp(39)">
-<!-- Full garage rectangle -->
-<rect x="42" y="362" width="246" height="216" class="rb" stroke="var(--wext)" stroke-width="3"/>
+<!-- Full garage rectangle: 251px wide x 260px tall -->
+<rect x="42" y="362" width="251" height="260" class="rb" stroke="var(--wext)" stroke-width="3"/>
 
-<!-- Horizontal dividing wall at y=460 between 1-car (upper) and 2-car (lower) bays -->
-<line x1="42" y1="460" x2="288" y2="460" stroke="var(--wall)" stroke-width="3"/>
+<!-- Horizontal dividing wall between 1-car (upper) and 2-car (lower) -->
+<line x1="42" y1="455" x2="293" y2="455" stroke="var(--wall)" stroke-width="3"/>
 
 <!-- Bay labels -->
-<text x="165" y="420" class="rn">1-CAR BAY</text>
-<text x="165" y="520" class="rn">2-CAR BAY</text>
-<text x="165" y="535" class="rs">CONCRETE</text>
+<text x="155" y="415" class="rn">1-CAR BAY</text>
+<text x="155" y="545" class="rn">2-CAR BAY</text>
+<text x="155" y="560" class="rs">CONCRETE</text>
 
-<!-- ===== GARAGE DOORS on RIGHT wall (x=285) ===== -->
-<!-- 9' door (1-car bay, upper): y=368 to y=458 -->
-<rect x="285" y="368" width="6" height="90" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
-<line x1="285" y1="380" x2="291" y2="380" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="392" x2="291" y2="392" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="404" x2="291" y2="404" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="416" x2="291" y2="416" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="428" x2="291" y2="428" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="440" x2="291" y2="440" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="452" x2="291" y2="452" stroke="#5a5438" stroke-width=".5"/>
-<text x="305" y="418" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,305,418)">9'0" SECTIONAL</text>
+<!-- ===== GARAGE DOORS on RIGHT wall (x=290) ===== -->
+<!-- 9' door (1-car bay, upper): y=365 to y=455 (90px = 9') -->
+<rect x="290" y="365" width="6" height="88" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
+<line x1="290" y1="377" x2="296" y2="377" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="389" x2="296" y2="389" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="401" x2="296" y2="401" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="413" x2="296" y2="413" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="425" x2="296" y2="425" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="437" x2="296" y2="437" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="449" x2="296" y2="449" stroke="#5a5438" stroke-width=".5"/>
+<text x="310" y="415" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,310,415)">9' door</text>
 
-<!-- Center post between doors on right wall -->
-<rect x="285" y="458" width="6" height="8" fill="var(--panel)" stroke="var(--wext)" stroke-width="1"/>
+<!-- Center post -->
+<rect x="290" y="453" width="6" height="8" fill="var(--panel)" stroke="var(--wext)" stroke-width="1"/>
 
-<!-- 16' door (2-car bay, lower): y=466 to y=575 -->
-<rect x="285" y="466" width="6" height="109" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
-<line x1="285" y1="478" x2="291" y2="478" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="490" x2="291" y2="490" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="502" x2="291" y2="502" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="514" x2="291" y2="514" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="526" x2="291" y2="526" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="538" x2="291" y2="538" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="550" x2="291" y2="550" stroke="#5a5438" stroke-width=".5"/>
-<line x1="285" y1="562" x2="291" y2="562" stroke="#5a5438" stroke-width=".5"/>
-<text x="305" y="520" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,305,520)">16'0" SECTIONAL</text>
+<!-- 16' door (2-car bay, lower): y=461 to y=621 (160px = 16') -->
+<rect x="290" y="461" width="6" height="158" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
+<line x1="290" y1="475" x2="296" y2="475" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="489" x2="296" y2="489" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="503" x2="296" y2="503" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="517" x2="296" y2="517" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="531" x2="296" y2="531" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="545" x2="296" y2="545" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="559" x2="296" y2="559" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="573" x2="296" y2="573" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="587" x2="296" y2="587" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="601" x2="296" y2="601" stroke="#5a5438" stroke-width=".5"/>
+<line x1="290" y1="615" x2="296" y2="615" stroke="#5a5438" stroke-width=".5"/>
+<text x="310" y="545" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,310,545)">16' door</text>
 </g>
 
 <!-- ===== VEHICLES (horizontal, noses LEFT) ===== -->
 <g class="fix">
 
-<!-- 911 SC (1-car bay, upper) -->
-<!-- 141px x 54px -->
+<!-- 911 SC (1-car bay) — 141px x 54px -->
 <g transform="translate(75, 380)">
   <rect x="0" y="0" width="141" height="54" rx="20" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
   <rect x="24" y="9" width="14" height="36" rx="4" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45"/>
@@ -392,7 +396,7 @@ svg text{user-select:none}
 
 <!-- 991.2 Carrera 4S (2-car bay, upper position) -->
 <!-- 148px x 61px -->
-<g transform="translate(70, 470)">
+<g transform="translate(70, 475)">
   <rect x="0" y="0" width="148" height="61" rx="24" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
   <path d="M28,10 L42,8 L42,53 L28,51 Z" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45" rx="3"/>
   <path d="M118,12 Q132,10 135,16 L135,45 Q132,51 118,49 Z" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
@@ -410,7 +414,7 @@ svg text{user-select:none}
 
 <!-- G550 (2-car bay, lower position) -->
 <!-- 158px x 63px, boxy rx=5, spare tire circle, roof rack lines -->
-<g transform="translate(65, 540)">
+<g transform="translate(65, 550)">
   <rect x="0" y="0" width="158" height="63" rx="5" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
   <rect x="16" y="6" width="12" height="51" rx="2" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45"/>
   <rect x="136" y="10" width="10" height="43" rx="2" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
@@ -436,15 +440,15 @@ svg text{user-select:none}
 
 <!-- ===== DRIVEWAY (RIGHT of garage, in front of doors) ===== -->
 <g>
-<rect x="292" y="362" width="200" height="220" fill="#151518" stroke="#2a2a2a" stroke-width="1"/>
+<rect x="296" y="362" width="200" height="262" fill="#151518" stroke="#2a2a2a" stroke-width="1"/>
 <!-- Expansion joints -->
-<line x1="300" y1="420" x2="488" y2="420" stroke="#1e1e22" stroke-width=".5"/>
-<line x1="300" y1="480" x2="488" y2="480" stroke="#1e1e22" stroke-width=".5"/>
-<line x1="300" y1="540" x2="488" y2="540" stroke="#1e1e22" stroke-width=".5"/>
+<line x1="304" y1="430" x2="492" y2="430" stroke="#1e1e22" stroke-width=".5"/>
+<line x1="304" y1="500" x2="492" y2="500" stroke="#1e1e22" stroke-width=".5"/>
+<line x1="304" y1="570" x2="492" y2="570" stroke="#1e1e22" stroke-width=".5"/>
 <!-- Texture -->
-<line x1="370" y1="365" x2="370" y2="578" stroke="#1a1a1e" stroke-width=".3"/>
-<line x1="430" y1="365" x2="430" y2="578" stroke="#1a1a1e" stroke-width=".3"/>
-<text x="400" y="480" fill="#2a2a3a" font-size="11" font-family="Courier New" text-anchor="middle" letter-spacing="4">DRIVEWAY</text>
+<line x1="370" y1="365" x2="370" y2="620" stroke="#1a1a1e" stroke-width=".3"/>
+<line x1="430" y1="365" x2="430" y2="620" stroke="#1a1a1e" stroke-width=".3"/>
+<text x="400" y="500" fill="#2a2a3a" font-size="11" font-family="Courier New" text-anchor="middle" letter-spacing="4">DRIVEWAY</text>
 </g>
 
 <!-- ===== DIMENSIONS ===== -->
