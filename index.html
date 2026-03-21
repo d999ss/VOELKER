@@ -309,48 +309,92 @@ svg text{user-select:none}
 <text x="315" y="570" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,315,570)">9'0" SECTIONAL</text>
 </g>
 
-<!-- ===== 3 PORSCHE 911s (horizontal, noses LEFT, tails toward doors) ===== -->
+<!-- ===== VEHICLES (to scale, horizontal, noses LEFT) ===== -->
 <g class="fix">
-<!-- 911: ~15'L x 6'W = 148px x 55px. Cars parked horizontally, backed in. -->
 
-<!-- 911 #1 — 2-car bay, upper position -->
-<g transform="translate(62, 375)">
-  <rect x="0" y="0" width="200" height="55" rx="18" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
-  <!-- Windshield (front/left) -->
-  <rect x="20" y="9" width="20" height="37" rx="6" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
-  <!-- Rear window (right/tail) -->
-  <rect x="162" y="11" width="15" height="33" rx="5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".4"/>
-  <!-- Headlights (left/front) -->
-  <circle cx="8" cy="14" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".5"/>
-  <circle cx="8" cy="41" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".5"/>
-  <!-- Taillights (right/rear) -->
-  <line x1="192" y1="10" x2="192" y2="20" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
-  <line x1="192" y1="35" x2="192" y2="45" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
-  <text x="100" y="31" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">911</text>
+<!-- PORSCHE 911 (992) — 2-car bay, upper -->
+<!-- 178.8"L x 72.9"W = 14'11" x 6'1" = 149px x 61px -->
+<g transform="translate(75, 374)">
+  <!-- Body: low, wide, curved rear haunches -->
+  <rect x="0" y="0" width="149" height="61" rx="24" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
+  <!-- Windshield (raked) -->
+  <path d="M28,10 L42,8 L42,53 L28,51 Z" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45" rx="3"/>
+  <!-- Rear window (sloped fastback) -->
+  <path d="M118,12 Q132,10 135,16 L135,45 Q132,51 118,49 Z" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
+  <!-- Round headlights -->
+  <circle cx="6" cy="16" r="4.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
+  <circle cx="6" cy="45" r="4.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
+  <!-- Full-width tail light bar (992 signature) -->
+  <line x1="140" y1="14" x2="140" y2="47" stroke="#8a3030" stroke-width="1.8" opacity=".5"/>
+  <!-- Side mirrors -->
+  <rect x="36" y="-3" width="5" height="3" rx="1" fill="var(--gold)" opacity=".25"/>
+  <rect x="36" y="61" width="5" height="3" rx="1" fill="var(--gold)" opacity=".25"/>
+  <!-- Wheel arches -->
+  <path d="M20,0 Q26,-3 32,0" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
+  <path d="M20,61 Q26,64 32,61" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
+  <path d="M108,0 Q114,-3 120,0" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
+  <path d="M108,61 Q114,64 120,61" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
+  <text x="74" y="34" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".45">PORSCHE 911</text>
 </g>
 
-<!-- 911 #2 — 2-car bay, lower position -->
-<g transform="translate(62, 450)">
-  <rect x="0" y="0" width="200" height="55" rx="18" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
-  <rect x="20" y="9" width="20" height="37" rx="6" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
-  <rect x="162" y="11" width="15" height="33" rx="5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".4"/>
-  <circle cx="8" cy="14" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".5"/>
-  <circle cx="8" cy="41" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".5"/>
-  <line x1="192" y1="10" x2="192" y2="20" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
-  <line x1="192" y1="35" x2="192" y2="45" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
-  <text x="100" y="31" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">911</text>
+<!-- PORSCHE 911 SC — 2-car bay, lower -->
+<!-- 168.9"L x 65.0"W = 14'1" x 5'5" = 141px x 54px (smaller, narrower, classic) -->
+<g transform="translate(80, 453)">
+  <!-- Body: narrower, classic proportions -->
+  <rect x="0" y="0" width="141" height="54" rx="20" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
+  <!-- Windshield (more upright than 992) -->
+  <rect x="24" y="9" width="14" height="36" rx="4" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45"/>
+  <!-- Rear window (flatter, classic) -->
+  <rect x="112" y="11" width="12" height="32" rx="3" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
+  <!-- Round headlights (classic fried-egg style) -->
+  <circle cx="5" cy="14" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
+  <circle cx="5" cy="40" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
+  <!-- Round taillights (classic) -->
+  <circle cx="134" cy="13" r="3" fill="#8a3030" opacity=".45"/>
+  <circle cx="134" cy="41" r="3" fill="#8a3030" opacity=".45"/>
+  <!-- Side mirrors (small round) -->
+  <circle cx="32" cy="-1" r="2" fill="var(--gold)" opacity=".2"/>
+  <circle cx="32" cy="55" r="2" fill="var(--gold)" opacity=".2"/>
+  <!-- Whale tail spoiler -->
+  <line x1="100" y1="3" x2="122" y2="3" stroke="var(--gold)" stroke-width=".8" opacity=".3"/>
+  <line x1="100" y1="51" x2="122" y2="51" stroke="var(--gold)" stroke-width=".8" opacity=".3"/>
+  <!-- Impact bumpers (SC era) -->
+  <rect x="0" y="20" width="3" height="14" rx="1" fill="var(--gold)" opacity=".15"/>
+  <rect x="136" y="20" width="3" height="14" rx="1" fill="var(--gold)" opacity=".15"/>
+  <text x="70" y="31" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".45">911 SC</text>
 </g>
 
-<!-- 911 #3 — 1-car bay -->
-<g transform="translate(62, 540)">
-  <rect x="0" y="0" width="200" height="55" rx="18" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
-  <rect x="20" y="9" width="20" height="37" rx="6" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
-  <rect x="162" y="11" width="15" height="33" rx="5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".4"/>
-  <circle cx="8" cy="14" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".5"/>
-  <circle cx="8" cy="41" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".5"/>
-  <line x1="192" y1="10" x2="192" y2="20" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
-  <line x1="192" y1="35" x2="192" y2="45" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
-  <text x="100" y="31" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">911</text>
+<!-- MERCEDES G550 — 1-car bay -->
+<!-- 189.6"L x 76.0"W = 15'10" x 6'4" = 158px x 63px (biggest, boxiest) -->
+<g transform="translate(60, 535)">
+  <!-- Body: flat sides, square corners, utilitarian -->
+  <rect x="0" y="0" width="158" height="63" rx="5" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
+  <!-- Windshield (flat, nearly vertical) -->
+  <rect x="16" y="6" width="12" height="51" rx="2" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45"/>
+  <!-- Rear window (small, flat) -->
+  <rect x="136" y="10" width="10" height="43" rx="2" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
+  <!-- Square headlights -->
+  <rect x="2" y="12" width="8" height="7" rx="1.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
+  <rect x="2" y="44" width="8" height="7" rx="1.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
+  <!-- Turn signals -->
+  <rect x="2" y="22" width="6" height="4" rx="1" fill="var(--gold)" opacity=".15"/>
+  <rect x="2" y="37" width="6" height="4" rx="1" fill="var(--gold)" opacity=".15"/>
+  <!-- Taillights (vertical rectangles) -->
+  <rect x="150" y="10" width="5" height="10" rx="1" fill="#8a3030" opacity=".4"/>
+  <rect x="150" y="43" width="5" height="10" rx="1" fill="#8a3030" opacity=".4"/>
+  <!-- Boxy side mirrors -->
+  <rect x="24" y="-4" width="7" height="4" rx="1" fill="var(--gold)" opacity=".2"/>
+  <rect x="24" y="63" width="7" height="4" rx="1" fill="var(--gold)" opacity=".2"/>
+  <!-- Spare tire on rear door -->
+  <circle cx="144" cy="31" r="11" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".2"/>
+  <circle cx="144" cy="31" r="6" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".15"/>
+  <!-- Roof rack rails -->
+  <line x1="40" y1="2" x2="125" y2="2" stroke="var(--gold)" stroke-width=".5" opacity=".2"/>
+  <line x1="40" y1="61" x2="125" y2="61" stroke="var(--gold)" stroke-width=".5" opacity=".2"/>
+  <!-- Side steps -->
+  <line x1="30" y1="0" x2="110" y2="0" stroke="var(--gold)" stroke-width=".3" opacity=".15"/>
+  <line x1="30" y1="63" x2="110" y2="63" stroke="var(--gold)" stroke-width=".3" opacity=".15"/>
+  <text x="75" y="35" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".45">G550</text>
 </g>
 </g>
 
