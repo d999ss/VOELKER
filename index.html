@@ -53,6 +53,29 @@ svg text{user-select:none}
 .ic h3{color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
 .ic table{width:100%;border-collapse:collapse;font-size:9px}
 .ic td{padding:2px 5px;border-bottom:1px solid #1a1a28}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media(max-width:768px){
+  header{padding:20px 12px 6px}
+  header h1{font-size:16px;letter-spacing:3px}
+  header h2{font-size:10px}
+  .ctrls{gap:5px;padding:10px 8px}
+  .ctrls button{padding:4px 10px;font-size:9px}
+  .plans{flex-direction:column;align-items:center;gap:24px;padding:0 8px 16px}
+  .pw{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .pw svg{max-width:100%;height:auto}
+  .photo-strip{gap:3px;padding:0 8px 12px}
+  .photo-strip img{width:56px;height:42px}
+  .ig{grid-template-columns:1fr;padding:0 8px;gap:10px}
+  .ic{padding:10px}
+  .lb .nv{font-size:24px;padding:10px}
+  .lb .cap{font-size:8px}
+}
+@media(max-width:480px){
+  header h1{font-size:13px;letter-spacing:2px}
+  .ctrls button{padding:3px 8px;font-size:8px}
+  .photo-strip img{width:48px;height:36px}
+}
 .ic td:last-child{text-align:right;color:var(--gold)}
 .sl2{text-align:center;font-size:10px;letter-spacing:3px;color:#444;text-transform:uppercase;margin:24px 0 12px}
 </style>
