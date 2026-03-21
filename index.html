@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3986 Voelker Ct — Floor Plans</title>
+<style>
+:root { --gold:#D2A62C; --bg:#111119; --panel:#1a1a28; --room:#181826; --wall:#8090a0; --wext:#a0aab4; --fix:#4a5a6a; --txt:#c0c0c0; --dim:#666; --lbl:#909090; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Courier New',monospace}
+header{text-align:center;padding:32px 20px 8px}
+header h1{font-size:20px;letter-spacing:5px;text-transform:uppercase;color:var(--gold)}
+header h2{font-size:12px;color:var(--dim);letter-spacing:2px;font-weight:normal;margin-top:4px}
+.addr{font-size:10px;color:#555;letter-spacing:1px;margin-top:5px}
+.ctrls{display:flex;justify-content:center;gap:8px;padding:16px;flex-wrap:wrap}
+.ctrls button{background:0;border:1px solid #333;color:#888;padding:5px 14px;font:10px/1 'Courier New',monospace;letter-spacing:1px;cursor:pointer;transition:.15s}
+.ctrls button:hover{border-color:#666;color:#ccc}
+.ctrls button.on{border-color:var(--gold);color:var(--gold)}
+.plans{display:flex;justify-content:center;gap:40px;padding:0 20px 24px;flex-wrap:wrap}
+.pw{text-align:center}
+.pl{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.rg{cursor:pointer} .rg:hover .rb{fill:#222238} .rg:hover .rn{fill:var(--gold)}
+svg text{user-select:none}
+.rb{fill:var(--room);transition:fill .15s}
+.rn{fill:var(--lbl);font:bold 9px 'Courier New',monospace;text-anchor:middle;letter-spacing:1px;transition:fill .15s}
+.rs{fill:#555;font:7px 'Courier New',monospace;text-anchor:middle}
+.dt{fill:var(--gold);font:7.5px 'Courier New',monospace;text-anchor:middle;opacity:.7}
+.dl{stroke:var(--gold);stroke-width:.4;opacity:.3}
+.ew{stroke:var(--wext);stroke-width:4.5;fill:none}
+.iw{stroke:var(--wall);stroke-width:1.5}
+.fl{stroke:var(--fix);stroke-width:1;fill:none}
+.ff{fill:#1e1e30;stroke:var(--fix);stroke-width:.8}
+.sl{stroke:var(--fix);stroke-width:.7}
+.pl2{stroke:#444;stroke-width:1.2;stroke-dasharray:5,3;fill:none}
+.dk{fill:#14141f;stroke:#555;stroke-width:1.2;stroke-dasharray:5,3}
+.wn{stroke:#5a7a8a;stroke-width:2.2;fill:none}
+.vh{stroke:#2a2a3a;stroke-width:.4}
+.fp{fill:#2a2a38;stroke:var(--fix);stroke-width:1.2}
+.photo-strip{display:flex;justify-content:center;gap:5px;padding:0 20px 16px;flex-wrap:wrap;max-width:960px;margin:0 auto}
+.photo-strip img{width:72px;height:54px;object-fit:cover;border:1px solid #333;cursor:pointer;opacity:.6;transition:.15s}
+.photo-strip img:hover{opacity:1;border-color:var(--gold);transform:scale(1.06)}
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:100;justify-content:center;align-items:center;cursor:pointer}
+.lb.show{display:flex}
+.lb img{max-width:90vw;max-height:85vh;border:1px solid #333}
+.lb .cap{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);color:#777;font-size:10px;letter-spacing:1px}
+.lb .nv{position:fixed;top:50%;font-size:32px;color:#555;cursor:pointer;padding:16px;user-select:none}
+.lb .nv:hover{color:var(--gold)}
+.lb .pr{left:8px} .lb .nx{right:8px}
+.lb .cx{position:fixed;top:12px;right:20px;font-size:22px;color:#555;cursor:pointer}
+.lb .cx:hover{color:var(--gold)}
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:960px;margin:16px auto;padding:0 20px}
+.ic{border:1px solid #222;padding:14px}
+.ic h3{color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.ic table{width:100%;border-collapse:collapse;font-size:9px}
+.ic td{padding:2px 5px;border-bottom:1px solid #1a1a28}
+.ic td:last-child{text-align:right;color:var(--gold)}
+.sl2{text-align:center;font-size:10px;letter-spacing:3px;color:#444;text-transform:uppercase;margin:24px 0 12px}
+</style>
+</head>
+<body>
+<header>
+<h1>3986 Voelker Ct</h1>
+<h2>Park City, UT 84098</h2>
+<div class="addr">4 Bed &bull; 3 Bath &bull; 2,601 SF &bull; 3-Car Garage &bull; Built 1998 &bull; 7,405 SF Lot</div>
+</header>
+<div class="ctrls">
+<button class="on" onclick="sf('both',this)">Both Floors</button>
+<button onclick="sf('main',this)">Main Floor</button>
+<button onclick="sf('upper',this)">Upper Floor</button>
+<button class="on" id="bd" onclick="tg('dims',this)">Dimensions</button>
+<button class="on" id="bf" onclick="tg('fix',this)">Fixtures</button>
+<button id="bp" onclick="tg('pho',this)">Photos</button>
+</div>
+
+<div class="plans">
+<!-- ======================================================== -->
+<!-- MAIN FLOOR — L-SHAPED FOOTPRINT                          -->
+<!-- Garage projects forward from left side of main house     -->
+<!-- Scale: ~10px = 1 foot                                    -->
+<!-- LEFT=garage side (your left facing house from street)     -->
+<!-- RIGHT=living room side                                    -->
+<!-- TOP=backyard, BOTTOM=street                               -->
+<!-- ======================================================== -->
+<div class="pw" id="fm">
+<div class="pl">Main Floor &bull; ~1,620 SF</div>
+<svg width="560" height="560" viewBox="0 0 560 560">
+<defs>
+<marker id="a1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fix)"/></marker>
+</defs>
+<rect width="560" height="560" fill="var(--bg)"/>
+
+<!-- L-SHAPED EXTERIOR OUTLINE -->
+<!-- Main house body: 43' wide x 31' deep -->
+<!-- Garage projects 8' forward from main house, 26' wide -->
+<path d="M 40,50 L 470,50 L 470,360 L 300,360 L 300,440 L 40,440 Z" class="ew" fill="var(--panel)"/>
+
+<!-- Labels -->
+<text x="255" y="40" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">BACKYARD</text>
+<text x="170" y="468" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">DRIVEWAY</text>
+<text x="400" y="380" fill="#2a2a3a" font-size="7" font-family="Courier New" text-anchor="middle" letter-spacing="2">MAIN HOUSE FRONT WALL</text>
+
+<!-- ===== BACK ROW (backyard side) ===== -->
+
+<!-- BEDROOM 4 (back-left, office) -->
+<g class="rg" onclick="sp(16)">
+<rect x="42" y="52" width="148" height="140" class="rb iw"/>
+<text x="116" y="115" class="rn">BEDROOM 4</text>
+<text x="116" y="127" class="rs">CARPET &bull; 9'1" CLG</text>
+<text x="116" y="138" class="rs">(Office)</text>
+<g class="fix">
+<!-- Slider to backyard -->
+<rect x="65" y="52" width="50" height="3" fill="#4a6a5a" opacity=".6"/>
+<text x="90" y="64" class="rs" fill="#5a7a6a">SLIDER</text>
+<!-- Closet -->
+<rect x="115" y="165" width="70" height="20" class="ff" rx="1"/>
+<text x="150" y="179" class="rs">CLOSET</text>
+<!-- Window -->
+<line x1="42" y1="85" x2="42" y2="120" class="wn"/>
+</g></g>
+
+<!-- KITCHEN (center-back, with bay window) -->
+<g class="rg" onclick="sp(7)">
+<rect x="190" y="52" width="140" height="140" class="rb iw"/>
+<!-- Bay window bump-out -->
+<path d="M 220,52 L 220,32 L 250,22 L 280,22 L 310,32 L 310,52" fill="var(--room)" stroke="var(--wext)" stroke-width="3"/>
+<text x="260" y="115" class="rn">KITCHEN</text>
+<text x="260" y="127" class="rs">TILE &bull; 9'1" CLG</text>
+<g class="fix">
+<!-- Island -->
+<path d="M 210,140 L 210,170 L 260,170 L 305,150 L 305,140 Z" class="ff"/>
+<text x="250" y="160" class="rs">ISLAND</text>
+<!-- Counter + appliances on left wall -->
+<rect x="192" y="58" width="22" height="75" class="ff" rx="1"/>
+<!-- Stove -->
+<rect x="195" y="72" width="16" height="20" class="fl" rx="1"/>
+<circle cx="200" cy="78" r="2.5" class="fl"/>
+<circle cx="207" cy="78" r="2.5" class="fl"/>
+<circle cx="200" cy="87" r="2.5" class="fl"/>
+<circle cx="207" cy="87" r="2.5" class="fl"/>
+<!-- Fridge -->
+<rect x="192" y="100" width="22" height="28" class="ff" rx="1"/>
+<text x="203" y="118" class="rs">REF</text>
+<!-- Bay counter -->
+<rect x="222" y="36" width="76" height="14" class="ff" rx="1"/>
+<!-- Bay windows -->
+<line x1="225" y1="29" x2="250" y2="23" class="wn"/>
+<line x1="253" y1="22" x2="277" y2="22" class="wn"/>
+<line x1="280" y1="23" x2="305" y2="29" class="wn"/>
+</g></g>
+
+<!-- DINING ROOM (back-right) -->
+<g class="rg" onclick="sp(11)">
+<rect x="330" y="52" width="138" height="140" class="rb iw"/>
+<text x="399" y="110" class="rn">DINING</text>
+<text x="399" y="122" class="rn">ROOM</text>
+<text x="399" y="134" class="rs">HARDWOOD</text>
+<g class="fix">
+<!-- Slider to patio/deck -->
+<rect x="365" y="52" width="55" height="3" fill="#4a6a5a" opacity=".6"/>
+<text x="392" y="64" class="rs" fill="#5a7a6a">TO DECK</text>
+</g></g>
+
+<!-- Covered Deck / Hot Tub -->
+<g onclick="sp(12)">
+<rect x="310" y="-20" width="165" height="73" class="pl2" fill="none"/>
+<text x="392" y="15" fill="#3a3a3a" font-size="7" font-family="Courier New" text-anchor="middle">COVERED DECK</text>
+<text x="392" y="26" fill="#333" font-size="7" font-family="Courier New" text-anchor="middle">HOT TUB</text>
+</g>
+<!-- Turf yard -->
+<rect x="42" y="-20" width="265" height="73" class="pl2" fill="none"/>
+<text x="174" y="15" fill="#2a2a2a" font-size="7" font-family="Courier New" text-anchor="middle">TURF YARD</text>
+
+<!-- ===== SERVICE ROOMS (between back row and garage) ===== -->
+
+<!-- BATH 3 -->
+<g class="rg" onclick="sp(17)">
+<rect x="42" y="192" width="78" height="58" class="rb iw"/>
+<text x="81" y="222" class="rn">BATH 3</text>
+<g class="fix">
+<rect x="48" y="198" width="48" height="20" class="fl" rx="3"/>
+<text x="72" y="211" class="rs">TUB</text>
+<ellipse cx="108" cy="212" rx="5" ry="7" class="fl"/>
+<rect x="48" y="234" width="32" height="10" class="ff" rx="2"/>
+</g></g>
+
+<!-- LAUNDRY -->
+<g class="rg" onclick="sp(18)">
+<rect x="120" y="192" width="78" height="60" class="rb iw"/>
+<text x="159" y="222" class="rn">LAUNDRY</text>
+<g class="fix">
+<rect x="128" y="198" width="26" height="22" class="ff" rx="2"/>
+<rect x="158" y="198" width="26" height="22" class="ff" rx="2"/>
+<text x="141" y="212" class="rs">W</text>
+<text x="171" y="212" class="rs">D</text>
+<rect x="128" y="225" width="18" height="10" class="fl" rx="2"/>
+</g></g>
+
+<!-- MUD ROOM -->
+<g class="rg">
+<rect x="198" y="252" width="65" height="58" class="rb iw"/>
+<text x="230" y="282" class="rn">MUD RM</text>
+<text x="230" y="294" class="rs">TILE</text>
+<g class="fix">
+<rect x="203" y="258" width="25" height="15" class="ff" rx="1"/>
+<text x="215" y="270" class="rs">CL</text>
+</g></g>
+
+<!-- FAU -->
+<rect x="263" y="252" width="35" height="35" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
+<text x="280" y="273" class="rs">FAU</text>
+
+<!-- HALF BATH -->
+<g class="rg" onclick="sp(28)">
+<rect x="263" y="287" width="35" height="38" class="rb iw"/>
+<text x="280" y="308" class="rs">PWD</text>
+<g class="fix">
+<ellipse cx="274" cy="300" rx="4" ry="6" class="fl"/>
+<rect x="283" y="295" width="10" height="8" class="ff" rx="1"/>
+</g></g>
+
+<!-- STAIRS -->
+<rect x="298" y="210" width="48" height="90" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<g class="fix">
+<line x1="300" y1="218" x2="344" y2="218" class="sl"/>
+<line x1="300" y1="228" x2="344" y2="228" class="sl"/>
+<line x1="300" y1="238" x2="344" y2="238" class="sl"/>
+<line x1="300" y1="248" x2="344" y2="248" class="sl"/>
+<line x1="300" y1="258" x2="344" y2="258" class="sl"/>
+<line x1="300" y1="268" x2="344" y2="268" class="sl"/>
+<line x1="300" y1="278" x2="344" y2="278" class="sl"/>
+<line x1="300" y1="288" x2="344" y2="288" class="sl"/>
+<path d="M322 294 L322 214" stroke="var(--fix)" stroke-width=".8" marker-end="url(#a1)"/>
+<text x="322" y="258" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">UP</text>
+</g>
+
+<!-- ENTRY -->
+<g class="rg" onclick="sp(10)">
+<rect x="298" y="310" width="60" height="48" class="rb iw"/>
+<text x="328" y="338" class="rn">ENTRY</text>
+<text x="328" y="349" class="rs">TILE</text>
+<g class="fix">
+<rect x="315" y="356" width="28" height="4" fill="var(--gold)" opacity=".4"/>
+<text x="329" y="370" fill="var(--gold)" font-size="7" font-family="Courier New" text-anchor="middle" opacity=".5">FRONT DOOR</text>
+</g></g>
+
+<!-- Concrete walk / steps -->
+<line x1="329" y1="362" x2="329" y2="440" stroke="#333" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="344" y="400" fill="#2a2a2a" font-size="6" font-family="Courier New">STEPS</text>
+
+<!-- LIVING ROOM (front-right, 2-story vaulted) -->
+<g class="rg" onclick="sp(4)">
+<rect x="358" y="192" width="110" height="166" class="rb iw"/>
+<text x="413" y="262" class="rn">LIVING ROOM</text>
+<text x="413" y="274" class="rs">HARDWOOD &bull; VAULTED</text>
+<text x="413" y="286" class="rs">(2-STORY)</text>
+<g class="fix">
+<!-- Stone fireplace on left wall -->
+<rect x="358" y="220" width="14" height="45" class="fp" rx="2"/>
+<text x="365" y="248" fill="#555" font-size="5" font-family="Courier New" transform="rotate(-90,365,248)" text-anchor="middle">FIREPLACE</text>
+<!-- Large front window -->
+<line x1="380" y1="356" x2="450" y2="356" class="wn"/>
+<!-- Side windows -->
+<line x1="466" y1="215" x2="466" y2="245" class="wn"/>
+<line x1="466" y1="260" x2="466" y2="290" class="wn"/>
+</g></g>
+
+<!-- Open plan indicator (wood post between living/dining/kitchen) -->
+<g class="fix">
+<rect x="356" y="190" width="5" height="5" fill="#5a4a3a" stroke="#7a6a5a" stroke-width=".8"/>
+</g>
+
+<!-- ===== GARAGE (L-shaped projection) ===== -->
+<g class="rg" onclick="sp(39)">
+<!-- Garage upper portion (within main house body) -->
+<rect x="42" y="250" width="196" height="108" class="rb" stroke="var(--wext)" stroke-width="3"/>
+<!-- Garage projection forward -->
+<rect x="42" y="358" width="256" height="80" class="rb" stroke="var(--wext)" stroke-width="3"/>
+<!-- Remove internal dividing line -->
+<line x1="44" y1="358" x2="236" y2="358" stroke="var(--room)" stroke-width="4"/>
+<text x="145" y="385" class="rn">GARAGE</text>
+<text x="145" y="398" class="rs">3-CAR &bull; CONCRETE &bull; 22'-1" DEEP</text>
+<g class="fix">
+<!-- 16' sectional door -->
+<rect x="48" y="435" width="140" height="5" fill="#333" stroke="#555" stroke-width=".8"/>
+<text x="118" y="452" class="rs">16'0" SECTIONAL</text>
+<line x1="62" y1="435" x2="62" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="76" y1="435" x2="76" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="90" y1="435" x2="90" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="104" y1="435" x2="104" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="118" y1="435" x2="118" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="132" y1="435" x2="132" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="146" y1="435" x2="146" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="160" y1="435" x2="160" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="174" y1="435" x2="174" y2="440" stroke="#444" stroke-width=".4"/>
+<!-- 9' sectional door -->
+<rect x="198" y="435" width="90" height="5" fill="#333" stroke="#555" stroke-width=".8"/>
+<text x="243" y="452" class="rs">9'0" SECTIONAL</text>
+<line x1="213" y1="435" x2="213" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="228" y1="435" x2="228" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="243" y1="435" x2="243" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="258" y1="435" x2="258" y2="440" stroke="#444" stroke-width=".4"/>
+<line x1="273" y1="435" x2="273" y2="440" stroke="#444" stroke-width=".4"/>
+</g></g>
+
+<!-- ===== DIMENSIONS ===== -->
+<g class="dims">
+<!-- Back wall width -->
+<line x1="40" y1="490" x2="470" y2="490" class="dl"/>
+<line x1="40" y1="486" x2="40" y2="494" class="dl"/>
+<line x1="470" y1="486" x2="470" y2="494" class="dl"/>
+<text x="255" y="502" class="dt">42'-10"</text>
+<!-- Depth right side -->
+<line x1="485" y1="50" x2="485" y2="360" class="dl"/>
+<line x1="481" y1="50" x2="489" y2="50" class="dl"/>
+<line x1="481" y1="360" x2="489" y2="360" class="dl"/>
+<text x="487" y="205" class="dt" transform="rotate(90,487,205)">31'-0"</text>
+<!-- Depth left side (full) -->
+<line x1="25" y1="50" x2="25" y2="440" class="dl"/>
+<line x1="21" y1="50" x2="29" y2="50" class="dl"/>
+<line x1="21" y1="440" x2="29" y2="440" class="dl"/>
+<text x="23" y="245" class="dt" transform="rotate(-90,23,245)">39'-0" (incl. garage)</text>
+<!-- Garage width -->
+<line x1="40" y1="458" x2="300" y2="458" class="dl"/>
+<text x="170" y="468" class="dt">26'-0"</text>
+<!-- Garage depth -->
+<line x1="310" y1="250" x2="310" y2="440" class="dl"/>
+<text x="312" y="345" class="dt" transform="rotate(90,312,345)">~22'"</text>
+<!-- Room dims -->
+<text x="116" y="175" class="dt">14'-10" x 14'"</text>
+<text x="260" y="178" class="dt">14' x 14'"</text>
+<text x="399" y="178" class="dt">13'-10" x 14'"</text>
+<text x="413" y="345" class="dt">11' x 16'-8"</text>
+<!-- Scale -->
+<line x1="400" y1="520" x2="500" y2="520" stroke="#444" stroke-width="1.2"/>
+<line x1="400" y1="516" x2="400" y2="524" stroke="#444" stroke-width="1.2"/>
+<line x1="500" y1="516" x2="500" y2="524" stroke="#444" stroke-width="1.2"/>
+<text x="450" y="515" class="dt" fill="#444">10'-0"</text>
+</g>
+</svg>
+</div>
+
+<!-- ======================================================== -->
+<!-- UPPER FLOOR                                               -->
+<!-- Over main house body only — NOT over garage projection    -->
+<!-- 2-story void over living room                             -->
+<!-- ======================================================== -->
+<div class="pw" id="fu">
+<div class="pl">Upper Floor &bull; ~980 SF</div>
+<svg width="480" height="460" viewBox="0 0 480 460">
+<rect width="480" height="460" fill="var(--bg)"/>
+
+<!-- Upper floor footprint (main house body minus garage area) -->
+<!-- The upper floor spans from the right side across, partially over the garage back portion -->
+<path d="M 40,40 L 420,40 L 420,310 L 40,310 Z" class="ew" fill="var(--panel)"/>
+
+<!-- 2-STORY VOID over living room -->
+<g class="rg" onclick="sp(20)">
+<rect x="320" y="165" width="98" height="143" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="325" y1="170" x2="413" y2="300" class="vh"/>
+<line x1="325" y1="200" x2="393" y2="300" class="vh"/>
+<line x1="325" y1="230" x2="373" y2="300" class="vh"/>
+<line x1="325" y1="260" x2="353" y2="300" class="vh"/>
+<line x1="345" y1="170" x2="413" y2="270" class="vh"/>
+<line x1="365" y1="170" x2="413" y2="240" class="vh"/>
+<line x1="385" y1="170" x2="413" y2="210" class="vh"/>
+<text x="368" y="235" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">OPEN TO</text>
+<text x="368" y="247" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">BELOW</text>
+</g>
+
+<!-- MASTER BEDROOM (back-right) -->
+<g class="rg" onclick="sp(21)">
+<rect x="210" y="42" width="208" height="123" class="rb iw"/>
+<text x="314" y="95" class="rn">MASTER BEDROOM</text>
+<text x="314" y="108" class="rs">CARPET &bull; VAULTED SHIPLAP</text>
+<g class="fix">
+<rect x="216" y="46" width="55" height="45" class="ff" rx="1"/>
+<text x="243" y="72" class="rs">WALK-IN</text>
+<text x="243" y="82" class="rs">CLOSET</text>
+<rect x="320" y="42" width="45" height="3" fill="#4a6a5a" opacity=".6"/>
+<text x="342" y="54" class="rs" fill="#5a7a6a">TO DECK</text>
+<line x1="416" y1="65" x2="416" y2="95" class="wn"/>
+<line x1="416" y1="110" x2="416" y2="140" class="wn"/>
+</g></g>
+
+<!-- DECK off master -->
+<g onclick="sp(15)">
+<rect x="210" y="-20" width="212" height="63" class="dk"/>
+<text x="316" y="8" fill="#555" font-size="9" font-family="Courier New" text-anchor="middle">UPPER DECK</text>
+<text x="316" y="20" fill="#444" font-size="7" font-family="Courier New" text-anchor="middle">~22'</text>
+</g>
+
+<!-- MASTER BATH -->
+<g class="rg" onclick="sp(25)">
+<rect x="100" y="42" width="110" height="123" class="rb iw"/>
+<text x="155" y="95" class="rn">MASTER BATH</text>
+<g class="fix">
+<ellipse cx="130" cy="68" rx="20" ry="12" class="fl"/>
+<text x="130" y="71" class="rs">TUB</text>
+<rect x="165" y="48" width="38" height="38" class="fl" rx="2"/>
+<line x1="168" y1="51" x2="200" y2="83" stroke="#2a2a3a" stroke-width=".3"/>
+<line x1="200" y1="51" x2="168" y2="83" stroke="#2a2a3a" stroke-width=".3"/>
+<text x="184" y="71" class="rs">SHW</text>
+<rect x="108" y="140" width="90" height="18" class="ff" rx="2"/>
+<circle cx="133" cy="149" r="6" class="fl"/>
+<circle cx="168" cy="149" r="6" class="fl"/>
+<text x="150" y="152" fill="#3a4a5a" font-size="5" font-family="Courier New" text-anchor="middle">DUAL VANITY</text>
+<ellipse cx="115" cy="118" rx="5" ry="7" class="fl"/>
+<line x1="102" y1="55" x2="102" y2="82" class="wn"/>
+</g></g>
+
+<!-- BATH 2 -->
+<g class="rg" onclick="sp(27)">
+<rect x="42" y="42" width="58" height="90" class="rb iw"/>
+<text x="71" y="82" class="rn">BATH 2</text>
+<g class="fix">
+<rect x="48" y="48" width="44" height="18" class="fl" rx="3"/>
+<text x="70" y="60" class="rs">TUB</text>
+<ellipse cx="56" cy="95" rx="5" ry="6" class="fl"/>
+<rect x="70" y="108" width="22" height="10" class="ff" rx="2"/>
+</g></g>
+
+<!-- BEDROOM 3 (left, gym) -->
+<g class="rg" onclick="sp(26)">
+<rect x="42" y="132" width="118" height="176" class="rb iw"/>
+<text x="101" y="225" class="rn">BEDROOM 3</text>
+<text x="101" y="238" class="rs">CARPET &bull; 9'1" CLG</text>
+<text x="101" y="250" class="rs">(Gym)</text>
+<g class="fix">
+<rect x="48" y="138" width="48" height="32" class="ff" rx="1"/>
+<text x="72" y="158" class="rs">CLOSET</text>
+<line x1="42" y1="220" x2="42" y2="255" class="wn"/>
+</g></g>
+
+<!-- LINEN -->
+<rect x="100" y="165" width="30" height="28" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
+<text x="115" y="183" class="rs">LIN</text>
+
+<!-- STAIRS -->
+<rect x="160" y="180" width="45" height="85" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<g class="fix">
+<line x1="162" y1="188" x2="203" y2="188" class="sl"/>
+<line x1="162" y1="198" x2="203" y2="198" class="sl"/>
+<line x1="162" y1="208" x2="203" y2="208" class="sl"/>
+<line x1="162" y1="218" x2="203" y2="218" class="sl"/>
+<line x1="162" y1="228" x2="203" y2="228" class="sl"/>
+<line x1="162" y1="238" x2="203" y2="238" class="sl"/>
+<line x1="162" y1="248" x2="203" y2="248" class="sl"/>
+<text x="182" y="228" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">DN</text>
+</g>
+
+<!-- UPPER HALL -->
+<g class="rg" onclick="sp(19)">
+<rect x="160" y="265" width="160" height="43" class="rb iw"/>
+<text x="240" y="290" class="rn">HALL</text>
+<text x="240" y="300" class="rs">OVERLOOK RAILING</text>
+<g class="fix">
+<line x1="318" y1="270" x2="318" y2="305" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
+</g></g>
+
+<!-- DIMS -->
+<g class="dims">
+<text x="314" y="155" class="dt">20'-10" x 12'-4"</text>
+<text x="155" y="155" class="dt">11' x 12'-4"</text>
+<text x="101" y="295" class="dt">11'-10" x 17'-7"</text>
+<line x1="40" y1="325" x2="420" y2="325" class="dl"/>
+<text x="230" y="338" class="dt">38'-0"</text>
+<line x1="340" y1="355" x2="440" y2="355" stroke="#444" stroke-width="1.2"/>
+<line x1="340" y1="351" x2="340" y2="359" stroke="#444" stroke-width="1.2"/>
+<line x1="440" y1="351" x2="440" y2="359" stroke="#444" stroke-width="1.2"/>
+<text x="390" y="350" class="dt" fill="#444">10'-0"</text>
+</g>
+</svg>
+</div>
+</div>
+
+<!-- PHOTO STRIP -->
+<div class="sl2">Listing Photos</div>
+<div class="photo-strip" id="ps"></div>
+<div class="lb" id="lb" onclick="cl(event)">
+<div class="cx" onclick="cl()">&times;</div>
+<div class="nv pr" onclick="nv(-1,event)">&lsaquo;</div>
+<img id="li" src="" alt=""/>
+<div class="nv nx" onclick="nv(1,event)">&rsaquo;</div>
+<div class="cap" id="lc"></div>
+</div>
+
+<!-- INFO -->
+<div class="ig">
+<div class="ic"><h3>Property</h3><table>
+<tr><td>Type</td><td>Single Family</td></tr>
+<tr><td>Living Area</td><td>2,601 SF</td></tr>
+<tr><td>Lot</td><td>7,405 SF</td></tr>
+<tr><td>Built</td><td>1998</td></tr>
+<tr><td>Beds / Baths</td><td>4 / 3</td></tr>
+<tr><td>Garage</td><td>3-Car (16'+9')</td></tr>
+<tr><td>Fireplace</td><td>1 Gas (Stone)</td></tr>
+<tr><td>Foundation</td><td>Crawl Space</td></tr>
+<tr><td>Est. Value</td><td>~$2.29M</td></tr>
+<tr><td>2025 Taxes</td><td>$5,929</td></tr>
+</table></div>
+<div class="ic"><h3>Rooms</h3><table>
+<tr><td>Living Room</td><td>2-Story Vaulted, Stone FP, Hardwood</td></tr>
+<tr><td>Kitchen</td><td>Bay Window, Quartz Island, Tile</td></tr>
+<tr><td>Dining</td><td>Open Plan, Slider to Deck</td></tr>
+<tr><td>Bedroom 4</td><td>Main Floor, Slider to Yard</td></tr>
+<tr><td>Master</td><td>Vaulted Shiplap, Deck Access</td></tr>
+<tr><td>Master Bath</td><td>Freestanding Tub, Glass Shower</td></tr>
+<tr><td>Bedroom 3</td><td>Upper, Barn Door Closet</td></tr>
+<tr><td>Exterior</td><td>Hot Tub, Turf Yard, Upper Deck</td></tr>
+</table></div>
+<div class="ic"><h3>Construction</h3><table>
+<tr><td>Framing</td><td>2x6 Ext / 2x4 Int</td></tr>
+<tr><td>Sheathing</td><td>C-D Plywood 7/16"</td></tr>
+<tr><td>Roof</td><td>12:6 Pitch</td></tr>
+<tr><td>Siding</td><td>Lap, Dark Gray</td></tr>
+<tr><td>Wainscot</td><td>Natural Stone</td></tr>
+<tr><td>Windows</td><td>Dual Glazed Vinyl Low-E</td></tr>
+<tr><td>HVAC</td><td>Forced Air + Central A/C</td></tr>
+<tr><td>Hardware</td><td>Simpson MST60 / HPAHD22</td></tr>
+</table></div>
+<div class="ic"><h3>Finishes</h3><table>
+<tr><td>Cabinets</td><td>White Shaker + Gray Island</td></tr>
+<tr><td>Counters</td><td>Quartz / Marble</td></tr>
+<tr><td>Appliances</td><td>SS Range, Fridge, DW, Micro</td></tr>
+<tr><td>Master Vanity</td><td>Navy Blue, Gold Fixtures</td></tr>
+<tr><td>Flooring</td><td>Hardwood, Tile, Carpet</td></tr>
+<tr><td>Ceilings</td><td>T&G Wood (Living), Shiplap (Master)</td></tr>
+<tr><td>Trim</td><td>Dark Stained Wood Throughout</td></tr>
+<tr><td>Extras</td><td>Ski Storage, Hot Tub</td></tr>
+</table></div>
+</div>
+
+<script>
+const D='voelker-house-photos/',T=40,L={1:'Front Exterior',2:'Aerial Front',3:'Front Wide',4:'Living Room',5:'Living Room Open',6:'Kitchen Entry View',7:'Kitchen Island',8:'Kitchen Bay',9:'Kitchen Bay Window',10:'Open Plan',11:'Dining Room',12:'Deck Hot Tub',13:'Covered Deck',14:'Backyard',15:'Back Exterior',16:'Bedroom 4 Office',17:'Bath 3',18:'Laundry',19:'Upper Hall',20:'Living from Above',21:'Master Bedroom',22:'Master Bed 2',23:'Master Bed 3',24:'Master Bath Vanity',25:'Master Bath Tub',26:'Bedroom 3',27:'Bath 2',28:'Half Bath',29:'Bedroom Detail',30:'Bedroom Detail 2',31:'Bath Detail',32:'Aerial',33:'Aerial Mountains',34:'Aerial Canyons',35:'Aerial Property',36:'Overhead Drone',37:'Aerial Summer',38:'Aerial Summer 2',39:'Front Garage',40:'Front Entry'};
+let cp=1;const ps=document.getElementById('ps');
+for(let i=1;i<=T;i++){const m=document.createElement('img');m.src=D+'photo-'+String(i).padStart(2,'0')+'.webp';m.alt=L[i]||'';m.title=L[i]||'';m.onclick=()=>sp(i);m.id='t'+i;ps.appendChild(m)}
+function sp(n){cp=n;document.getElementById('li').src=D+'photo-'+String(n).padStart(2,'0')+'.webp';document.getElementById('lc').textContent=(L[n]||'Photo '+n)+' ('+n+'/'+T+')';document.getElementById('lb').classList.add('show');document.querySelectorAll('.photo-strip img').forEach(i=>i.style.borderColor='#333');const t=document.getElementById('t'+n);if(t){t.style.borderColor='var(--gold)';t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})}}
+function cl(e){if(e&&(e.target.classList.contains('nv')||e.target.classList.contains('cx')))return;document.getElementById('lb').classList.remove('show')}
+function nv(d,e){if(e)e.stopPropagation();cp+=d;if(cp<1)cp=T;if(cp>T)cp=1;sp(cp)}
+document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='ArrowRight')nv(1);if(e.key==='ArrowLeft')nv(-1);if(e.key==='Escape')cl()});
+function sf(f,b){document.querySelectorAll('.ctrls button').forEach(x=>{if(['Both Floors','Main Floor','Upper Floor'].includes(x.textContent))x.classList.remove('on')});b.classList.add('on');document.getElementById('fm').style.display=f==='upper'?'none':'';document.getElementById('fu').style.display=f==='main'?'none':''}
+function tg(l,b){b.classList.toggle('on');const s=b.classList.contains('on');if(l==='pho'){ps.style.display=s?'flex':'none'}else{document.querySelectorAll(l==='dims'?'.dims':'.fix').forEach(g=>g.style.display=s?'':'none')}}
+ps.style.display='none';
+</script>
+</body>
+</html>
