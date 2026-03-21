@@ -83,11 +83,11 @@ svg text{user-select:none}
 <!-- ======================================================== -->
 <div class="pw" id="fm">
 <div class="pl">Main Floor &bull; ~1,620 SF</div>
-<svg width="560" height="560" viewBox="0 0 560 560">
+<svg width="560" height="600" viewBox="0 0 560 600">
 <defs>
 <marker id="a1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fix)"/></marker>
 </defs>
-<rect width="560" height="560" fill="var(--bg)"/>
+<rect width="560" height="600" fill="var(--bg)"/>
 
 <!-- L-SHAPED EXTERIOR OUTLINE -->
 <!-- Main house body: 43' wide x 31' deep -->
@@ -96,7 +96,7 @@ svg text{user-select:none}
 
 <!-- Labels -->
 <text x="255" y="40" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">BACKYARD</text>
-<text x="170" y="468" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">DRIVEWAY</text>
+<text x="170" y="520" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">STREET</text>
 <text x="400" y="380" fill="#2a2a3a" font-size="7" font-family="Courier New" text-anchor="middle" letter-spacing="2">MAIN HOUSE FRONT WALL</text>
 
 <!-- ===== BACK ROW (backyard side) ===== -->
@@ -269,38 +269,122 @@ svg text{user-select:none}
 <rect x="356" y="190" width="5" height="5" fill="#5a4a3a" stroke="#7a6a5a" stroke-width=".8"/>
 </g>
 
-<!-- ===== GARAGE (L-shaped projection) ===== -->
+<!-- ===== GARAGE (L-shaped projection, 2-bay + 1-bay) ===== -->
 <g class="rg" onclick="sp(39)">
 <!-- Garage upper portion (within main house body) -->
-<rect x="42" y="250" width="196" height="108" class="rb" stroke="var(--wext)" stroke-width="3"/>
+<rect x="42" y="250" width="216" height="108" class="rb" stroke="var(--wext)" stroke-width="3"/>
 <!-- Garage projection forward -->
-<rect x="42" y="358" width="256" height="80" class="rb" stroke="var(--wext)" stroke-width="3"/>
-<!-- Remove internal dividing line -->
-<line x1="44" y1="358" x2="236" y2="358" stroke="var(--room)" stroke-width="4"/>
-<text x="145" y="385" class="rn">GARAGE</text>
-<text x="145" y="398" class="rs">3-CAR &bull; CONCRETE &bull; 22'-1" DEEP</text>
+<rect x="42" y="358" width="256" height="82" class="rb" stroke="var(--wext)" stroke-width="3"/>
+<!-- Erase internal dividing line where upper meets lower -->
+<line x1="44" y1="358" x2="256" y2="358" stroke="var(--room)" stroke-width="5"/>
+
+<!-- Center post / wall dividing 2-car bay from 1-car bay -->
+<line x1="195" y1="252" x2="195" y2="430" stroke="var(--wall)" stroke-width="3"/>
+
+<!-- Bay labels -->
+<text x="118" y="330" class="rn">2-CAR BAY</text>
+<text x="225" y="400" class="rn">1-CAR</text>
+<text x="225" y="412" class="rn">BAY</text>
+
+<!-- ===== GARAGE DOORS at front ===== -->
+<!-- 16' sectional door (2-car bay) -->
+<rect x="48" y="436" width="142" height="6" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
+<!-- Door panel grid -->
+<line x1="66" y1="436" x2="66" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="84" y1="436" x2="84" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="102" y1="436" x2="102" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="120" y1="436" x2="120" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="138" y1="436" x2="138" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="156" y1="436" x2="156" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="174" y1="436" x2="174" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<text x="119" y="456" class="rs">16'0" SECTIONAL</text>
+
+<!-- 9' sectional door (1-car bay) -->
+<rect x="200" y="436" width="92" height="6" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
+<line x1="215" y1="436" x2="215" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="230" y1="436" x2="230" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="245" y1="436" x2="245" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="260" y1="436" x2="260" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<line x1="275" y1="436" x2="275" y2="442" stroke="#5a5438" stroke-width=".5"/>
+<text x="246" y="456" class="rs">9'0" SECTIONAL</text>
+
+<!-- Center post between doors -->
+<rect x="191" y="436" width="8" height="6" fill="var(--panel)" stroke="var(--wext)" stroke-width="1"/>
+
+</g>
+
+<!-- ===== 3 PORSCHE 911s ===== -->
 <g class="fix">
-<!-- 16' sectional door -->
-<rect x="48" y="435" width="140" height="5" fill="#333" stroke="#555" stroke-width=".8"/>
-<text x="118" y="452" class="rs">16'0" SECTIONAL</text>
-<line x1="62" y1="435" x2="62" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="76" y1="435" x2="76" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="90" y1="435" x2="90" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="104" y1="435" x2="104" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="118" y1="435" x2="118" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="132" y1="435" x2="132" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="146" y1="435" x2="146" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="160" y1="435" x2="160" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="174" y1="435" x2="174" y2="440" stroke="#444" stroke-width=".4"/>
-<!-- 9' sectional door -->
-<rect x="198" y="435" width="90" height="5" fill="#333" stroke="#555" stroke-width=".8"/>
-<text x="243" y="452" class="rs">9'0" SECTIONAL</text>
-<line x1="213" y1="435" x2="213" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="228" y1="435" x2="228" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="243" y1="435" x2="243" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="258" y1="435" x2="258" y2="440" stroke="#444" stroke-width=".4"/>
-<line x1="273" y1="435" x2="273" y2="440" stroke="#444" stroke-width=".4"/>
-</g></g>
+<!-- Porsche 911 top-down: ~15' long x 6' wide = 150px x 60px at scale -->
+<!-- Slightly simplified: rounded body, windshield, rear engine bulge -->
+
+<!-- 911 #1 — 2-car bay, left position -->
+<g transform="translate(60, 268)">
+  <rect x="0" y="0" width="52" height="135" rx="18" fill="#1a1a2a" stroke="#D2A62C" stroke-width=".8" opacity=".7"/>
+  <!-- Windshield -->
+  <rect x="8" y="95" width="36" height="18" rx="5" fill="none" stroke="#D2A62C" stroke-width=".5" opacity=".5"/>
+  <!-- Rear window -->
+  <rect x="10" y="22" width="32" height="14" rx="4" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".4"/>
+  <!-- Headlights -->
+  <circle cx="12" cy="128" r="3" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".5"/>
+  <circle cx="40" cy="128" r="3" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".5"/>
+  <!-- Taillights -->
+  <line x1="8" y1="8" x2="18" y2="8" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
+  <line x1="34" y1="8" x2="44" y2="8" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
+  <!-- Center line -->
+  <line x1="26" y1="30" x2="26" y2="120" stroke="#D2A62C" stroke-width=".3" opacity=".2"/>
+  <text x="26" y="75" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".6">911</text>
+</g>
+
+<!-- 911 #2 — 2-car bay, right position -->
+<g transform="translate(125, 268)">
+  <rect x="0" y="0" width="52" height="135" rx="18" fill="#1a1a2a" stroke="#D2A62C" stroke-width=".8" opacity=".7"/>
+  <rect x="8" y="95" width="36" height="18" rx="5" fill="none" stroke="#D2A62C" stroke-width=".5" opacity=".5"/>
+  <rect x="10" y="22" width="32" height="14" rx="4" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".4"/>
+  <circle cx="12" cy="128" r="3" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".5"/>
+  <circle cx="40" cy="128" r="3" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".5"/>
+  <line x1="8" y1="8" x2="18" y2="8" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
+  <line x1="34" y1="8" x2="44" y2="8" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
+  <line x1="26" y1="30" x2="26" y2="120" stroke="#D2A62C" stroke-width=".3" opacity=".2"/>
+  <text x="26" y="75" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".6">911</text>
+</g>
+
+<!-- 911 #3 — 1-car bay -->
+<g transform="translate(220, 290)">
+  <rect x="0" y="0" width="52" height="135" rx="18" fill="#1a1a2a" stroke="#D2A62C" stroke-width=".8" opacity=".7"/>
+  <rect x="8" y="95" width="36" height="18" rx="5" fill="none" stroke="#D2A62C" stroke-width=".5" opacity=".5"/>
+  <rect x="10" y="22" width="32" height="14" rx="4" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".4"/>
+  <circle cx="12" cy="128" r="3" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".5"/>
+  <circle cx="40" cy="128" r="3" fill="none" stroke="#D2A62C" stroke-width=".4" opacity=".5"/>
+  <line x1="8" y1="8" x2="18" y2="8" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
+  <line x1="34" y1="8" x2="44" y2="8" stroke="#8a3030" stroke-width="1.5" opacity=".6"/>
+  <line x1="26" y1="30" x2="26" y2="120" stroke="#D2A62C" stroke-width=".3" opacity=".2"/>
+  <text x="26" y="75" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".6">911</text>
+</g>
+</g>
+
+<!-- ===== DRIVEWAY ===== -->
+<g>
+<!-- Driveway slab approaching garage -->
+<path d="M 42,442 L 298,442 L 380,510 L 42,510 Z" fill="#1a1a1f" stroke="#333" stroke-width="1.2"/>
+<!-- Driveway texture lines -->
+<line x1="60" y1="460" x2="60" y2="505" stroke="#222" stroke-width=".4"/>
+<line x1="120" y1="450" x2="150" y2="508" stroke="#222" stroke-width=".4"/>
+<line x1="200" y1="448" x2="260" y2="508" stroke="#222" stroke-width=".4"/>
+<!-- Concrete expansion joints -->
+<line x1="42" y1="475" x2="338" y2="475" stroke="#262626" stroke-width=".6"/>
+<line x1="42" y1="495" x2="360" y2="495" stroke="#262626" stroke-width=".6"/>
+<!-- Label -->
+<text x="170" y="490" fill="#333" font-size="9" font-family="Courier New" text-anchor="middle" letter-spacing="3">DRIVEWAY</text>
+<!-- Walkway from driveway to front door -->
+<path d="M 310,442 L 329,442 L 329,370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="340" y="420" fill="#2a2a2a" font-size="6" font-family="Courier New">WALK</text>
+<!-- Steps indicator -->
+<line x1="318" y1="395" x2="340" y2="395" stroke="#333" stroke-width=".6"/>
+<line x1="318" y1="400" x2="340" y2="400" stroke="#333" stroke-width=".6"/>
+<line x1="318" y1="405" x2="340" y2="405" stroke="#333" stroke-width=".6"/>
+<text x="342" y="403" fill="#2a2a2a" font-size="5" font-family="Courier New">STEPS UP</text>
+</g>
 
 <!-- ===== DIMENSIONS ===== -->
 <g class="dims">
@@ -319,12 +403,15 @@ svg text{user-select:none}
 <line x1="21" y1="50" x2="29" y2="50" class="dl"/>
 <line x1="21" y1="440" x2="29" y2="440" class="dl"/>
 <text x="23" y="245" class="dt" transform="rotate(-90,23,245)">39'-0" (incl. garage)</text>
-<!-- Garage width -->
-<line x1="40" y1="458" x2="300" y2="458" class="dl"/>
-<text x="170" y="468" class="dt">26'-0"</text>
+<!-- 2-car bay width -->
+<line x1="42" y1="430" x2="195" y2="430" class="dl"/>
+<text x="118" y="428" class="dt">15'-4" (2-car)</text>
+<!-- 1-car bay width -->
+<line x1="195" y1="430" x2="298" y2="430" class="dl"/>
+<text x="246" y="428" class="dt">10'-4" (1-car)</text>
 <!-- Garage depth -->
-<line x1="310" y1="250" x2="310" y2="440" class="dl"/>
-<text x="312" y="345" class="dt" transform="rotate(90,312,345)">~22'"</text>
+<line x1="310" y1="250" x2="310" y2="442" class="dl"/>
+<text x="312" y="345" class="dt" transform="rotate(90,312,345)">22'-1"</text>
 <!-- Room dims -->
 <text x="116" y="175" class="dt">14'-10" x 14'"</text>
 <text x="260" y="178" class="dt">14' x 14'"</text>
