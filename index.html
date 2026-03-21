@@ -98,31 +98,29 @@ svg text{user-select:none}
 <div class="plans">
 <!-- ======================================================== -->
 <!-- MAIN FLOOR — L-SHAPED FOOTPRINT                          -->
-<!-- Garage extends deep below RIGHT side of main house body  -->
+<!-- Garage extends DOWN from LEFT side of main house body    -->
 <!-- Scale: ~10px = 1 foot                                    -->
-<!-- LEFT=bedroom/bath side (your left facing house from st)  -->
-<!-- RIGHT=garage/living room side                             -->
-<!-- TOP=backyard, BOTTOM=street                               -->
+<!-- LEFT=garage/bedroom side                                  -->
+<!-- RIGHT=living room side                                    -->
+<!-- TOP=backyard, BOTTOM=street/driveway                      -->
 <!-- ======================================================== -->
 <div class="pw" id="fm">
 <div class="pl">Main Floor &bull; ~1,620 SF</div>
-<svg width="580" height="760" viewBox="0 0 580 760">
+<svg width="540" height="720" viewBox="0 0 540 720">
 <defs>
 <marker id="a1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fix)"/></marker>
 </defs>
-<rect width="580" height="760" fill="var(--bg)"/>
+<rect width="540" height="720" fill="var(--bg)"/>
 
 <!-- L-SHAPED EXTERIOR OUTLINE -->
-<!-- Main house body: 43' wide x 31' deep (top rectangle) -->
-<!-- Garage: extends DOWNWARD from RIGHT portion of main house -->
-<!-- Garage doors face RIGHT (toward driveway/entry) -->
-<path d="M 40,50 L 470,50 L 470,625 L 210,625 L 210,360 L 40,360 Z" class="ew" fill="var(--panel)"/>
+<!-- Main house body: x=40-470 (43'), y=50-360 (31') -->
+<!-- Garage projects DOWN from LEFT side: x=40-300, y=360-580 -->
+<path d="M 40,50 L 470,50 L 470,360 L 300,360 L 300,580 L 40,580 Z" class="ew" fill="var(--panel)"/>
 
 <!-- Labels -->
 <text x="255" y="40" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">BACKYARD</text>
-<text x="400" y="648" fill="#2a2a3a" font-size="8" font-family="Courier New" text-anchor="middle" letter-spacing="3">DRIVEWAY</text>
 
-<!-- ===== BACK ROW (backyard side) ===== -->
+<!-- ===== BACK ROW (backyard side, y=52 to y=192) ===== -->
 
 <!-- BEDROOM 4 (back-left, office) -->
 <g class="rg" onclick="sp(16)">
@@ -132,24 +130,24 @@ svg text{user-select:none}
 <text x="116" y="138" class="rs">(Office)</text>
 <g class="fix">
 <!-- Slider to backyard -->
-<rect x="65" y="52" width="50" height="3" fill="#4a6a5a" opacity=".6"/>
+<rect x="65" y="50" width="50" height="3" fill="#4a6a5a" opacity=".6"/>
 <text x="90" y="64" class="rs" fill="#5a7a6a">SLIDER</text>
-<!-- Closet -->
+<!-- Closet with bypass doors -->
 <rect x="47" y="165" width="70" height="20" class="ff" rx="1"/>
 <text x="82" y="179" class="rs">CLOSET</text>
-<!-- Window -->
-<line x1="42" y1="85" x2="42" y2="120" class="wn"/>
+<!-- Window on left wall -->
+<line x1="40" y1="85" x2="40" y2="120" class="wn"/>
 </g></g>
 
 <!-- KITCHEN (center-back, with bay window) -->
 <g class="rg" onclick="sp(7)">
 <rect x="190" y="52" width="140" height="140" class="rb iw"/>
-<!-- Bay window bump-out -->
+<!-- Bay window bump-out (angled, 3 windows) -->
 <path d="M 220,52 L 220,32 L 250,22 L 280,22 L 310,32 L 310,52" fill="var(--room)" stroke="var(--wext)" stroke-width="3"/>
 <text x="260" y="115" class="rn">KITCHEN</text>
 <text x="260" y="127" class="rs">TILE &bull; 9'1" CLG</text>
 <g class="fix">
-<!-- Appliances on LEFT wall (nearest bedroom 4) -->
+<!-- Appliances on LEFT wall (x=192 side, near bedroom 4) -->
 <rect x="192" y="58" width="22" height="75" class="ff" rx="1"/>
 <!-- Stove with 4 burners -->
 <rect x="195" y="62" width="16" height="20" class="fl" rx="1"/>
@@ -162,8 +160,8 @@ svg text{user-select:none}
 <!-- Fridge -->
 <rect x="192" y="100" width="22" height="28" class="ff" rx="1"/>
 <text x="203" y="118" class="rs">REF</text>
-<!-- Angled peninsula island -->
-<path d="M 210,135 L 210,178 L 300,178 L 320,155 L 320,135 Z" class="ff"/>
+<!-- Large pentagonal angled island -->
+<path d="M 210,130 L 210,178 L 290,178 L 320,155 L 320,130 Z" class="ff"/>
 <text x="260" y="162" class="rs">ISLAND</text>
 <!-- Farmhouse sink in island -->
 <rect x="252" y="148" width="22" height="14" class="fl" rx="3"/>
@@ -183,182 +181,177 @@ svg text{user-select:none}
 <text x="399" y="122" class="rn">ROOM</text>
 <text x="399" y="134" class="rs">HARDWOOD</text>
 <g class="fix">
-<!-- Slider to patio/deck -->
-<rect x="365" y="52" width="55" height="3" fill="#4a6a5a" opacity=".6"/>
+<!-- Slider to covered deck/patio at top -->
+<rect x="365" y="50" width="55" height="3" fill="#4a6a5a" opacity=".6"/>
 <text x="392" y="64" class="rs" fill="#5a7a6a">TO DECK</text>
 </g></g>
 
-<!-- Covered Deck / Hot Tub -->
+<!-- Covered Deck / Hot Tub (above dining room area) -->
 <g onclick="sp(12)">
 <rect x="310" y="-20" width="165" height="73" class="pl2" fill="none"/>
 <text x="392" y="15" fill="#3a3a3a" font-size="7" font-family="Courier New" text-anchor="middle">COVERED DECK</text>
 <text x="392" y="26" fill="#333" font-size="7" font-family="Courier New" text-anchor="middle">HOT TUB</text>
 </g>
-<!-- Turf yard -->
+<!-- Turf yard (above bedroom 4 area) -->
 <rect x="42" y="-20" width="265" height="73" class="pl2" fill="none"/>
 <text x="174" y="15" fill="#2a2a2a" font-size="7" font-family="Courier New" text-anchor="middle">TURF YARD</text>
 
-<!-- ===== FRONT ROW (service rooms, entry, living) ===== -->
+<!-- ===== FRONT ROW (y=192 to y=358) ===== -->
 
-<!-- BATH 3 (far left, near bedroom 4) -->
+<!-- BATH 3 (left, below bedroom 4) -->
 <g class="rg" onclick="sp(17)">
 <rect x="42" y="192" width="78" height="58" class="rb iw"/>
 <text x="81" y="222" class="rn">BATH 3</text>
 <g class="fix">
+<!-- Tub along top wall -->
 <rect x="48" y="198" width="48" height="20" class="fl" rx="3"/>
 <text x="72" y="211" class="rs">TUB</text>
+<!-- Toilet -->
 <ellipse cx="108" cy="212" rx="5" ry="7" class="fl"/>
+<!-- Vanity -->
 <rect x="48" y="234" width="32" height="10" class="ff" rx="2"/>
 </g></g>
 
-<!-- LAUNDRY (below bath 3, left side) -->
+<!-- LAUNDRY (center-left, adjacent to bath 3) -->
 <g class="rg" onclick="sp(18)">
-<rect x="42" y="250" width="78" height="60" class="rb iw"/>
-<text x="81" y="280" class="rn">LAUNDRY</text>
+<rect x="120" y="192" width="78" height="60" class="rb iw"/>
+<text x="159" y="222" class="rn">LAUNDRY</text>
 <g class="fix">
-<rect x="50" y="256" width="26" height="22" class="ff" rx="2"/>
-<rect x="80" y="256" width="26" height="22" class="ff" rx="2"/>
-<text x="63" y="270" class="rs">W</text>
-<text x="93" y="270" class="rs">D</text>
-<rect x="50" y="283" width="18" height="10" class="fl" rx="2"/>
+<rect x="128" y="198" width="26" height="22" class="ff" rx="2"/>
+<rect x="158" y="198" width="26" height="22" class="ff" rx="2"/>
+<text x="141" y="212" class="rs">W</text>
+<text x="171" y="212" class="rs">D</text>
+<!-- Utility sink -->
+<rect x="128" y="228" width="18" height="10" class="fl" rx="2"/>
 </g></g>
 
-<!-- STAIRS (center-left) -->
-<rect x="165" y="210" width="48" height="90" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<!-- MUD ROOM (below laundry, transition to garage) -->
+<g class="rg">
+<rect x="120" y="252" width="78" height="60" class="rb iw"/>
+<text x="159" y="280" class="rn">MUD RM</text>
+<text x="159" y="292" class="rs">TILE</text>
 <g class="fix">
-<line x1="167" y1="218" x2="211" y2="218" class="sl"/>
-<line x1="167" y1="228" x2="211" y2="228" class="sl"/>
-<line x1="167" y1="238" x2="211" y2="238" class="sl"/>
-<line x1="167" y1="248" x2="211" y2="248" class="sl"/>
-<line x1="167" y1="258" x2="211" y2="258" class="sl"/>
-<line x1="167" y1="268" x2="211" y2="268" class="sl"/>
-<line x1="167" y1="278" x2="211" y2="278" class="sl"/>
-<line x1="167" y1="288" x2="211" y2="288" class="sl"/>
-<path d="M189 294 L189 214" stroke="var(--fix)" stroke-width=".8" marker-end="url(#a1)"/>
-<text x="189" y="258" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">UP</text>
+<!-- Closets -->
+<rect x="125" y="258" width="30" height="15" class="ff" rx="1"/>
+<text x="140" y="270" class="rs">CL</text>
+<!-- Door to garage on left/bottom wall -->
+<rect x="120" y="295" width="3" height="20" fill="#4a6a5a" opacity=".6"/>
+</g></g>
+
+<!-- STAIRS (center, going UP) -->
+<rect x="220" y="210" width="48" height="90" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<g class="fix">
+<line x1="222" y1="218" x2="266" y2="218" class="sl"/>
+<line x1="222" y1="228" x2="266" y2="228" class="sl"/>
+<line x1="222" y1="238" x2="266" y2="238" class="sl"/>
+<line x1="222" y1="248" x2="266" y2="248" class="sl"/>
+<line x1="222" y1="258" x2="266" y2="258" class="sl"/>
+<line x1="222" y1="268" x2="266" y2="268" class="sl"/>
+<line x1="222" y1="278" x2="266" y2="278" class="sl"/>
+<line x1="222" y1="288" x2="266" y2="288" class="sl"/>
+<path d="M244 294 L244 214" stroke="var(--fix)" stroke-width=".8" marker-end="url(#a1)"/>
+<text x="244" y="258" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">UP</text>
 </g>
 
 <!-- FAU (next to stairs) -->
-<rect x="213" y="260" width="35" height="35" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
-<text x="230" y="281" class="rs">FAU</text>
+<rect x="220" y="300" width="40" height="30" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
+<text x="240" y="319" class="rs">FAU</text>
 
 <!-- HALF BATH (PWD) -->
 <g class="rg" onclick="sp(28)">
-<rect x="213" y="295" width="35" height="35" class="rb iw"/>
-<text x="230" y="316" class="rs">PWD</text>
+<rect x="260" y="280" width="40" height="38" class="rb iw"/>
+<text x="280" y="302" class="rs">PWD</text>
 <g class="fix">
-<ellipse cx="224" cy="308" rx="4" ry="6" class="fl"/>
-<rect x="233" y="303" width="10" height="8" class="ff" rx="1"/>
+<ellipse cx="272" cy="294" rx="4" ry="6" class="fl"/>
+<rect x="282" y="290" width="10" height="8" class="ff" rx="1"/>
 </g></g>
 
-<!-- MUD ROOM (center, connects to garage) -->
-<g class="rg">
-<rect x="248" y="260" width="65" height="58" class="rb iw"/>
-<text x="280" y="290" class="rn">MUD RM</text>
-<text x="280" y="302" class="rs">TILE</text>
-<g class="fix">
-<!-- Closet -->
-<rect x="253" y="266" width="25" height="15" class="ff" rx="1"/>
-<text x="265" y="278" class="rs">CL</text>
-<!-- Door on right wall to garage -->
-<rect x="311" y="275" width="3" height="20" fill="#4a6a5a" opacity=".6"/>
-</g></g>
-
-<!-- ENTRY (center-right, front door at bottom) -->
+<!-- ENTRY (front door at bottom, y=358, faces driveway) -->
 <g class="rg" onclick="sp(10)">
-<rect x="313" y="310" width="60" height="48" class="rb iw"/>
-<text x="343" y="338" class="rn">ENTRY</text>
-<text x="343" y="349" class="rs">TILE</text>
+<rect x="260" y="318" width="65" height="40" class="rb iw"/>
+<text x="292" y="340" class="rn">ENTRY</text>
+<text x="292" y="350" class="rs">TILE</text>
 <g class="fix">
-<rect x="325" y="356" width="28" height="4" fill="var(--gold)" opacity=".4"/>
-<text x="339" y="370" fill="var(--gold)" font-size="7" font-family="Courier New" text-anchor="middle" opacity=".5">FRONT DOOR</text>
+<rect x="275" y="356" width="28" height="4" fill="var(--gold)" opacity=".4"/>
+<text x="289" y="370" fill="var(--gold)" font-size="7" font-family="Courier New" text-anchor="middle" opacity=".5">FRONT DOOR</text>
 </g></g>
 
 <!-- LIVING ROOM (right side, 2-story vaulted) -->
 <g class="rg" onclick="sp(4)">
-<rect x="373" y="192" width="95" height="166" class="rb iw"/>
-<text x="420" y="262" class="rn">LIVING ROOM</text>
-<text x="420" y="274" class="rs">HARDWOOD &bull; VAULTED</text>
-<text x="420" y="286" class="rs">(2-STORY)</text>
+<rect x="340" y="192" width="128" height="166" class="rb iw"/>
+<text x="404" y="262" class="rn">LIVING ROOM</text>
+<text x="404" y="274" class="rs">HARDWOOD &bull; VAULTED</text>
+<text x="404" y="286" class="rs">(2-STORY)</text>
 <g class="fix">
 <!-- Stone fireplace on left wall -->
-<rect x="373" y="220" width="14" height="45" class="fp" rx="2"/>
-<text x="380" y="248" fill="#555" font-size="5" font-family="Courier New" transform="rotate(-90,380,248)" text-anchor="middle">FIREPLACE</text>
-<!-- Large front window -->
-<line x1="390" y1="356" x2="460" y2="356" class="wn"/>
-<!-- Side windows -->
-<line x1="466" y1="215" x2="466" y2="245" class="wn"/>
-<line x1="466" y1="260" x2="466" y2="290" class="wn"/>
+<rect x="340" y="230" width="14" height="45" class="fp" rx="2"/>
+<text x="347" y="258" fill="#555" font-size="5" font-family="Courier New" transform="rotate(-90,347,258)" text-anchor="middle">FIREPLACE</text>
+<!-- Large window on bottom wall (street face) -->
+<line x1="355" y1="356" x2="455" y2="356" class="wn"/>
+<!-- Windows on right wall -->
+<line x1="468" y1="215" x2="468" y2="245" class="wn"/>
+<line x1="468" y1="260" x2="468" y2="290" class="wn"/>
 </g></g>
 
-<!-- Open plan indicator (wood post between living/dining/kitchen) -->
+<!-- Open plan indicator (wood post between dining/kitchen and living room) -->
 <g class="fix">
-<rect x="371" y="190" width="5" height="5" fill="#5a4a3a" stroke="#7a6a5a" stroke-width=".8"/>
+<rect x="338" y="190" width="5" height="5" fill="#5a4a3a" stroke="#7a6a5a" stroke-width=".8"/>
 </g>
 
-<!-- ===== GARAGE (extends below main house, RIGHT side) ===== -->
-<!-- Doors on RIGHT WALL (x=468) facing driveway -->
-<!-- 2-car bay (upper, 16' door) + 1-car bay (lower, 9' door) -->
+<!-- ===== GARAGE (LEFT side, projecting DOWN from main house) ===== -->
+<!-- Garage doors on RIGHT WALL (x=295) facing entry/driveway side -->
 <g class="rg" onclick="sp(39)">
 <!-- Full garage rectangle -->
-<rect x="212" y="362" width="256" height="261" class="rb" stroke="var(--wext)" stroke-width="3"/>
+<rect x="42" y="362" width="256" height="216" class="rb" stroke="var(--wext)" stroke-width="3"/>
 
-<!-- Horizontal dividing wall between 2-car bay (upper) and 1-car bay (lower) -->
-<line x1="212" y1="525" x2="468" y2="525" stroke="var(--wall)" stroke-width="3"/>
+<!-- Horizontal dividing wall at y=525 -->
+<line x1="42" y1="525" x2="298" y2="525" stroke="var(--wall)" stroke-width="3"/>
 
 <!-- Bay labels -->
-<text x="340" y="445" class="rn">2-CAR BAY</text>
-<text x="340" y="575" class="rn">1-CAR BAY</text>
-<text x="340" y="460" class="rs">CONCRETE</text>
+<text x="170" y="445" class="rn">2-CAR BAY</text>
+<text x="170" y="460" class="rs">CONCRETE</text>
+<text x="170" y="555" class="rn">1-CAR BAY</text>
 
-<!-- ===== GARAGE DOORS on RIGHT wall (x=468, facing driveway) ===== -->
+<!-- ===== GARAGE DOORS on RIGHT wall (x=295, facing driveway) ===== -->
 <!-- 16' sectional door (2-car bay) -->
-<rect x="465" y="368" width="6" height="152" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
-<line x1="465" y1="383" x2="471" y2="383" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="398" x2="471" y2="398" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="413" x2="471" y2="413" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="428" x2="471" y2="428" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="443" x2="471" y2="443" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="458" x2="471" y2="458" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="473" x2="471" y2="473" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="488" x2="471" y2="488" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="503" x2="471" y2="503" stroke="#5a5438" stroke-width=".5"/>
-<text x="485" y="445" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,485,445)">16'0" SECTIONAL</text>
+<rect x="295" y="368" width="6" height="152" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
+<line x1="295" y1="383" x2="301" y2="383" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="398" x2="301" y2="398" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="413" x2="301" y2="413" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="428" x2="301" y2="428" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="443" x2="301" y2="443" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="458" x2="301" y2="458" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="473" x2="301" y2="473" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="488" x2="301" y2="488" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="503" x2="301" y2="503" stroke="#5a5438" stroke-width=".5"/>
+<text x="315" y="445" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,315,445)">16'0" SECTIONAL</text>
 
-<!-- Center post between doors -->
-<rect x="465" y="521" width="6" height="8" fill="var(--panel)" stroke="var(--wext)" stroke-width="1"/>
+<!-- Center post between doors on right wall -->
+<rect x="295" y="521" width="6" height="8" fill="var(--panel)" stroke="var(--wext)" stroke-width="1"/>
 
 <!-- 9' sectional door (1-car bay) -->
-<rect x="465" y="530" width="6" height="88" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
-<line x1="465" y1="545" x2="471" y2="545" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="560" x2="471" y2="560" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="575" x2="471" y2="575" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="590" x2="471" y2="590" stroke="#5a5438" stroke-width=".5"/>
-<line x1="465" y1="605" x2="471" y2="605" stroke="#5a5438" stroke-width=".5"/>
-<text x="485" y="570" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,485,570)">9'0" SECTIONAL</text>
+<rect x="295" y="530" width="6" height="45" fill="#3a3528" stroke="#6a6048" stroke-width="1" rx="1"/>
+<line x1="295" y1="540" x2="301" y2="540" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="550" x2="301" y2="550" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="560" x2="301" y2="560" stroke="#5a5438" stroke-width=".5"/>
+<line x1="295" y1="570" x2="301" y2="570" stroke="#5a5438" stroke-width=".5"/>
+<text x="315" y="555" fill="#555" font-size="6" font-family="Courier New" transform="rotate(90,315,555)">9'0" SECTIONAL</text>
 </g>
 
 <!-- ===== VEHICLES (horizontal, noses LEFT, tails toward doors on right) ===== -->
 <g class="fix">
 
 <!-- PORSCHE 911 CARRERA 4S (991.2) — 2-car bay, upper position -->
-<!-- 177.1"L x 72.9"W = 14'9" x 6'1" = 148px x 61px -->
-<g transform="translate(245, 374)">
-  <!-- Body: low, wide, 991.2 proportions -->
+<!-- 148px x 61px -->
+<g transform="translate(75, 374)">
   <rect x="0" y="0" width="148" height="61" rx="24" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
-  <!-- Windshield (raked) -->
   <path d="M28,10 L42,8 L42,53 L28,51 Z" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45" rx="3"/>
-  <!-- Rear window (sloped fastback) -->
   <path d="M118,12 Q132,10 135,16 L135,45 Q132,51 118,49 Z" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
-  <!-- Round headlights -->
   <circle cx="6" cy="16" r="4.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
   <circle cx="6" cy="45" r="4.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
-  <!-- Full-width tail light bar (992 signature) -->
   <line x1="140" y1="14" x2="140" y2="47" stroke="#8a3030" stroke-width="1.8" opacity=".5"/>
-  <!-- Side mirrors -->
   <rect x="36" y="-3" width="5" height="3" rx="1" fill="var(--gold)" opacity=".25"/>
   <rect x="36" y="61" width="5" height="3" rx="1" fill="var(--gold)" opacity=".25"/>
-  <!-- Wheel arches -->
   <path d="M20,0 Q26,-3 32,0" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
   <path d="M20,61 Q26,64 32,61" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
   <path d="M108,0 Q114,-3 120,0" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".2"/>
@@ -367,124 +360,103 @@ svg text{user-select:none}
 </g>
 
 <!-- 1983 PORSCHE 911 SC — 2-car bay, lower position -->
-<!-- 168.9"L x 65.0"W x 52.0"H, WB 89.4" = 14'1" x 5'5" = 141px x 54px -->
-<g transform="translate(250, 453)">
-  <!-- Body: narrower, classic proportions -->
+<!-- 141px x 54px -->
+<g transform="translate(80, 453)">
   <rect x="0" y="0" width="141" height="54" rx="20" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
-  <!-- Windshield (more upright than 992) -->
   <rect x="24" y="9" width="14" height="36" rx="4" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45"/>
-  <!-- Rear window (flatter, classic) -->
   <rect x="112" y="11" width="12" height="32" rx="3" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
-  <!-- Round headlights (classic fried-egg style) -->
   <circle cx="5" cy="14" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
   <circle cx="5" cy="40" r="3.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
-  <!-- Round taillights (classic) -->
   <circle cx="134" cy="13" r="3" fill="#8a3030" opacity=".45"/>
   <circle cx="134" cy="41" r="3" fill="#8a3030" opacity=".45"/>
-  <!-- Side mirrors (small round) -->
   <circle cx="32" cy="-1" r="2" fill="var(--gold)" opacity=".2"/>
   <circle cx="32" cy="55" r="2" fill="var(--gold)" opacity=".2"/>
-  <!-- Whale tail spoiler -->
   <line x1="100" y1="3" x2="122" y2="3" stroke="var(--gold)" stroke-width=".8" opacity=".3"/>
   <line x1="100" y1="51" x2="122" y2="51" stroke="var(--gold)" stroke-width=".8" opacity=".3"/>
-  <!-- Impact bumpers (SC era) -->
   <rect x="0" y="20" width="3" height="14" rx="1" fill="var(--gold)" opacity=".15"/>
   <rect x="136" y="20" width="3" height="14" rx="1" fill="var(--gold)" opacity=".15"/>
   <text x="70" y="31" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".45">911 SC</text>
 </g>
 
 <!-- MERCEDES G550 (W463) — 1-car bay -->
-<!-- 190.0"L x 76.0"W x 77.7"H, WB 113.8" = 15'10" x 6'4" = 158px x 63px -->
-<g transform="translate(230, 535)">
-  <!-- Body: flat sides, square corners, utilitarian -->
+<!-- 158px x 63px -->
+<g transform="translate(65, 530)">
   <rect x="0" y="0" width="158" height="63" rx="5" fill="#14141e" stroke="var(--gold)" stroke-width=".8" opacity=".75"/>
-  <!-- Windshield (flat, nearly vertical) -->
   <rect x="16" y="6" width="12" height="51" rx="2" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".45"/>
-  <!-- Rear window (small, flat) -->
   <rect x="136" y="10" width="10" height="43" rx="2" fill="none" stroke="var(--gold)" stroke-width=".4" opacity=".3"/>
-  <!-- Square headlights -->
   <rect x="2" y="12" width="8" height="7" rx="1.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
   <rect x="2" y="44" width="8" height="7" rx="1.5" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".5"/>
-  <!-- Turn signals -->
   <rect x="2" y="22" width="6" height="4" rx="1" fill="var(--gold)" opacity=".15"/>
   <rect x="2" y="37" width="6" height="4" rx="1" fill="var(--gold)" opacity=".15"/>
-  <!-- Taillights (vertical rectangles) -->
   <rect x="150" y="10" width="5" height="10" rx="1" fill="#8a3030" opacity=".4"/>
   <rect x="150" y="43" width="5" height="10" rx="1" fill="#8a3030" opacity=".4"/>
-  <!-- Boxy side mirrors -->
   <rect x="24" y="-4" width="7" height="4" rx="1" fill="var(--gold)" opacity=".2"/>
   <rect x="24" y="63" width="7" height="4" rx="1" fill="var(--gold)" opacity=".2"/>
-  <!-- Spare tire on rear door -->
   <circle cx="144" cy="31" r="11" fill="none" stroke="var(--gold)" stroke-width=".5" opacity=".2"/>
   <circle cx="144" cy="31" r="6" fill="none" stroke="var(--gold)" stroke-width=".3" opacity=".15"/>
-  <!-- Roof rack rails -->
   <line x1="40" y1="2" x2="125" y2="2" stroke="var(--gold)" stroke-width=".5" opacity=".2"/>
   <line x1="40" y1="61" x2="125" y2="61" stroke="var(--gold)" stroke-width=".5" opacity=".2"/>
-  <!-- Side steps -->
   <line x1="30" y1="0" x2="110" y2="0" stroke="var(--gold)" stroke-width=".3" opacity=".15"/>
   <line x1="30" y1="63" x2="110" y2="63" stroke="var(--gold)" stroke-width=".3" opacity=".15"/>
   <text x="75" y="35" fill="var(--gold)" font-size="5" font-family="Courier New" text-anchor="middle" opacity=".45">G550</text>
 </g>
 </g>
 
-<!-- ===== DRIVEWAY (to the RIGHT of the garage) ===== -->
+<!-- ===== DRIVEWAY (BELOW the garage, extending right) ===== -->
 <g>
-<!-- Concrete driveway pad to the right of garage -->
-<path d="M 470,362 L 560,362 L 560,700 L 470,700 Z" fill="#151518" stroke="#2a2a2a" stroke-width="1"/>
+<!-- Concrete driveway pad below garage -->
+<path d="M 40,582 L 400,582 L 400,700 L 40,700 Z" fill="#151518" stroke="#2a2a2a" stroke-width="1"/>
 <!-- Expansion joints -->
-<line x1="475" y1="420" x2="555" y2="420" stroke="#1e1e22" stroke-width=".5"/>
-<line x1="475" y1="480" x2="555" y2="480" stroke="#1e1e22" stroke-width=".5"/>
-<line x1="475" y1="540" x2="555" y2="540" stroke="#1e1e22" stroke-width=".5"/>
-<line x1="475" y1="600" x2="555" y2="600" stroke="#1e1e22" stroke-width=".5"/>
-<line x1="475" y1="660" x2="555" y2="660" stroke="#1e1e22" stroke-width=".5"/>
+<line x1="45" y1="620" x2="395" y2="620" stroke="#1e1e22" stroke-width=".5"/>
+<line x1="45" y1="660" x2="395" y2="660" stroke="#1e1e22" stroke-width=".5"/>
 <!-- Texture -->
-<line x1="510" y1="365" x2="510" y2="695" stroke="#1a1a1e" stroke-width=".3"/>
-<line x1="540" y1="365" x2="540" y2="695" stroke="#1a1a1e" stroke-width=".3"/>
-<text x="515" y="580" fill="#2a2a2a" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="4" transform="rotate(90,515,580)">DRIVEWAY</text>
+<line x1="140" y1="585" x2="140" y2="695" stroke="#1a1a1e" stroke-width=".3"/>
+<line x1="250" y1="585" x2="250" y2="695" stroke="#1a1a1e" stroke-width=".3"/>
+<line x1="350" y1="585" x2="350" y2="695" stroke="#1a1a1e" stroke-width=".3"/>
+<text x="220" y="648" fill="#2a2a3a" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="4">DRIVEWAY</text>
 
-<!-- Walkway from driveway to front door -->
-<rect x="470" y="340" width="40" height="14" fill="#151518" stroke="#2a2a2a" stroke-width=".6"/>
-<rect x="440" y="340" width="32" height="14" fill="#151518" stroke="#2a2a2a" stroke-width=".6"/>
-<text x="470" y="337" fill="#2a2a2a" font-size="5" font-family="Courier New" text-anchor="middle">WALK</text>
+<!-- Walkway from driveway up to front door -->
+<rect x="280" y="375" width="18" height="207" fill="#151518" stroke="#2a2a2a" stroke-width=".6"/>
+<text x="289" y="490" fill="#2a2a2a" font-size="5" font-family="Courier New" text-anchor="middle" transform="rotate(90,289,490)">WALKWAY</text>
 </g>
 
 <!-- ===== DIMENSIONS ===== -->
 <g class="dims">
 <!-- Back wall width -->
-<line x1="40" y1="490" x2="470" y2="490" class="dl"/>
-<line x1="40" y1="486" x2="40" y2="494" class="dl"/>
-<line x1="470" y1="486" x2="470" y2="494" class="dl"/>
-<text x="255" y="502" class="dt">42'-10"</text>
-<!-- Depth left side (main house only) -->
-<line x1="25" y1="50" x2="25" y2="360" class="dl"/>
-<line x1="21" y1="50" x2="29" y2="50" class="dl"/>
-<line x1="21" y1="360" x2="29" y2="360" class="dl"/>
-<text x="23" y="205" class="dt" transform="rotate(-90,23,205)">31'-0"</text>
-<!-- Depth right side (full incl garage) -->
-<line x1="485" y1="50" x2="485" y2="625" class="dl"/>
+<line x1="40" y1="38" x2="470" y2="38" class="dl"/>
+<line x1="40" y1="34" x2="40" y2="42" class="dl"/>
+<line x1="470" y1="34" x2="470" y2="42" class="dl"/>
+<text x="255" y="33" class="dt">42'-10"</text>
+<!-- Depth right side (main house only) -->
+<line x1="485" y1="50" x2="485" y2="360" class="dl"/>
 <line x1="481" y1="50" x2="489" y2="50" class="dl"/>
-<line x1="481" y1="625" x2="489" y2="625" class="dl"/>
-<text x="487" y="340" class="dt" transform="rotate(90,487,340)">57'-6" (incl. garage)</text>
+<line x1="481" y1="360" x2="489" y2="360" class="dl"/>
+<text x="487" y="205" class="dt" transform="rotate(90,487,205)">31'-0"</text>
+<!-- Depth left side (full incl garage) -->
+<line x1="25" y1="50" x2="25" y2="580" class="dl"/>
+<line x1="21" y1="50" x2="29" y2="50" class="dl"/>
+<line x1="21" y1="580" x2="29" y2="580" class="dl"/>
+<text x="23" y="315" class="dt" transform="rotate(-90,23,315)">53'-0" (incl. garage)</text>
 <!-- Garage width -->
-<line x1="212" y1="638" x2="468" y2="638" class="dl"/>
-<line x1="212" y1="634" x2="212" y2="642" class="dl"/>
-<line x1="468" y1="634" x2="468" y2="642" class="dl"/>
-<text x="340" y="650" class="dt">26'-0" deep</text>
-<!-- Garage door face height -->
-<line x1="455" y1="368" x2="455" y2="520" class="dl"/>
-<text x="452" y="445" class="dt" transform="rotate(-90,452,445)">16' door</text>
-<line x1="455" y1="530" x2="455" y2="618" class="dl"/>
-<text x="452" y="575" class="dt" transform="rotate(-90,452,575)">9' door</text>
+<line x1="42" y1="594" x2="298" y2="594" class="dl"/>
+<line x1="42" y1="590" x2="42" y2="598" class="dl"/>
+<line x1="298" y1="590" x2="298" y2="598" class="dl"/>
+<text x="170" y="606" class="dt">26'-0" wide</text>
+<!-- Garage door labels -->
+<line x1="308" y1="368" x2="308" y2="520" class="dl"/>
+<text x="325" y="445" class="dt" transform="rotate(90,325,445)">16' door</text>
+<line x1="308" y1="530" x2="308" y2="575" class="dl"/>
+<text x="325" y="555" class="dt" transform="rotate(90,325,555)">9' door</text>
 <!-- Room dims -->
-<text x="116" y="175" class="dt">14'-10" x 14'"</text>
-<text x="260" y="178" class="dt">14' x 14'"</text>
-<text x="399" y="178" class="dt">13'-10" x 14'"</text>
-<text x="420" y="345" class="dt">9'-6" x 16'-8"</text>
+<text x="116" y="175" class="dt">14'-10" x 14'</text>
+<text x="260" y="178" class="dt">14' x 14'</text>
+<text x="399" y="178" class="dt">13'-10" x 14'</text>
+<text x="404" y="345" class="dt">12'-10" x 16'-8"</text>
 <!-- Scale -->
-<line x1="380" y1="720" x2="480" y2="720" stroke="#444" stroke-width="1.2"/>
-<line x1="380" y1="716" x2="380" y2="724" stroke="#444" stroke-width="1.2"/>
-<line x1="480" y1="716" x2="480" y2="724" stroke="#444" stroke-width="1.2"/>
-<text x="430" y="715" class="dt" fill="#444">10'-0"</text>
+<line x1="380" y1="712" x2="480" y2="712" stroke="#444" stroke-width="1.2"/>
+<line x1="380" y1="708" x2="380" y2="716" stroke="#444" stroke-width="1.2"/>
+<line x1="480" y1="708" x2="480" y2="716" stroke="#444" stroke-width="1.2"/>
+<text x="430" y="707" class="dt" fill="#444">10'-0"</text>
 </g>
 </svg>
 </div>
@@ -492,21 +464,21 @@ svg text{user-select:none}
 <!-- ======================================================== -->
 <!-- UPPER FLOOR                                               -->
 <!-- Over main house body only — NOT over garage projection    -->
-<!-- 2-story void over living room                             -->
+<!-- 2-story void over living room (right side)                -->
 <!-- ======================================================== -->
 <div class="pw" id="fu">
 <div class="pl">Upper Floor &bull; ~980 SF</div>
-<svg width="480" height="420" viewBox="0 0 480 420">
-<rect width="480" height="420" fill="var(--bg)"/>
+<svg width="480" height="400" viewBox="0 0 480 400">
+<rect width="480" height="400" fill="var(--bg)"/>
 
-<!-- Upper floor outline (main house body only, not over garage) -->
+<!-- Upper floor outline (same width as main house body, no garage) -->
 <rect x="40" y="40" width="430" height="280" class="ew" fill="var(--panel)"/>
 
 <!-- ===== BACK ROW (backyard side, y=42 to y=165) ===== -->
 
 <!-- BATH 2 (far left back corner) -->
 <g class="rg" onclick="sp(27)">
-<rect x="42" y="42" width="60" height="90" class="rb iw"/>
+<rect x="42" y="42" width="60" height="92" class="rb iw"/>
 <text x="72" y="82" class="rn">BATH 2</text>
 <g class="fix">
 <!-- Tub/shower along top wall -->
@@ -515,49 +487,34 @@ svg text{user-select:none}
 <!-- Toilet -->
 <ellipse cx="56" cy="100" rx="5" ry="6" class="fl"/>
 <!-- Vanity -->
-<rect x="70" y="108" width="24" height="10" class="ff" rx="2"/>
-</g></g>
-
-<!-- BEDROOM 3 (left side, extends from back row into front row) -->
-<g class="rg" onclick="sp(26)">
-<rect x="42" y="132" width="120" height="186" class="rb iw"/>
-<text x="102" y="230" class="rn">BEDROOM 3</text>
-<text x="102" y="243" class="rs">CARPET &bull; 9'1" CLG</text>
-<text x="102" y="255" class="rs">(Gym)</text>
-<g class="fix">
-<!-- Closet with barn door -->
-<rect x="48" y="138" width="50" height="32" class="ff" rx="1"/>
-<text x="73" y="158" class="rs">CLOSET</text>
-<text x="73" y="167" class="rs" fill="#5a7a6a">BARN DR</text>
-<!-- Window on left wall -->
-<line x1="42" y1="225" x2="42" y2="260" class="wn"/>
+<rect x="70" y="110" width="24" height="10" class="ff" rx="2"/>
 </g></g>
 
 <!-- LINEN CLOSET (between bath 2 and master bath) -->
-<rect x="102" y="108" width="30" height="25" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
-<text x="117" y="124" class="rs">LIN</text>
+<rect x="102" y="100" width="30" height="30" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
+<text x="117" y="119" class="rs">LIN</text>
 
 <!-- MASTER BATH (center back) -->
 <g class="rg" onclick="sp(25)">
 <rect x="132" y="42" width="120" height="123" class="rb iw"/>
 <text x="192" y="100" class="rn">MASTER BATH</text>
 <g class="fix">
-<!-- Freestanding tub (ellipse) -->
+<!-- Freestanding oval tub -->
 <ellipse cx="160" cy="72" rx="20" ry="12" class="fl"/>
 <text x="160" y="75" class="rs">TUB</text>
-<!-- Glass shower (rect with X) -->
+<!-- Glass shower rect with X -->
 <rect x="200" y="48" width="38" height="38" class="fl" rx="2"/>
 <line x1="203" y1="51" x2="235" y2="83" stroke="#2a2a3a" stroke-width=".3"/>
 <line x1="235" y1="51" x2="203" y2="83" stroke="#2a2a3a" stroke-width=".3"/>
 <text x="219" y="71" class="rs">SHW</text>
-<!-- Dual navy vanity along bottom wall -->
+<!-- Dual vanity along bottom edge -->
 <rect x="140" y="140" width="100" height="18" class="ff" rx="2"/>
 <circle cx="170" cy="149" r="6" class="fl"/>
 <circle cx="210" cy="149" r="6" class="fl"/>
 <text x="190" y="152" fill="#3a4a5a" font-size="5" font-family="Courier New" text-anchor="middle">DUAL VANITY</text>
 <!-- Toilet -->
 <ellipse cx="145" cy="118" rx="5" ry="7" class="fl"/>
-<!-- Window on top wall -->
+<!-- Window on top wall (backyard) -->
 <line x1="155" y1="42" x2="190" y2="42" class="wn"/>
 </g></g>
 
@@ -568,72 +525,86 @@ svg text{user-select:none}
 
 <!-- MASTER BEDROOM (right side back) -->
 <g class="rg" onclick="sp(21)">
-<rect x="252" y="42" width="216" height="123" class="rb iw"/>
-<text x="370" y="95" class="rn">MASTER BEDROOM</text>
-<text x="370" y="108" class="rs">CARPET &bull; VAULTED SHIPLAP</text>
+<rect x="307" y="42" width="161" height="123" class="rb iw"/>
+<text x="387" y="95" class="rn">MASTER BEDROOM</text>
+<text x="387" y="108" class="rs">CARPET &bull; VAULTED SHIPLAP</text>
 <g class="fix">
-<!-- French doors / slider to deck at top wall -->
-<rect x="340" y="42" width="55" height="3" fill="#4a6a5a" opacity=".6"/>
-<text x="367" y="54" class="rs" fill="#5a7a6a">TO DECK</text>
+<!-- French doors to deck at top wall -->
+<rect x="350" y="40" width="55" height="3" fill="#4a6a5a" opacity=".6"/>
+<text x="377" y="54" class="rs" fill="#5a7a6a">TO DECK</text>
 <!-- Windows on right wall -->
-<line x1="466" y1="65" x2="466" y2="95" class="wn"/>
-<line x1="466" y1="110" x2="466" y2="140" class="wn"/>
+<line x1="468" y1="65" x2="468" y2="95" class="wn"/>
+<line x1="468" y1="110" x2="468" y2="140" class="wn"/>
 </g></g>
 
 <!-- UPPER DECK (off master bedroom, backyard side) -->
 <g onclick="sp(15)">
-<rect x="252" y="-20" width="216" height="63" class="dk"/>
-<text x="360" y="8" fill="#555" font-size="9" font-family="Courier New" text-anchor="middle">UPPER DECK</text>
-<text x="360" y="20" fill="#444" font-size="7" font-family="Courier New" text-anchor="middle">~22'</text>
+<rect x="307" y="-20" width="161" height="63" class="dk"/>
+<text x="387" y="8" fill="#555" font-size="9" font-family="Courier New" text-anchor="middle">UPPER DECK</text>
+<text x="387" y="20" fill="#444" font-size="7" font-family="Courier New" text-anchor="middle">~16'</text>
 </g>
 
 <!-- ===== FRONT ROW (y=165 to y=318) ===== -->
 
-<!-- Bedroom 3 continues from back row (already drawn above) -->
-
-<!-- STAIRS (center-left) -->
-<rect x="162" y="180" width="48" height="85" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<!-- BEDROOM 3 / Gym (left side, extends from back into front row) -->
+<g class="rg" onclick="sp(26)">
+<rect x="42" y="134" width="120" height="184" class="rb iw"/>
+<text x="102" y="230" class="rn">BEDROOM 3</text>
+<text x="102" y="243" class="rs">CARPET &bull; 9'1" CLG</text>
+<text x="102" y="255" class="rs">(Gym)</text>
 <g class="fix">
-<line x1="164" y1="188" x2="208" y2="188" class="sl"/>
-<line x1="164" y1="198" x2="208" y2="198" class="sl"/>
-<line x1="164" y1="208" x2="208" y2="208" class="sl"/>
-<line x1="164" y1="218" x2="208" y2="218" class="sl"/>
-<line x1="164" y1="228" x2="208" y2="228" class="sl"/>
-<line x1="164" y1="238" x2="208" y2="238" class="sl"/>
-<line x1="164" y1="248" x2="208" y2="248" class="sl"/>
-<text x="186" y="228" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">DN</text>
+<!-- Closet with barn door -->
+<rect x="48" y="140" width="50" height="32" class="ff" rx="1"/>
+<text x="73" y="160" class="rs">CLOSET</text>
+<text x="73" y="169" class="rs" fill="#5a7a6a">BARN DR</text>
+<!-- Window on left wall -->
+<line x1="40" y1="225" x2="40" y2="260" class="wn"/>
+</g></g>
+
+<!-- STAIRS (center) -->
+<rect x="165" y="178" width="48" height="85" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<g class="fix">
+<line x1="167" y1="186" x2="211" y2="186" class="sl"/>
+<line x1="167" y1="196" x2="211" y2="196" class="sl"/>
+<line x1="167" y1="206" x2="211" y2="206" class="sl"/>
+<line x1="167" y1="216" x2="211" y2="216" class="sl"/>
+<line x1="167" y1="226" x2="211" y2="226" class="sl"/>
+<line x1="167" y1="236" x2="211" y2="236" class="sl"/>
+<line x1="167" y1="246" x2="211" y2="246" class="sl"/>
+<text x="189" y="224" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">DN</text>
 </g>
 
-<!-- HALL / LANDING (opens to 2-story void on right) -->
+<!-- HALL / LANDING (overlook railing toward void) -->
 <g class="rg" onclick="sp(19)">
-<rect x="162" y="265" width="160" height="53" class="rb iw"/>
+<rect x="165" y="263" width="155" height="55" class="rb iw"/>
 <text x="242" y="293" class="rn">HALL</text>
 <text x="242" y="305" class="rs">OVERLOOK RAILING</text>
 <g class="fix">
 <!-- Railing indicator toward void -->
-<line x1="320" y1="270" x2="320" y2="313" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
+<line x1="318" y1="268" x2="318" y2="313" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
 </g></g>
 
-<!-- 2-STORY VOID (right side front row, above living room) -->
+<!-- 2-STORY VOID (right side front row, directly above living room) -->
 <g class="rg" onclick="sp(20)">
-<rect x="365" y="165" width="103" height="153" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<rect x="340" y="165" width="128" height="153" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
 <!-- Hatching -->
-<line x1="370" y1="170" x2="463" y2="310" class="vh"/>
-<line x1="370" y1="200" x2="443" y2="310" class="vh"/>
-<line x1="370" y1="230" x2="423" y2="310" class="vh"/>
-<line x1="370" y1="260" x2="403" y2="310" class="vh"/>
-<line x1="390" y1="170" x2="463" y2="280" class="vh"/>
-<line x1="410" y1="170" x2="463" y2="250" class="vh"/>
-<line x1="430" y1="170" x2="463" y2="220" class="vh"/>
-<text x="416" y="238" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">OPEN TO</text>
-<text x="416" y="250" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">BELOW</text>
+<line x1="345" y1="170" x2="463" y2="310" class="vh"/>
+<line x1="345" y1="200" x2="443" y2="310" class="vh"/>
+<line x1="345" y1="230" x2="423" y2="310" class="vh"/>
+<line x1="345" y1="260" x2="403" y2="310" class="vh"/>
+<line x1="365" y1="170" x2="463" y2="280" class="vh"/>
+<line x1="385" y1="170" x2="463" y2="250" class="vh"/>
+<line x1="405" y1="170" x2="463" y2="220" class="vh"/>
+<line x1="425" y1="170" x2="463" y2="195" class="vh"/>
+<text x="404" y="238" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">OPEN TO</text>
+<text x="404" y="250" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">BELOW</text>
 </g>
 
 <!-- ===== DIMENSIONS ===== -->
 <g class="dims">
-<text x="370" y="155" class="dt">21'-6" x 12'-4"</text>
+<text x="387" y="155" class="dt">16'-1" x 12'-4"</text>
 <text x="192" y="155" class="dt">12' x 12'-4"</text>
-<text x="102" y="302" class="dt">12' x 18'-6"</text>
+<text x="102" y="302" class="dt">12' x 18'-4"</text>
 <!-- Overall width -->
 <line x1="40" y1="335" x2="470" y2="335" class="dl"/>
 <line x1="40" y1="331" x2="40" y2="339" class="dl"/>
