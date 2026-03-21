@@ -468,153 +468,161 @@ svg text{user-select:none}
 <!-- ======================================================== -->
 <div class="pw" id="fu">
 <div class="pl">Upper Floor &bull; ~980 SF</div>
-<svg width="480" height="400" viewBox="0 0 480 400">
-<rect width="480" height="400" fill="var(--bg)"/>
+<svg width="520" height="460" viewBox="0 0 520 460">
+<rect width="520" height="460" fill="var(--bg)"/>
 
-<!-- Upper floor outline (same width as main house body, no garage) -->
-<rect x="40" y="40" width="430" height="280" class="ew" fill="var(--panel)"/>
+<!-- Upper floor exterior walls (rooms area: x=40, w=224) -->
+<rect x="40" y="50" width="224" height="362" class="ew" fill="var(--panel)"/>
 
-<!-- ===== BACK ROW (backyard side, y=42 to y=165) ===== -->
-
-<!-- BATH 2 (far left back corner) -->
-<g class="rg" onclick="sp(27)">
-<rect x="42" y="42" width="60" height="92" class="rb iw"/>
-<text x="72" y="82" class="rn">BATH 2</text>
-<g class="fix">
-<!-- Tub/shower along top wall -->
-<rect x="48" y="48" width="46" height="18" class="fl" rx="3"/>
-<text x="71" y="60" class="rs">TUB/SHW</text>
-<!-- Toilet -->
-<ellipse cx="56" cy="100" rx="5" ry="6" class="fl"/>
-<!-- Vanity -->
-<rect x="70" y="110" width="24" height="10" class="ff" rx="2"/>
-</g></g>
-
-<!-- LINEN CLOSET (between bath 2 and master bath) -->
-<rect x="102" y="100" width="30" height="30" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
-<text x="117" y="119" class="rs">LIN</text>
-
-<!-- MASTER BATH (center back) -->
-<g class="rg" onclick="sp(25)">
-<rect x="132" y="42" width="120" height="123" class="rb iw"/>
-<text x="192" y="100" class="rn">MASTER BATH</text>
-<g class="fix">
-<!-- Freestanding oval tub -->
-<ellipse cx="160" cy="72" rx="20" ry="12" class="fl"/>
-<text x="160" y="75" class="rs">TUB</text>
-<!-- Glass shower rect with X -->
-<rect x="200" y="48" width="38" height="38" class="fl" rx="2"/>
-<line x1="203" y1="51" x2="235" y2="83" stroke="#2a2a3a" stroke-width=".3"/>
-<line x1="235" y1="51" x2="203" y2="83" stroke="#2a2a3a" stroke-width=".3"/>
-<text x="219" y="71" class="rs">SHW</text>
-<!-- Dual vanity along bottom edge -->
-<rect x="140" y="140" width="100" height="18" class="ff" rx="2"/>
-<circle cx="170" cy="149" r="6" class="fl"/>
-<circle cx="210" cy="149" r="6" class="fl"/>
-<text x="190" y="152" fill="#3a4a5a" font-size="5" font-family="Courier New" text-anchor="middle">DUAL VANITY</text>
-<!-- Toilet -->
-<ellipse cx="145" cy="118" rx="5" ry="7" class="fl"/>
-<!-- Window on top wall (backyard) -->
-<line x1="155" y1="42" x2="190" y2="42" class="wn"/>
-</g></g>
-
-<!-- WALK-IN CLOSET (between master bath and master bedroom) -->
-<rect x="252" y="46" width="55" height="45" class="ff" rx="1"/>
-<text x="279" y="68" class="rs">WALK-IN</text>
-<text x="279" y="78" class="rs">CLOSET</text>
-
-<!-- MASTER BEDROOM (right side back) -->
-<g class="rg" onclick="sp(21)">
-<rect x="307" y="42" width="161" height="123" class="rb iw"/>
-<text x="387" y="95" class="rn">MASTER BEDROOM</text>
-<text x="387" y="108" class="rs">CARPET &bull; VAULTED SHIPLAP</text>
-<g class="fix">
-<!-- French doors to deck at top wall -->
-<rect x="350" y="40" width="55" height="3" fill="#4a6a5a" opacity=".6"/>
-<text x="377" y="54" class="rs" fill="#5a7a6a">TO DECK</text>
-<!-- Windows on right wall -->
-<line x1="468" y1="65" x2="468" y2="95" class="wn"/>
-<line x1="468" y1="110" x2="468" y2="140" class="wn"/>
-</g></g>
-
-<!-- UPPER DECK (off master bedroom, backyard side) -->
+<!-- ===== UPPER DECK (top, backyard side) ===== -->
 <g onclick="sp(15)">
-<rect x="307" y="-20" width="161" height="63" class="dk"/>
-<text x="387" y="8" fill="#555" font-size="9" font-family="Courier New" text-anchor="middle">UPPER DECK</text>
-<text x="387" y="20" fill="#444" font-size="7" font-family="Courier New" text-anchor="middle">~16'</text>
+<rect x="40" y="-10" width="224" height="60" class="dk"/>
+<text x="152" y="18" fill="#555" font-size="9" font-family="Courier New" text-anchor="middle">UPPER DECK</text>
+<text x="152" y="30" fill="#444" font-size="7" font-family="Courier New" text-anchor="middle">22'-4" x 6'</text>
+<g class="fix">
+<!-- Sliding door indicator (8000 66D) -->
+<rect x="100" y="48" width="64" height="3" fill="#4a6a5a" opacity=".6"/>
+<text x="132" y="44" class="rs" fill="#5a7a6a">8000 66D SLIDER</text>
+</g>
 </g>
 
-<!-- ===== FRONT ROW (y=165 to y=318) ===== -->
-
-<!-- BEDROOM 3 / Gym (left side, extends from back into front row) -->
-<g class="rg" onclick="sp(26)">
-<rect x="42" y="134" width="120" height="184" class="rb iw"/>
-<text x="102" y="230" class="rn">BEDROOM 3</text>
-<text x="102" y="243" class="rs">CARPET &bull; 9'1" CLG</text>
-<text x="102" y="255" class="rs">(Gym)</text>
+<!-- ===== MASTER BEDROOM (below deck, full width) ===== -->
+<g class="rg" onclick="sp(21)">
+<rect x="42" y="52" width="220" height="150" class="rb iw"/>
+<text x="152" y="120" class="rn">MASTER BEDROOM</text>
+<text x="152" y="133" class="rs">CARPET &bull; VAULTED CEILING</text>
 <g class="fix">
-<!-- Closet with barn door -->
-<rect x="48" y="140" width="50" height="32" class="ff" rx="1"/>
-<text x="73" y="160" class="rs">CLOSET</text>
-<text x="73" y="169" class="rs" fill="#5a7a6a">BARN DR</text>
-<!-- Window on left wall -->
-<line x1="40" y1="225" x2="40" y2="260" class="wn"/>
+<!-- Dashed vault lines -->
+<line x1="62" y1="72" x2="62" y2="182" stroke="var(--fix)" stroke-width=".5" stroke-dasharray="4,3"/>
+<line x1="242" y1="72" x2="242" y2="182" stroke="var(--fix)" stroke-width=".5" stroke-dasharray="4,3"/>
+<!-- Windows on left wall -->
+<line x1="40" y1="90" x2="40" y2="130" class="wn"/>
+<line x1="40" y1="140" x2="40" y2="170" class="wn"/>
 </g></g>
 
-<!-- STAIRS (center) -->
-<rect x="165" y="178" width="48" height="85" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<!-- ===== MASTER BATH (center-left, below master bedroom) ===== -->
+<g class="rg" onclick="sp(25)">
+<rect x="42" y="202" width="130" height="110" class="rb iw"/>
+<text x="107" y="255" class="rn">MASTER BATH</text>
+<text x="107" y="267" class="rs">CERAMIC TILE</text>
 <g class="fix">
-<line x1="167" y1="186" x2="211" y2="186" class="sl"/>
-<line x1="167" y1="196" x2="211" y2="196" class="sl"/>
-<line x1="167" y1="206" x2="211" y2="206" class="sl"/>
-<line x1="167" y1="216" x2="211" y2="216" class="sl"/>
-<line x1="167" y1="226" x2="211" y2="226" class="sl"/>
-<line x1="167" y1="236" x2="211" y2="236" class="sl"/>
-<line x1="167" y1="246" x2="211" y2="246" class="sl"/>
-<text x="189" y="224" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">DN</text>
+<!-- Glass shower (upper-left) with X -->
+<rect x="48" y="208" width="40" height="36" class="fl" rx="2"/>
+<line x1="50" y1="210" x2="86" y2="242" stroke="#2a2a3a" stroke-width=".3"/>
+<line x1="86" y1="210" x2="50" y2="242" stroke="#2a2a3a" stroke-width=".3"/>
+<text x="68" y="229" class="rs">SHW</text>
+<!-- Freestanding soaking tub (bottom-left) -->
+<ellipse cx="75" cy="285" rx="22" ry="14" class="fl"/>
+<text x="75" y="288" class="rs">TUB</text>
+<!-- Dual vanity along right wall -->
+<rect x="152" y="215" width="16" height="80" class="ff" rx="2"/>
+<circle cx="160" cy="238" r="5" class="fl"/>
+<circle cx="160" cy="272" r="5" class="fl"/>
+<text x="160" y="255" fill="#3a4a5a" font-size="4" font-family="Courier New" text-anchor="middle" transform="rotate(90,160,255)">DUAL VANITY</text>
+<!-- Toilet -->
+<ellipse cx="120" cy="215" rx="5" ry="7" class="fl"/>
+<!-- Window on left wall -->
+<line x1="40" y1="235" x2="40" y2="270" class="wn"/>
+</g></g>
+
+<!-- ===== STAIRS (center) ===== -->
+<rect x="130" y="202" width="48" height="80" fill="var(--room)" stroke="var(--fix)" stroke-width="1"/>
+<g class="fix">
+<line x1="132" y1="210" x2="176" y2="210" class="sl"/>
+<line x1="132" y1="220" x2="176" y2="220" class="sl"/>
+<line x1="132" y1="230" x2="176" y2="230" class="sl"/>
+<line x1="132" y1="240" x2="176" y2="240" class="sl"/>
+<line x1="132" y1="250" x2="176" y2="250" class="sl"/>
+<line x1="132" y1="260" x2="176" y2="260" class="sl"/>
+<line x1="132" y1="270" x2="176" y2="270" class="sl"/>
+<text x="154" y="244" fill="var(--fix)" font-size="7" font-family="Courier New" text-anchor="middle">DN</text>
+<!-- Down arrow -->
+<line x1="154" y1="268" x2="154" y2="278" stroke="var(--fix)" stroke-width=".8"/>
+<line x1="150" y1="274" x2="154" y2="278" stroke="var(--fix)" stroke-width=".8"/>
+<line x1="158" y1="274" x2="154" y2="278" stroke="var(--fix)" stroke-width=".8"/>
 </g>
 
-<!-- HALL / LANDING (overlook railing toward void) -->
+<!-- ===== LINEN CLOSET ===== -->
+<rect x="178" y="202" width="30" height="35" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
+<text x="193" y="223" class="rs">LIN</text>
+
+<!-- ===== MASTER WALK-IN CLOSET ===== -->
+<rect x="172" y="237" width="50" height="40" class="ff" rx="1"/>
+<text x="197" y="256" class="rs">WALK-IN</text>
+<text x="197" y="265" class="rs">CLOSET</text>
+
+<!-- ===== HALL / LANDING (between stairs and void) ===== -->
 <g class="rg" onclick="sp(19)">
-<rect x="165" y="263" width="155" height="55" class="rb iw"/>
-<text x="242" y="293" class="rn">HALL</text>
-<text x="242" y="305" class="rs">OVERLOOK RAILING</text>
+<rect x="178" y="282" width="102" height="30" class="rb iw"/>
+<text x="229" y="298" class="rs">OVERLOOK RAILING</text>
 <g class="fix">
 <!-- Railing indicator toward void -->
-<line x1="318" y1="268" x2="318" y2="313" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
+<line x1="280" y1="285" x2="280" y2="309" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
 </g></g>
 
-<!-- 2-STORY VOID (right side front row, directly above living room) -->
+<!-- ===== BEDROOM 3 / GYM (bottom-left) ===== -->
+<g class="rg" onclick="sp(26)">
+<rect x="42" y="312" width="136" height="98" class="rb iw"/>
+<text x="110" y="355" class="rn">BEDROOM 3</text>
+<text x="110" y="367" class="rs">CARPET &bull; 9'1" CLG</text>
+<text x="110" y="379" class="rs">(Gym)</text>
+<g class="fix">
+<!-- Closet at top of bedroom 3 -->
+<rect x="100" y="314" width="50" height="22" class="ff" rx="1"/>
+<text x="125" y="328" class="rs">CLOSET</text>
+<!-- Window on left wall -->
+<line x1="40" y1="345" x2="40" y2="380" class="wn"/>
+</g></g>
+
+<!-- ===== BATH 2 (bottom-right of room area) ===== -->
+<g class="rg" onclick="sp(27)">
+<rect x="178" y="312" width="84" height="68" class="rb iw"/>
+<text x="220" y="342" class="rn">BATH 2</text>
+<text x="220" y="354" class="rs">CERAMIC TILE</text>
+<g class="fix">
+<!-- Tub/shower along top wall -->
+<rect x="184" y="316" width="50" height="16" class="fl" rx="3"/>
+<text x="209" y="327" class="rs">TUB/SHW</text>
+<!-- Toilet -->
+<ellipse cx="250" cy="335" rx="5" ry="6" class="fl"/>
+<!-- Vanity -->
+<rect x="240" y="355" width="16" height="20" class="ff" rx="2"/>
+</g></g>
+
+<!-- ===== 2-STORY VOID (far right, bottom half, over living room) ===== -->
 <g class="rg" onclick="sp(20)">
-<rect x="340" y="165" width="128" height="153" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<rect x="280" y="202" width="130" height="178" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
 <!-- Hatching -->
-<line x1="345" y1="170" x2="463" y2="310" class="vh"/>
-<line x1="345" y1="200" x2="443" y2="310" class="vh"/>
-<line x1="345" y1="230" x2="423" y2="310" class="vh"/>
-<line x1="345" y1="260" x2="403" y2="310" class="vh"/>
-<line x1="365" y1="170" x2="463" y2="280" class="vh"/>
-<line x1="385" y1="170" x2="463" y2="250" class="vh"/>
-<line x1="405" y1="170" x2="463" y2="220" class="vh"/>
-<line x1="425" y1="170" x2="463" y2="195" class="vh"/>
-<text x="404" y="238" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">OPEN TO</text>
-<text x="404" y="250" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">BELOW</text>
+<line x1="285" y1="207" x2="405" y2="375" class="vh"/>
+<line x1="285" y1="237" x2="385" y2="375" class="vh"/>
+<line x1="285" y1="267" x2="365" y2="375" class="vh"/>
+<line x1="285" y1="297" x2="345" y2="375" class="vh"/>
+<line x1="285" y1="327" x2="325" y2="375" class="vh"/>
+<line x1="305" y1="207" x2="405" y2="345" class="vh"/>
+<line x1="325" y1="207" x2="405" y2="315" class="vh"/>
+<line x1="345" y1="207" x2="405" y2="285" class="vh"/>
+<line x1="365" y1="207" x2="405" y2="255" class="vh"/>
+<line x1="385" y1="207" x2="405" y2="230" class="vh"/>
+<text x="345" y="286" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">OPEN TO</text>
+<text x="345" y="298" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">BELOW</text>
 </g>
 
 <!-- ===== DIMENSIONS ===== -->
 <g class="dims">
-<text x="387" y="155" class="dt">16'-1" x 12'-4"</text>
-<text x="192" y="155" class="dt">12' x 12'-4"</text>
-<text x="102" y="302" class="dt">12' x 18'-4"</text>
+<text x="152" y="195" class="dt">22'-4" x 15'</text>
+<text x="107" y="303" class="dt">13' x 11'</text>
+<text x="110" y="400" class="dt">13'-8" x 10'</text>
+<text x="220" y="372" class="dt">8' x 7'</text>
 <!-- Overall width -->
-<line x1="40" y1="335" x2="470" y2="335" class="dl"/>
-<line x1="40" y1="331" x2="40" y2="339" class="dl"/>
-<line x1="470" y1="331" x2="470" y2="339" class="dl"/>
-<text x="255" y="348" class="dt">43'-0"</text>
+<line x1="40" y1="425" x2="264" y2="425" class="dl"/>
+<line x1="40" y1="421" x2="40" y2="429" class="dl"/>
+<line x1="264" y1="421" x2="264" y2="429" class="dl"/>
+<text x="152" y="438" class="dt">22'-4"</text>
 <!-- Scale bar -->
-<line x1="340" y1="375" x2="440" y2="375" stroke="#444" stroke-width="1.2"/>
-<line x1="340" y1="371" x2="340" y2="379" stroke="#444" stroke-width="1.2"/>
-<line x1="440" y1="371" x2="440" y2="379" stroke="#444" stroke-width="1.2"/>
-<text x="390" y="370" class="dt" fill="#444">10'-0"</text>
+<line x1="340" y1="435" x2="440" y2="435" stroke="#444" stroke-width="1.2"/>
+<line x1="340" y1="431" x2="340" y2="439" stroke="#444" stroke-width="1.2"/>
+<line x1="440" y1="431" x2="440" y2="439" stroke="#444" stroke-width="1.2"/>
+<text x="390" y="430" class="dt" fill="#444">10'-0"</text>
 </g>
 </svg>
 </div>
