@@ -87,8 +87,8 @@ svg text{user-select:none}
 <div class="addr">4 Bed &bull; 3 Bath &bull; 2,601 SF &bull; 3-Car Garage &bull; Built 1998 &bull; 7,405 SF Lot</div>
 </header>
 <div class="ctrls">
-<button class="on" onclick="sf('both',this)">Both Floors</button>
-<button onclick="sf('main',this)">Main Floor</button>
+<button onclick="sf('both',this)">Both Floors</button>
+<button class="on" onclick="sf('main',this)">Main Floor</button>
 <button onclick="sf('upper',this)">Upper Floor</button>
 <button class="on" id="bd" onclick="tg('dims',this)">Dimensions</button>
 <button class="on" id="bf" onclick="tg('fix',this)">Fixtures</button>
@@ -688,6 +688,8 @@ document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classL
 function sf(f,b){document.querySelectorAll('.ctrls button').forEach(x=>{if(['Both Floors','Main Floor','Upper Floor'].includes(x.textContent))x.classList.remove('on')});b.classList.add('on');document.getElementById('fm').style.display=f==='upper'?'none':'';document.getElementById('fu').style.display=f==='main'?'none':''}
 function tg(l,b){b.classList.toggle('on');const s=b.classList.contains('on');if(l==='pho'){ps.style.display=s?'flex':'none'}else{document.querySelectorAll(l==='dims'?'.dims':'.fix').forEach(g=>g.style.display=s?'':'none')}}
 ps.style.display='none';
+// Default to main floor only
+document.getElementById('fu').style.display='none';
 </script>
 </body>
 </html>
