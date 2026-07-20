@@ -86,7 +86,25 @@ svg text{user-select:none}
 }
 .ic td:last-child{text-align:right;color:var(--gold)}
 .sl2{text-align:center;font-size:10px;letter-spacing:3px;color:#444;text-transform:uppercase;margin:24px 0 12px}
+/* ===== 3D MODEL VIEW ===== */
+.td{display:none;max-width:1080px;margin:0 auto 20px;padding:0 12px}
+.td.show{display:block}
+#td-canvas{position:relative;width:100%;height:72vh;min-height:440px;background:#0b1024;border:1px solid #2a2a3a;overflow:hidden}
+#td-canvas canvas{display:block;width:100%;height:100%}
+.td-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#666;font:10px 'Courier New',monospace;letter-spacing:2px;text-transform:uppercase;pointer-events:none}
+.td-bar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:12px 0 0}
+.td-bar button{background:0;border:1px solid #333;color:#888;padding:5px 14px;font:10px/1 'Courier New',monospace;letter-spacing:1px;cursor:pointer;transition:.15s}
+.td-bar button:hover{border-color:#666;color:#ccc}
+.td-bar button.on{border-color:var(--gold);color:var(--gold)}
+.td-hint{text-align:center;font:9px 'Courier New',monospace;letter-spacing:2px;color:#555;padding:8px 0 0;text-transform:uppercase}
+@media(max-width:768px){#td-canvas{height:56vh;min-height:340px}}
 </style>
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three/three.module.js",
+  "three/addons/": "./vendor/three/addons/"
+}}
+</script>
 </head>
 <body>
 <header>
@@ -99,6 +117,7 @@ svg text{user-select:none}
 <button class="on" onclick="sf('main',this)">Main Floor</button>
 <button onclick="sf('upper',this)">Upper Floor</button>
 <button onclick="sf('renders',this)">Renders</button>
+<button onclick="sf('3d',this)">3D Model</button>
 <button class="on" id="bd" onclick="tg('dims',this)">Dimensions</button>
 <button class="on" id="bf" onclick="tg('fix',this)">Fixtures</button>
 <button id="bp" onclick="tg('pho',this)">Photos</button>
@@ -280,6 +299,20 @@ svg text{user-select:none}
 <div class="rd" onclick="sr('top','Aerial Top-Down')"><img src="renders/top.png" alt="Aerial Top-Down"><div class="cap2">Aerial Top-Down</div></div>
 </div>
 
+<!-- 3D PROCEDURAL MODEL -->
+<div class="td" id="td">
+<div id="td-canvas"><div class="td-load" id="td-load">Building procedural model&hellip;</div></div>
+<div class="td-bar">
+<button class="on" onclick="cam3('iso',this)">Iso</button>
+<button onclick="cam3('front',this)">Front</button>
+<button onclick="cam3('corner',this)">Garage</button>
+<button onclick="cam3('rear',this)">Rear</button>
+<button onclick="cam3('aerial',this)">Aerial</button>
+<button id="b-auto" onclick="autorot(this)">Auto-Rotate</button>
+</div>
+<div class="td-hint">Drag to orbit &bull; Scroll to zoom &bull; Right-drag to pan &bull; Code-only Three.js model built from the elevations</div>
+</div>
+
 <!-- PHOTO STRIP -->
 <div class="photo-strip" id="ps"></div>
 <div class="lb" id="lb" onclick="cl(event)">
@@ -344,12 +377,15 @@ function sp(n){cp=n;document.getElementById('li').src=D+'photo-'+String(n).padSt
 function cl(e){if(e&&(e.target.classList.contains('nv')||e.target.classList.contains('cx')))return;document.getElementById('lb').classList.remove('show')}
 function nv(d,e){if(e)e.stopPropagation();cp+=d;if(cp<1)cp=T;if(cp>T)cp=1;sp(cp)}
 document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='ArrowRight')nv(1);if(e.key==='ArrowLeft')nv(-1);if(e.key==='Escape')cl()});
-function sf(f,b){document.querySelectorAll('.ctrls button').forEach(x=>{if(['Both Floors','Main Floor','Upper Floor','Renders'].includes(x.textContent))x.classList.remove('on')});b.classList.add('on');const isR=f==='renders';document.querySelector('.plans').style.display=isR?'none':'';document.getElementById('rd').classList.toggle('show',isR);if(!isR){document.getElementById('fm').style.display=f==='upper'?'none':'';document.getElementById('fu').style.display=f==='main'?'none':''}}
+function sf(f,b){document.querySelectorAll('.ctrls button').forEach(x=>{if(['Both Floors','Main Floor','Upper Floor','Renders','3D Model'].includes(x.textContent))x.classList.remove('on')});b.classList.add('on');const isR=f==='renders',is3=f==='3d';document.querySelector('.plans').style.display=(isR||is3)?'none':'';document.getElementById('rd').classList.toggle('show',isR);document.getElementById('td').classList.toggle('show',is3);if(is3&&window.__init3D){window.__init3D()}if(!isR&&!is3){document.getElementById('fm').style.display=f==='upper'?'none':'';document.getElementById('fu').style.display=f==='main'?'none':''}}
+function cam3(v,b){document.querySelectorAll('.td-bar button').forEach(x=>{if(x.id!=='b-auto')x.classList.remove('on')});b.classList.add('on');if(window.__cam3D)window.__cam3D(v)}
+function autorot(b){if(window.__cam3D){b.classList.toggle('on',window.__cam3D('auto'))}}
 function sr(name,label){document.getElementById('li').src='renders/'+name+'.png';document.getElementById('lc').textContent=label;document.getElementById('lb').classList.add('show')}
 function tg(l,b){b.classList.toggle('on');const s=b.classList.contains('on');if(l==='pho'){ps.style.display=s?'flex':'none'}else{document.querySelectorAll(l==='dims'?'.dims':'.fix').forEach(g=>g.style.display=s?'':'none')}}
 ps.style.display='none';
 // Default to main floor only
 document.getElementById('fu').style.display='none';
 </script>
+<script type="module" src="house3d.js"></script>
 </body>
 </html>
