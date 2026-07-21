@@ -49,6 +49,37 @@ function nightstand(g, x, z) { g.add(b(1.6, 1.8, 1.4, x, 0.9, z, W)); g.add(cyl(
 function table(g, x, z, w, d) { const t = new THREE.Group(); t.add(b(w, 0.25, d, 0, 2.4, 0, W)); leg(t, null, w, d, 0, 0, 2.4); t.position.set(x, 0, z); g.add(t); }
 function chair(g, x, z, rot) { const c = new THREE.Group(); c.add(b(1.5, 0.25, 1.5, 0, 1.5, 0, W)); c.add(b(1.5, 2, 0.2, 0, 2.5, -0.65, W)); leg(c, null, 1.5, 1.5, 0, 0, 1.5); c.position.set(x, 0, z); c.rotation.y = rot || 0; g.add(c); }
 function stool(g, x, z) { g.add(cyl(0.7, 0.25, x, 2.6, z, W)); g.add(cyl(0.12, 2.5, x, 1.25, z, W2)); }
+function toilet(g, x, z, rot) { const t = new THREE.Group(); t.add(b(1.3, 1.2, 1.7, 0, 0.6, 0.1, W)); t.add(cyl(0.7, 0.5, 0, 1.05, 0.35, W, 16)); t.add(b(1.5, 1.9, 0.6, 0, 1.1, -0.75, W)); t.position.set(x, 0, z); t.rotation.y = rot || 0; g.add(t); }
+function vanity(g, x, z, len, rot) { const v = new THREE.Group(); v.add(b(2, 3, len, 0, 1.5, 0, W)); v.add(b(2.3, 0.35, len + 0.3, 0, 3.15, 0, W2)); const n = Math.max(1, Math.round(len / 4)); for (let i = 0; i < n; i++) { const zz = -len / 2 + (i + 0.5) * len / n; v.add(b(1.3, 0.18, 1.3, 0.1, 3.05, zz, W2)); v.add(b(0.15, 2.4, 1.6, 1.02, 6, zz, W)); } v.position.set(x, 0, z); v.rotation.y = rot || 0; g.add(v); }
+function alcove(g, x, z, rot) { const a = new THREE.Group(); a.add(b(3, 1.8, 6, 0, 0.9, 0, W)); a.add(b(3, 5, 0.3, 0, 3.5, -3, W)); a.add(b(0.3, 7, 6, -1.5, 3.5, 0, W)); a.add(b(0.12, 6, 6, 1.4, 3, 0, GL)); a.add(cyl(0.4, 0.15, 0, 6.4, -2.3, W)); a.position.set(x, 0, z); a.rotation.y = rot || 0; g.add(a); }
+function appliance(g, x, z) { g.add(b(2.6, 3.4, 2.6, x, 1.7, z, W)); const d = cyl(0.9, 0.2, x, 1.8, z + 1.35, W2, 18); d.rotation.x = Math.PI / 2; g.add(d); }
+function railingRun(g, x, z, len, rot) { const r = new THREE.Group(); r.add(b(len, 0.3, 0.3, 0, 3.2, 0, W)); r.add(b(len, 0.3, 0.3, 0, 0.3, 0, W)); const n = Math.round(len / 0.9); for (let i = 0; i <= n; i++) r.add(b(0.12, 3, 0.12, -len / 2 + i * len / n, 1.6, 0, W2)); r.position.set(x, 0, z); r.rotation.y = rot || 0; g.add(r); }
+function stairsUp(g, x, z, w, steps, rot) { const s = new THREE.Group(); for (let i = 0; i < steps; i++) s.add(b(w, 0.7, 1.2, 0, 0.35 + i * 0.75, i * 1.2, W)); s.position.set(x, 0, z); s.rotation.y = rot || 0; g.add(s); }
+
+// ---- exterior white massing (reuses the house factory's proportions) -------
+const RF = new THREE.MeshStandardMaterial({ color: 0xe0e0e0, roughness: 0.95, side: THREE.DoubleSide });
+function triMeshW(tris, m) { const p = []; for (const t of tris) for (const v of t) p.push(v[0], v[1], v[2]); const gg = new THREE.BufferGeometry(); gg.setAttribute('position', new THREE.Float32BufferAttribute(p, 3)); gg.computeVertexNormals(); const me = new THREE.Mesh(gg, m); me.castShadow = true; me.receiveShadow = true; return me; }
+function hipRoofW(w, d, rise, oh, m) { const Wd = w / 2 + oh, D = d / 2 + oh, aX = w >= d, RL = Math.abs(w - d) / 2; const e0 = [-Wd, 0, D], e1 = [Wd, 0, D], e2 = [Wd, 0, -D], e3 = [-Wd, 0, -D]; let r0, r1; if (aX) { r0 = [-RL, rise, 0]; r1 = [RL, rise, 0]; } else { r0 = [0, rise, RL]; r1 = [0, rise, -RL]; } return triMeshW([[e0, e1, r1], [e0, r1, r0], [e2, e3, r0], [e2, r0, r1], [e1, e2, r1], [e3, e0, r0]], m); }
+function gableRoofW(w, d, rise, oh, m) { const Wd = w / 2 + oh, D = d / 2 + oh; const lf = [-Wd, 0, D], lb = [-Wd, 0, -D], rf = [Wd, 0, D], rb = [Wd, 0, -D], tf = [0, rise, D], tb = [0, rise, -D]; return triMeshW([[lf, lb, tb], [lf, tb, tf], [rf, tf, tb], [rf, tb, rb]], m); }
+function buildExterior(g) {
+  const H2 = 18;
+  g.add(b(24, H2, 28, -4, H2 / 2, 0, W));                                        // main body
+  const mR = gableRoofW(24, 28, 8, 2.5, RF); mR.position.set(-4, H2, 0); g.add(mR);
+  g.add(triMeshW([[[-16, H2, 14], [8, H2, 14], [-4, H2 + 8, 14]]], W));
+  g.add(triMeshW([[[-16, H2, -14], [8, H2, -14], [-4, H2 + 8, -14]]], W));
+  for (const sx of [-1, 1]) { const bb = b(0.6, Math.hypot(12, 8), 0.5, -4 + sx * 6, H2 + 4, 14.2, W2); bb.rotation.z = sx * Math.atan2(12, 8); g.add(bb); }
+  g.add(b(14, 16, 26, 13, 8, 0, W)); const rR = hipRoofW(14, 26, 6, 2.2, RF); rR.position.set(13, 16, 0); g.add(rR);   // right wing
+  g.add(b(15, 10, 9, -7, 5, 18.5, W)); const lR = hipRoofW(15, 11, 4.5, 2.4, RF); lR.position.set(-7, 10, 18.5); g.add(lR); // living bay
+  g.add(b(22, 10.5, 20, -24, 5.25, 10, W)); const gR = hipRoofW(22, 20, 6, 2, RF); gR.position.set(-24, 10.5, 10); g.add(gR); // garage
+  g.add(b(4.5, 27, 5, 19, 13.5, 1, W)); g.add(b(5, 1, 5.5, 19, 27.5, 1, W2));    // chimney
+  g.add(b(15.3, 3.6, 9.3, -7, 1.8, 18.5, W2));                                    // stone bases
+  g.add(b(14.3, 3.6, 0.6, 13, 1.8, 13.15, W2));
+  g.add(b(22.3, 3.4, 20.3, -24, 1.7, 10, W2));
+  g.add(b(3.4, 6.8, 0.3, 3.5, 3.4, 14.15, W2));                                   // door
+  const win = (x, y, z, w, h) => g.add(b(w, h, 0.25, x, y, z, GL));
+  win(-4, 13.2, 14.15, 9, 4.6); win(-7, 6.4, 23.05, 10, 4.2); win(13, 6.6, 13.15, 8, 5.6); win(13, 12.6, 13.15, 4.5, 4);
+  g.add(b(13, 7.2, 0.4, -28, 4.4, 20.15, W2)); g.add(b(7, 7.2, 0.4, -16.5, 4.4, 20.15, W2)); // garage doors
+}
 
 // ---- rooms -----------------------------------------------------------------
 const ROOMS = [
@@ -130,6 +161,29 @@ const ROOMS = [
       g.add(b(6, 7, 1.4, 4, 3.5, -4.5, W));                                        // bookshelf
       for (let i = 0; i < 4; i++) g.add(b(5.6, 0.15, 1.2, 4, 1.2 + i * 1.7, -4.4, W2));
     } },
+  { key: 'bath3', name: 'Bath 3', w: 9, d: 9, h: 9, cam: [10, 8, 12],
+    build(g) { g.add(b(9, 0.3, 9, 0, 9, 0, W)); alcove(g, -2.4, -2, 0); vanity(g, 3.5, 1.5, 4, -Math.PI / 2); toilet(g, 2.8, -3.4, -Math.PI / 2); } },
+  { key: 'laundry', name: 'Laundry', w: 9, d: 8, h: 9, cam: [10, 8, 12],
+    build(g) { g.add(b(9, 0.3, 8, 0, 9, 0, W)); appliance(g, -2.6, -2.4); appliance(g, 0.4, -2.4); g.add(b(9, 0.35, 2.4, 0, 3.6, -2.6, W2)); g.add(b(9, 2, 1.5, 0, 7.6, -2.9, W)); g.add(b(2.6, 3, 2.4, 3.2, 1.5, 1.5, W)); g.add(b(2.8, 0.3, 2.6, 3.2, 3.15, 1.5, W2)); } },
+  { key: 'halfbath', name: 'Half Bath', w: 6, d: 7, h: 9, cam: [8, 7, 10],
+    build(g) { g.add(b(6, 0.3, 7, 0, 9, 0, W)); vanity(g, -1.8, -2, 3, 0); toilet(g, 1.6, 1.8, Math.PI); } },
+  { key: 'foyer', name: 'Entry / Foyer', w: 11, d: 13, h: 17, cam: [14, 12, 17],
+    build(g) { const s1 = b(15, 0.3, 22, 0, 0, 0, W); s1.position.set(-2.6, 15.5, 0); s1.rotation.z = 0.72; g.add(s1); const s2 = b(15, 0.3, 22, 0, 0, 0, W); s2.position.set(6.6, 15.5, 0); s2.rotation.z = -0.72; g.add(s2);
+      g.add(b(3.6, 7, 0.3, -3, 3.5, -6.3, W2));                                    // front door
+      stairsUp(g, 4, -5.5, 4.5, 12, 0); railingRun(g, 1.4, 1, 9, 0);
+      g.add(b(4, 0.25, 1.4, -3.5, 2.7, 4.5, W)); leg(g, null, 4, 1.4, -3.5, 4.5, 2.7); } },
+  { key: 'closet', name: 'Master Closet', w: 10, d: 9, h: 9, cam: [11, 8, 12],
+    build(g) { g.add(b(10, 0.3, 9, 0, 9, 0, W)); g.add(b(10, 7, 1.4, 0, 4, -3.8, W)); g.add(b(1.4, 7, 9, -4.3, 4, 0, W));
+      for (let i = 0; i < 4; i++) { g.add(b(9.6, 0.15, 1.2, 0, 1.5 + i * 1.7, -3.7, W2)); g.add(b(1.2, 0.15, 8.6, -4.2, 1.5 + i * 1.7, 0, W2)); }
+      g.add(b(3.5, 2.8, 5, 1.5, 1.4, 1, W)); g.add(b(3.7, 0.3, 5.2, 1.5, 3, 1, W2)); } },
+  { key: 'bath2', name: 'Bath 2', w: 9, d: 9, h: 9, cam: [10, 8, 12],
+    build(g) { g.add(b(9, 0.3, 9, 0, 9, 0, W)); alcove(g, -2.4, -2, 0); vanity(g, 3.5, 1.5, 4, -Math.PI / 2); toilet(g, 2.8, -3.4, -Math.PI / 2); } },
+  { key: 'hall', name: 'Upper Hall', w: 14, d: 8, h: 9, cam: [15, 10, 15],
+    build(g) { g.add(b(14, 0.3, 8, 0, 9, 0, W)); railingRun(g, 0, 2.6, 12, 0); g.add(b(3, 7, 1.2, -5, 3.5, -3.4, W)); } },
+  { key: 'garage', name: 'Garage', w: 22, d: 20, h: 10.5, cam: [22, 13, 24],
+    build(g) { g.add(b(22, 0.3, 20, 0, 10.5, 0, W)); g.add(b(13, 7.2, 0.4, -4, 4.4, 9.6, W2)); g.add(b(7, 7.2, 0.4, 7, 4.4, 9.6, W2));
+      g.add(b(5.4, 3.6, 11, -4, 1.8, -1, W)); g.add(b(5.4, 3.6, 11, 7, 1.8, -1, W)); } },
+  { key: 'exterior', name: 'Exterior (House)', noShell: true, h: 30, cam: [56, 34, 64], tgt: [-2, 9, 4], build: buildExterior },
 ];
 
 // ---------------------------------------------------------------------------
@@ -139,11 +193,11 @@ let started = false, current = null, scene, camera, controls, renderer;
 function buildRoom(def) {
   if (current) { scene.remove(current); current.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
   const g = new THREE.Group();
-  shell(g, def.w, def.d, def.h);
+  if (!def.noShell) shell(g, def.w, def.d, def.h);
   def.build(g);
   g.position.y = 0; scene.add(g); current = g;
   camera.position.set(...def.cam);
-  controls.target.set(0, def.h * 0.35, 0); controls.update();
+  controls.target.set(...(def.tgt || [0, def.h * 0.35, 0])); controls.update();
 }
 
 function initScene(container) {
@@ -166,7 +220,7 @@ function initScene(container) {
   camera = new THREE.PerspectiveCamera(40, 1, 0.5, 1000);
   controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true; controls.dampingFactor = 0.08;
-  controls.minDistance = 10; controls.maxDistance = 90; controls.maxPolarAngle = Math.PI * 0.5;
+  controls.minDistance = 8; controls.maxDistance = 180; controls.maxPolarAngle = Math.PI * 0.5;
   controls.autoRotateSpeed = 0.7;
 
   scene.add(new THREE.HemisphereLight(0xffffff, 0xc4c8ce, 1.15));
