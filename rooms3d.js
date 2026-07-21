@@ -69,16 +69,22 @@ function buildExterior(g) {
   g.add(triMeshW([[[-16, H2, -14], [8, H2, -14], [-4, H2 + 8, -14]]], W));
   for (const sx of [-1, 1]) { const bb = b(0.6, Math.hypot(12, 8), 0.5, -4 + sx * 6, H2 + 4, 14.2, W2); bb.rotation.z = sx * Math.atan2(12, 8); g.add(bb); }
   g.add(b(14, 16, 26, 13, 8, 0, W)); const rR = hipRoofW(14, 26, 6, 2.2, RF); rR.position.set(13, 16, 0); g.add(rR);   // right wing
-  g.add(b(15, 10, 9, -7, 5, 18.5, W)); const lR = hipRoofW(15, 11, 4.5, 2.4, RF); lR.position.set(-7, 10, 18.5); g.add(lR); // living bay
-  g.add(b(22, 10.5, 20, -24, 5.25, 10, W)); const gR = hipRoofW(22, 20, 6, 2, RF); gR.position.set(-24, 10.5, 10); g.add(gR); // garage
+  // 3-car garage: low hip mass projecting out front-left (2-car double + 1-car single)
+  g.add(b(27, 10.5, 22, -17, 5.25, 11, W)); const gR = hipRoofW(27, 22, 6.5, 2.2, RF); gR.position.set(-17, 10.5, 11); g.add(gR);
+  g.add(b(27.3, 3.6, 22.3, -17, 1.8, 11, W2));                                    // garage stone base
   g.add(b(4.5, 27, 5, 19, 13.5, 1, W)); g.add(b(5, 1, 5.5, 19, 27.5, 1, W2));    // chimney
-  g.add(b(15.3, 3.6, 9.3, -7, 1.8, 18.5, W2));                                    // stone bases
-  g.add(b(14.3, 3.6, 0.6, 13, 1.8, 13.15, W2));
-  g.add(b(22.3, 3.4, 20.3, -24, 1.7, 10, W2));
-  g.add(b(3.4, 6.8, 0.3, 3.5, 3.4, 14.15, W2));                                   // door
+  g.add(b(14.3, 3.6, 0.6, 13, 1.8, 13.15, W2));                                   // right-wing stone base
+  g.add(b(3.4, 6.8, 0.3, 3.5, 3.4, 14.15, W2));                                   // front door
   const win = (x, y, z, w, h) => g.add(b(w, h, 0.25, x, y, z, GL));
-  win(-4, 13.2, 14.15, 9, 4.6); win(-7, 6.4, 23.05, 10, 4.2); win(13, 6.6, 13.15, 8, 5.6); win(13, 12.6, 13.15, 4.5, 4);
-  g.add(b(13, 7.2, 0.4, -28, 4.4, 20.15, W2)); g.add(b(7, 7.2, 0.4, -16.5, 4.4, 20.15, W2)); // garage doors
+  win(-4, 13.2, 14.15, 9, 4.6); win(13, 6.6, 13.15, 8, 5.6); win(13, 12.6, 13.15, 4.5, 4);
+  // garage doors on the front face (z=22): double (2-car) + single (1-car) = 3-car
+  const gz = 22.15;
+  for (const [dx, dw, nc] of [[-22.5, 15, 4], [-9, 8, 2]]) {
+    g.add(b(dw, 7.6, 0.4, dx, 4.5, gz, W2));
+    for (let r = 0; r < 4; r++) g.add(b(dw - 0.6, 0.12, 0.06, dx, 1.6 + r * 1.6, gz + 0.22, W));
+    for (let c = 1; c < nc; c++) g.add(b(0.15, 7, 0.06, dx - dw / 2 + c * dw / nc, 4.5, gz + 0.22, W));
+    for (let c = 0; c < nc; c++) g.add(b(dw / nc - 0.7, 0.8, 0.05, dx - dw / 2 + (c + 0.5) * dw / nc, 7.4, gz + 0.2, GL));
+  }
 }
 
 // ---- rooms -----------------------------------------------------------------
@@ -180,10 +186,13 @@ const ROOMS = [
     build(g) { g.add(b(9, 0.3, 9, 0, 9, 0, W)); alcove(g, -2.4, -2, 0); vanity(g, 3.5, 1.5, 4, -Math.PI / 2); toilet(g, 2.8, -3.4, -Math.PI / 2); } },
   { key: 'hall', name: 'Upper Hall', w: 14, d: 8, h: 9, cam: [15, 10, 15],
     build(g) { g.add(b(14, 0.3, 8, 0, 9, 0, W)); railingRun(g, 0, 2.6, 12, 0); g.add(b(3, 7, 1.2, -5, 3.5, -3.4, W)); } },
-  { key: 'garage', name: 'Garage', w: 22, d: 20, h: 10.5, cam: [22, 13, 24],
-    build(g) { g.add(b(22, 0.3, 20, 0, 10.5, 0, W)); g.add(b(13, 7.2, 0.4, -4, 4.4, 9.6, W2)); g.add(b(7, 7.2, 0.4, 7, 4.4, 9.6, W2));
-      g.add(b(5.4, 3.6, 11, -4, 1.8, -1, W)); g.add(b(5.4, 3.6, 11, 7, 1.8, -1, W)); } },
-  { key: 'exterior', name: 'Exterior (House)', noShell: true, h: 30, cam: [56, 34, 64], tgt: [-2, 9, 4], build: buildExterior },
+  { key: 'garage', name: 'Garage (3-Car)', w: 24, d: 20, h: 10.5, cam: [15, 12, 26], tgt: [0, 4, 2],
+    build(g) { g.add(b(24, 0.3, 20, 0, 10.5, 0, W));
+      g.add(b(15, 7.6, 0.4, -5.5, 4.4, 9.8, W2)); g.add(b(8, 7.6, 0.4, 7.5, 4.4, 9.8, W2));  // double + single door
+      g.add(b(0.3, 7.6, 0.5, -5.5, 4.4, 9.95, W));                                            // center mullion → 2 bays
+      for (const [dx, dw, nc] of [[-5.5, 15, 4], [7.5, 8, 2]]) for (let c = 0; c < nc; c++) g.add(b(dw / nc - 0.7, 0.8, 0.06, dx - dw / 2 + (c + 0.5) * dw / nc, 7.3, 9.95, GL));
+      g.add(b(5.4, 3.4, 11, -9, 1.7, -1, W)); g.add(b(5.4, 3.4, 11, -2, 1.7, -1, W)); g.add(b(5.4, 3.4, 11, 7.5, 1.7, -1, W)); } },  // 3 cars
+  { key: 'exterior', name: 'Exterior (House)', noShell: true, h: 30, cam: [-38, 22, 68], tgt: [-10, 8, 12], build: buildExterior },
 ];
 
 // ---------------------------------------------------------------------------
