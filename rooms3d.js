@@ -63,28 +63,29 @@ function hipRoofW(w, d, rise, oh, m) { const Wd = w / 2 + oh, D = d / 2 + oh, aX
 function gableRoofW(w, d, rise, oh, m) { const Wd = w / 2 + oh, D = d / 2 + oh; const lf = [-Wd, 0, D], lb = [-Wd, 0, -D], rf = [Wd, 0, D], rb = [Wd, 0, -D], tf = [0, rise, D], tb = [0, rise, -D]; return triMeshW([[lf, lb, tb], [lf, tb, tf], [rf, tf, tb], [rf, tb, rb]], m); }
 function buildExterior(g) {
   const H2 = 18;
-  g.add(b(24, H2, 28, -4, H2 / 2, 0, W));                                        // main body
-  const mR = gableRoofW(24, 28, 8, 2.5, RF); mR.position.set(-4, H2, 0); g.add(mR);
-  g.add(triMeshW([[[-16, H2, 14], [8, H2, 14], [-4, H2 + 8, 14]]], W));
-  g.add(triMeshW([[[-16, H2, -14], [8, H2, -14], [-4, H2 + 8, -14]]], W));
-  for (const sx of [-1, 1]) { const bb = b(0.6, Math.hypot(12, 8), 0.5, -4 + sx * 6, H2 + 4, 14.2, W2); bb.rotation.z = sx * Math.atan2(12, 8); g.add(bb); }
-  g.add(b(14, 16, 26, 13, 8, 0, W)); const rR = hipRoofW(14, 26, 6, 2.2, RF); rR.position.set(13, 16, 0); g.add(rR);   // right wing
-  // 3-car garage: low hip mass projecting out front-left (2-car double + 1-car single)
-  g.add(b(27, 10.5, 22, -17, 5.25, 11, W)); const gR = hipRoofW(27, 22, 6.5, 2.2, RF); gR.position.set(-17, 10.5, 11); g.add(gR);
-  g.add(b(27.3, 3.6, 22.3, -17, 1.8, 11, W2));                                    // garage stone base
-  g.add(b(4.5, 27, 5, 19, 13.5, 1, W)); g.add(b(5, 1, 5.5, 19, 27.5, 1, W2));    // chimney
-  g.add(b(14.3, 3.6, 0.6, 13, 1.8, 13.15, W2));                                   // right-wing stone base
-  g.add(b(3.4, 6.8, 0.3, 3.5, 3.4, 14.15, W2));                                   // front door
-  const win = (x, y, z, w, h) => g.add(b(w, h, 0.25, x, y, z, GL));
-  win(-4, 13.2, 14.15, 9, 4.6); win(13, 6.6, 13.15, 8, 5.6); win(13, 12.6, 13.15, 4.5, 4);
-  // garage doors on the front face (z=22): double (2-car) + single (1-car) = 3-car
-  const gz = 22.15;
-  for (const [dx, dw, nc] of [[-22.5, 15, 4], [-9, 8, 2]]) {
-    g.add(b(dw, 7.6, 0.4, dx, 4.5, gz, W2));
-    for (let r = 0; r < 4; r++) g.add(b(dw - 0.6, 0.12, 0.06, dx, 1.6 + r * 1.6, gz + 0.22, W));
-    for (let c = 1; c < nc; c++) g.add(b(0.15, 7, 0.06, dx - dw / 2 + c * dw / nc, 4.5, gz + 0.22, W));
-    for (let c = 0; c < nc; c++) g.add(b(dw / nc - 0.7, 0.8, 0.05, dx - dw / 2 + (c + 0.5) * dw / nc, 7.4, gz + 0.2, GL));
+  // MAIN BODY — the street-facing bar of the L (front faces +Z, at z = 12)
+  g.add(b(26, H2, 28, 9, H2 / 2, -2, W));
+  const mR = gableRoofW(26, 28, 8, 2.5, RF); mR.position.set(9, H2, -2); g.add(mR);
+  g.add(triMeshW([[[-4, H2, 12], [22, H2, 12], [9, H2 + 8, 12]]], W));            // front gable
+  g.add(triMeshW([[[-4, H2, -16], [22, H2, -16], [9, H2 + 8, -16]]], W));
+  for (const sx of [-1, 1]) { const bb = b(0.6, Math.hypot(13, 8), 0.5, 9 + sx * 6.5, H2 + 4, 12.2, W2); bb.rotation.z = sx * Math.atan2(13, 8); g.add(bb); }
+  g.add(b(4.5, H2 + 9, 5, 21, (H2 + 9) / 2, -4, W)); g.add(b(5, 1, 5.5, 21, H2 + 9, -4, W2)); // chimney
+  // GARAGE WING — the forward leg of the L; DOORS FACE +X, i.e. 90° from the front
+  g.add(b(22, 10.5, 30, -15, 5.25, 19, W));
+  const gR = hipRoofW(22, 30, 6.5, 2.4, RF); gR.position.set(-15, 10.5, 19); g.add(gR);
+  g.add(b(22.3, 3.6, 30.3, -15, 1.8, 19, W2));                                    // garage stone base
+  const gx = -3.85;                                                               // right (court-facing) face of the wing
+  for (const [dz, dw, nc] of [[17, 15, 4], [28, 8, 2]]) {                         // double (2-car) + single (1-car) = 3-car
+    g.add(b(0.4, 7.6, dw, gx, 4.5, dz, W2));
+    for (let r = 0; r < 4; r++) g.add(b(0.06, 0.12, dw - 0.6, gx + 0.22, 1.6 + r * 1.6, dz, W));
+    for (let c = 1; c < nc; c++) g.add(b(0.06, 7, 0.15, gx + 0.22, 4.5, dz - dw / 2 + c * dw / nc, W));
+    for (let c = 0; c < nc; c++) g.add(b(0.05, 0.8, dw / nc - 0.7, gx + 0.2, 7.4, dz - dw / 2 + (c + 0.5) * dw / nc, GL));
   }
+  // ENTRY + windows on the house front (+Z at z = 12)
+  g.add(b(14.3, 3.6, 0.6, 15, 1.8, 12.15, W2));                                   // great-room stone base
+  g.add(b(3.4, 6.8, 0.3, 4, 3.4, 12.15, W2));                                     // front door
+  const win = (x, y, z, w, h) => g.add(b(w, h, 0.25, x, y, z, GL));
+  win(9, 13.2, 12.15, 9, 4.6); win(15, 6.6, 12.15, 8, 5.6); win(15, 12.6, 12.15, 4.5, 4);
 }
 
 // ---- rooms -----------------------------------------------------------------
@@ -192,7 +193,7 @@ const ROOMS = [
       g.add(b(0.3, 7.6, 0.5, -5.5, 4.4, 9.95, W));                                            // center mullion → 2 bays
       for (const [dx, dw, nc] of [[-5.5, 15, 4], [7.5, 8, 2]]) for (let c = 0; c < nc; c++) g.add(b(dw / nc - 0.7, 0.8, 0.06, dx - dw / 2 + (c + 0.5) * dw / nc, 7.3, 9.95, GL));
       g.add(b(5.4, 3.4, 11, -9, 1.7, -1, W)); g.add(b(5.4, 3.4, 11, -2, 1.7, -1, W)); g.add(b(5.4, 3.4, 11, 7.5, 1.7, -1, W)); } },  // 3 cars
-  { key: 'exterior', name: 'Exterior (House)', noShell: true, h: 30, cam: [-38, 22, 68], tgt: [-10, 8, 12], build: buildExterior },
+  { key: 'exterior', name: 'Exterior (House)', noShell: true, h: 30, cam: [54, 30, 58], tgt: [-2, 8, 16], build: buildExterior },
 ];
 
 // ---------------------------------------------------------------------------
