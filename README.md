@@ -8,6 +8,7 @@ A static, single-page site for 3986 Voelker Ct, Park City, UT 84098. It renders 
 
 | Path | What it is |
 |------|------------|
+| `walk.html` | First-person walkthrough. Every room to scale from the sheets, both floors, garage, yard and driveway; each room hangs its own listing photo. |
 | `index.html` | The whole site: inline SVG main + upper floor plans, view/layer toggles, photo and render lightbox, info panels. |
 | `blueprints/` | The architectural sheets: first floor, upper floor, foundation, all four elevations, plus current exterior and garage photos. Source of every dimension on the drawn plans. |
 | `renders/` | 4 marketing renders: `front.png`, `iso-br.png`, `iso-fr.png`, `top.png`. |

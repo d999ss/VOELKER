@@ -26,6 +26,9 @@ header h2{font-size:12px;color:var(--dim);letter-spacing:2px;font-weight:400;mar
   font:10px/1 'Courier New',monospace;letter-spacing:1px;cursor:pointer;transition:.15s}
 .ctrls button:hover{border-color:#666;color:#ccc}
 .ctrls button.on{border-color:var(--gold);color:var(--gold)}
+.ctrls .walk{background:0;border:1px solid var(--gold);color:var(--gold);padding:5px 14px;
+  font:10px/1 'Courier New',monospace;letter-spacing:1px;text-decoration:none;display:inline-flex;align-items:center}
+.ctrls .walk:hover{background:rgba(210,166,44,.12)}
 
 /* ---------- plans ---------- */
 .plans{display:flex;justify-content:center;align-items:flex-start;gap:40px;padding:0 20px 24px;flex-wrap:wrap}
@@ -129,6 +132,7 @@ svg text{user-select:none}
   <button data-floor="upper">Upper Floor</button>
   <button data-floor="renders">Renders</button>
   <button data-floor="blueprints">Blueprints</button>
+  <a class="walk" href="walk.html">Walk Through &rarr;</a>
   <div class="sep"></div>
   <button data-layer="dims" class="on">Dimensions</button>
   <button data-layer="fix" class="on">Fixtures</button>

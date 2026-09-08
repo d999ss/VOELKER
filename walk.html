@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3986 Voelker Ct — Walk Through</title>
+<style>
+:root{--gold:#D2A62C;--bg:#0d0d13;--txt:#c0c0c0;--dim:#666}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--txt);font-family:'Courier New',monospace}
+canvas{display:block}
+
+.hud{position:fixed;inset:0;pointer-events:none;z-index:10}
+.hud .top{position:absolute;top:14px;left:0;right:0;text-align:center}
+.hud h1{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:400}
+.room{position:absolute;bottom:70px;left:0;right:0;text-align:center;font-size:15px;
+  letter-spacing:5px;text-transform:uppercase;color:#e8e2d4;text-shadow:0 1px 6px #000}
+.floor{position:absolute;bottom:50px;left:0;right:0;text-align:center;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.8}
+.keys{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:9px;
+  letter-spacing:2px;color:#5a5a66}
+.cross{position:absolute;top:50%;left:50%;width:3px;height:3px;margin:-1.5px 0 0 -1.5px;
+  border-radius:50%;background:#fff;opacity:.35}
+.back{position:absolute;top:14px;left:16px;font-size:9px;letter-spacing:2px;color:#5a5a66;
+  text-decoration:none;pointer-events:auto;border:1px solid #2a2a3a;padding:5px 11px}
+.back:hover{color:var(--gold);border-color:var(--gold)}
+.btns{position:absolute;top:14px;right:16px;display:flex;gap:6px;pointer-events:auto}
+.btns button{background:0;border:1px solid #2a2a3a;color:#5a5a66;padding:5px 11px;
+  font:9px/1 'Courier New',monospace;letter-spacing:2px;cursor:pointer}
+.btns button:hover{color:var(--gold);border-color:var(--gold)}
+.btns button.on{color:var(--gold);border-color:var(--gold)}
+
+.gate{position:fixed;inset:0;z-index:20;background:rgba(9,9,14,.94);display:flex;
+  flex-direction:column;justify-content:center;align-items:center;cursor:pointer;text-align:center;padding:24px}
+.gate.hide{display:none}
+.gate h2{font-size:15px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.gate p{font-size:10px;letter-spacing:2px;color:var(--dim);line-height:2.1;max-width:460px}
+.gate .go{margin-top:26px;border:1px solid var(--gold);color:var(--gold);padding:11px 30px;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase}
+.gate small{display:block;margin-top:22px;font-size:9px;color:#3f3f4a;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div class="hud">
+  <div class="top"><h1>3986 Voelker Ct</h1></div>
+  <a class="back" href="index.html">&larr; Floor Plans</a>
+  <div class="btns">
+    <button id="bAerial">Aerial</button>
+    <button id="bDoors" class="on">Roof</button>
+  </div>
+  <div class="cross"></div>
+  <div class="room" id="room"></div>
+  <div class="floor" id="flr"></div>
+  <div class="keys">W A S D MOVE &bull; MOUSE LOOK &bull; SHIFT RUN &bull; ESC RELEASE</div>
+</div>
+
+<div class="gate" id="gate">
+  <h2>Walk the property</h2>
+  <p>
+    Built to the architectural sheets: 42'-10" x 61'-0&frac12;" footprint,
+    9'-1" main plate, 22'-1" x 35'-4" garage.<br>
+    Start on the driveway. Front door is up the steps to your right;
+    the garage doors are on the wall beside you.
+  </p>
+  <div class="go">Click to enter</div>
+  <small>W A S D or arrows to move &bull; mouse to look &bull; shift to run &bull; esc to release the cursor</small>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+/* ============================================================
+   All geometry is in FEET, taken from blueprints/first-floor.jpg,
+   first-floor-dims.jpg, first-floor-garage.jpg and upper-floor.jpg.
+     plan origin (px 40,50) = world (0,0)
+     x runs east across the front of the house  (0 -> 42.8)
+     z runs south from the backyard to the street (0 -> 61.0)
+     y is up.  Main plate 9.1'  upper plate 8.0'  garage plate 9.6'
+   ============================================================ */
+
+const W = 42.8, D_BODY = 25.7, D_TOT = 61.0;      // overall width / body depth / total depth
+const GAR_W = 21.7, GAR_Z0 = 25.7, GAR_Z1 = 61.0; // garage 22'-1" x 35'-4"
+const UP_W = 22.2, UP_Z1 = 46.7;                  // upper floor 22'-2" wide
+const H1 = 9.1, H2 = 8.0, HG = 9.6;               // plate heights
+const SLAB = 1.0;                                  // floor thickness
+const Y2 = H1 + SLAB;                              // upper floor level = 10.1
+const T = 0.42;                                    // interior wall thickness
+const TE = 0.62;                                   // exterior wall thickness
+
+const MAIN_ROOMS = [
+  ['Bedroom 4',   0.2,  0.2, 14.5, 12.9, 'carpet'],
+  ['Bath 3',      0.2, 12.9,  9.2, 18.5, 'tile'],
+  ['Laundry',     0.2, 18.5,  9.2, 25.5, 'tile'],
+  ['Mud Room',    9.2, 18.5, 14.5, 25.5, 'tile'],
+  ['Kitchen',    14.5,  0.2, 27.0, 13.5, 'tile'],
+  ['Stairs',     14.5, 13.5, 20.7, 22.5, 'wood'],
+  ['Mechanical', 14.5, 22.7, 20.7, 25.5, 'conc'],
+  ['Hall',       20.7, 13.5, 27.0, 18.0, 'wood'],
+  ['Entry',      20.7, 18.0, 27.0, 25.5, 'tile'],
+  ['Dining Room',27.0,  0.2, 42.6, 13.2, 'carpet'],
+  ['Living Room',27.0, 13.2, 42.6, 25.5, 'carpet'],
+  ['Garage',      0.2, 25.9, 21.5, 60.8, 'conc'],
+];
+
+const UPPER_ROOMS = [
+  ['Bedroom 3',      0.2,  0.2, 13.0, 15.9, 'carpet'],
+  ['Bath 2',        13.0,  0.2, 22.0,  9.0, 'tile'],
+  ['Landing',       13.0,  9.0, 22.0, 15.9, 'wood'],
+  ['Master Bath',    0.2, 15.9, 13.0, 29.2, 'tile'],
+  ['Walk-In Closet',13.0, 15.9, 22.0, 29.2, 'carpet'],
+  ['Master Bedroom', 0.2, 29.2, 22.0, 42.3, 'carpet'],
+  ['Upper Deck',     0.2, 42.3, 22.0, 46.7, 'wood'],
+];
+
+/* wall runs: [axis, fixed, from, to, height, base, thickness, holes]
+   axis 'x' = the wall lies along x at z = fixed;  'z' = along z at x = fixed.
+   holes: [along0, along1, y0, y1] cut out of the run.                     */
+const DOOR = (a, b) => [a, b, 0, 6.8];
+const WIN  = (a, b, sill = 2.6, head = 7.2) => [a, b, sill, head];
+
+const H_WING = 11.45;                              // 11'-5 3/8" eave on the east wing
+const YT = H1 + SLAB;                              // exterior wall of the two-storey block meets the upper wall
+
+/* wall runs: [axis, fixed, from, to, height, base, thickness, holes, cladSign]
+   axis 'x' = wall lies along x at z = fixed;  'z' = along z at x = fixed.
+   cladSign: 0 interior, +1 dark siding on the + side, -1 on the - side.       */
+const MAIN_WALLS = [
+  // ---- exterior, two-storey block (x 0 -> 22.2) ----
+  ['x',  0.0,   0.0, UP_W,   YT, 0, TE, [WIN(4,10), WIN(18.5,22.0)], -1],            // N: 6050 XO, kitchen bay
+  ['z',  0.0,   0.0, UP_Z1,  YT, 0, TE, [WIN(4,9), WIN(14.2,16.2), WIN(19.8,21.8)], -1],
+  ['z',  GAR_W, GAR_Z0, UP_Z1, YT, 0, TE, [DOOR(27.5,36.5), DOOR(37.3,46.0)], 1],    // garage E, 9' + start of 16'
+  // ---- exterior, east wing (x 22.2 -> 42.8), taller plate, living room vaults into it ----
+  ['x',  0.0,   UP_W, W,  H_WING, 0, TE, [WIN(22.5,25.5), DOOR(31,38), DOOR(27.6,30.2)], -1],
+  ['z',  W,     0.0, D_BODY, H_WING, 0, TE, [WIN(2,5), WIN(15,23.5)], 1],
+  ['x',  D_BODY, GAR_W, W, H_WING, 0, TE, [DOOR(22.5,25.5)], 1],                     // front door wall
+  // ---- exterior, garage tail (z 46.7 -> 61.0) ----
+  ['z',  0.0,   UP_Z1, GAR_Z1, HG, 0, TE, [], -1],
+  ['z',  GAR_W, UP_Z1, GAR_Z1, HG, 0, TE, [DOOR(46.0,53.3)], 1],                     // rest of the 16' door
+  ['x',  GAR_Z1, 0.0, GAR_W, HG, 0, TE, [], 1],
+  // ---- interior ----
+  ['z', 14.5,  0.2, 12.9, H1, 0, T, [DOOR(9.5,12.2)], 0],
+  ['x', 12.9,  0.2, 14.5, H1, 0, T, [], 0],
+  ['z',  9.2, 12.9, 25.5, H1, 0, T, [DOOR(13.6,16.0), DOOR(19.5,22.0)], 0],
+  ['x', 18.5,  0.2,  9.2, H1, 0, T, [], 0],
+  ['x', 18.5,  9.2, 14.5, H1, 0, T, [DOOR(10.0,12.7)], 0],
+  ['z', 14.5, 12.9, 25.7, H1, 0, T, [DOOR(14.5,17.5), DOOR(20.0,23.0)], 0],
+  ['x', 13.5, 14.5, 20.7, H1, 0, T, [DOOR(15.5,19.5)], 0],
+  ['z', 20.7, 13.5, 25.7, H1, 0, T, [DOOR(14.0,17.0), DOOR(23.2,25.2)], 0],
+  ['x', 18.0, 20.7, 27.0, H1, 0, T, [DOOR(21.4,24.6)], 0],
+  ['x', 22.7, 14.5, 20.7, H1, 0, T, [], 0],
+  ['z', 27.0, 13.2, 25.7, H1, 0, T, [DOOR(14.0,17.5), DOOR(19.5,24.5)], 0],
+  ['x', D_BODY, 0.0, GAR_W, YT, 0, TE, [DOOR(10.5,13.3)], 0],   // house / garage
+];
+
+const UPPER_WALLS = [
+  ['x',  0.0,  0.0, UP_W, H2, Y2, TE, [WIN(3,8), WIN(15,20)], -1],
+  ['z',  UP_W, 0.0, UP_Z1, H2, Y2, TE, [WIN(2,6), WIN(30,34), WIN(35.5,39.5)], 1],
+  ['z',  0.0,  0.0, UP_Z1, H2, Y2, TE, [WIN(4,9), WIN(19,24), WIN(31,36)], -1],
+  ['x',  42.3, 0.0, UP_W, H2, Y2, TE, [DOOR(8,14)], 1],          // master -> deck, 6000 SGD
+  ['x',  UP_Z1, 0.0, UP_W, 3.2, Y2, 0.3, [], 1],                 // deck rail
+  ['z', 13.0,  0.2, 29.2, H2, Y2, T, [DOOR(10.0,13.0), DOOR(17.0,20.0)], 0],
+  ['x',  9.0, 13.0, 22.0, H2, Y2, T, [DOOR(15.0,18.0)], 0],
+  ['x', 15.9,  0.2, 13.0, H2, Y2, T, [DOOR(4.0,7.0)], 0],
+  ['x', 15.9, 13.0, 22.0, H2, Y2, T, [DOOR(14.0,17.0)], 0],
+  ['x', 29.2,  0.2, 22.0, H2, Y2, T, [DOOR(6.0,9.5), DOOR(15.5,18.5)], 0],
+];
+
+/* stair run: x 14.5 -> 20.7, from z 22.5 (bottom, main) to z 13.5 (top, upper) */
+const ST = { x0: 14.5, x1: 20.7, zBot: 22.5, zTop: 13.5, rise: Y2 };
+
+/* ============================================================ */
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x8fa8bd);
+scene.fog = new THREE.Fog(0x8fa8bd, 90, 260);
+
+const camera = new THREE.PerspectiveCamera(72, innerWidth / innerHeight, 0.05, 900);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+document.body.appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xcfe0f0, 0x6a6255, 2.2));
+scene.add(new THREE.AmbientLight(0xfff4e6, 0.55));
+const sun = new THREE.DirectionalLight(0xfff2df, 2.5);
+sun.position.set(-60, 78, -46);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+const sc = sun.shadow.camera;
+sc.left = -80; sc.right = 80; sc.top = 80; sc.bottom = -80; sc.near = 1; sc.far = 260;
+scene.add(sun);
+
+const M = {
+  siding:  new THREE.MeshStandardMaterial({ color: 0x1c1e21, roughness: .93 }),
+  stone:   new THREE.MeshStandardMaterial({ color: 0xa9977c, roughness: 1 }),
+  roof:    new THREE.MeshStandardMaterial({ color: 0x26262b, roughness: .95, side: THREE.DoubleSide }),
+  trim:    new THREE.MeshStandardMaterial({ color: 0x121214, roughness: .8 }),
+  inner:   new THREE.MeshStandardMaterial({ color: 0xd6d1c6, roughness: .96 }),
+  glass:   new THREE.MeshPhysicalMaterial({ color: 0xbdd6e6, roughness: .07, metalness: 0,
+             transmission: .92, thickness: .12, transparent: true, opacity: .5 }),
+  door:    new THREE.MeshStandardMaterial({ color: 0x8f1d18, roughness: .6 }),
+  garaged: new THREE.MeshStandardMaterial({ color: 0x1a1a1d, roughness: .8 }),
+  conc:    new THREE.MeshStandardMaterial({ color: 0xa8a49c, roughness: .97 }),
+  drive:   new THREE.MeshStandardMaterial({ color: 0xb4b0a6, roughness: .98 }),
+  carpet:  new THREE.MeshStandardMaterial({ color: 0x8d8375, roughness: 1 }),
+  tile:    new THREE.MeshStandardMaterial({ color: 0xbdb7ab, roughness: .82 }),
+  wood:    new THREE.MeshStandardMaterial({ color: 0x6d5741, roughness: .72 }),
+  deck:    new THREE.MeshStandardMaterial({ color: 0x554537, roughness: .9 }),
+  grass:   new THREE.MeshStandardMaterial({ color: 0x4b6b3c, roughness: 1 }),
+  turf:    new THREE.MeshStandardMaterial({ color: 0x5c7f42, roughness: 1 }),
+  car:     new THREE.MeshStandardMaterial({ color: 0x1d2126, roughness: .35, metalness: .5 }),
+  ceil:    new THREE.MeshStandardMaterial({ color: 0xe4e0d6, roughness: 1 }),
+};
+const FLOORMAT = { carpet: M.carpet, tile: M.tile, wood: M.wood, conc: M.conc };
+
+const world = new THREE.Group();          // everything
+const roofGrp = new THREE.Group();        // toggled off in aerial
+scene.add(world, roofGrp);
+
+const colliders = [];                     // {x0,x1,z0,z1} boxes that block walking
+function box(w, h, d, mat, x, y, z, parent = world, collide = false, y0 = 0, y1 = 0) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+  m.position.set(x, y, z);
+  m.castShadow = m.receiveShadow = true;
+  parent.add(m);
+  if (collide) colliders.push({ x0: x - w / 2, x1: x + w / 2, z0: z - d / 2, z1: z + d / 2, y0, y1 });
+  return m;
+}
+
+/* --- wall runs, with holes cut for doors and windows --- */
+function buildWall([axis, fixed, a0, a1, h, base, th, holes, clad = 0]) {
+  const pieces = [];
+  const sorted = [...holes].sort((p, q) => p[0] - q[0]);
+  let cursor = a0;
+  for (const [ha0, ha1, hy0, hy1] of sorted) {
+    if (ha0 > cursor) pieces.push([cursor, ha0, 0, h]);
+    if (hy0 > 0)      pieces.push([ha0, ha1, 0, hy0]);           // under a window
+    if (hy1 < h)      pieces.push([ha0, ha1, hy1, h]);           // header over an opening
+    cursor = Math.max(cursor, ha1);
+  }
+  if (cursor < a1) pieces.push([cursor, a1, 0, h]);
+
+  const CT = 0.16, off = clad ? (th / 2 + CT / 2) * clad : 0;
+  for (const [p0, p1, y0, y1] of pieces) {
+    const len = p1 - p0, hgt = y1 - y0;
+    if (len <= 0.01 || hgt <= 0.01) continue;
+    const cy = base + y0 + hgt / 2;
+    const blocks = y0 < 5.0;                                     // headers do not block walking
+    if (axis === 'x') {
+      box(len, hgt, th, M.inner, p0 + len / 2, cy, fixed, world, blocks, base + y0, base + y1);
+      if (clad) box(len, hgt, CT, cy < 3.0 ? M.stone : M.siding, p0 + len / 2, cy, fixed + off);
+    } else {
+      box(th, hgt, len, M.inner, fixed, cy, p0 + len / 2, world, blocks, base + y0, base + y1);
+      if (clad) box(CT, hgt, len, cy < 3.0 ? M.stone : M.siding, fixed + off, cy, p0 + len / 2);
+    }
+  }
+  // glazing inside each window hole
+  for (const [ha0, ha1, hy0, hy1] of sorted) {
+    if (hy0 <= 0) continue;
+    const len = ha1 - ha0, hgt = hy1 - hy0, cy = base + hy0 + hgt / 2;
+    const m = new THREE.Mesh(
+      axis === 'x' ? new THREE.BoxGeometry(len - .3, hgt - .3, .1) : new THREE.BoxGeometry(.1, hgt - .3, len - .3),
+      M.glass);
+    if (axis === 'x') m.position.set(ha0 + len / 2, cy, fixed); else m.position.set(fixed, cy, ha0 + len / 2);
+    world.add(m);
+  }
+}
+MAIN_WALLS.forEach(buildWall);
+UPPER_WALLS.forEach(buildWall);
+
+/* --- floors and ceilings --- */
+function slab(x0, z0, x1, z1, y, mat, receive = true) {
+  const w = x1 - x0, d = z1 - z0;
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, .12, d), mat);
+  m.position.set(x0 + w / 2, y, z0 + d / 2);
+  m.receiveShadow = receive;
+  world.add(m);
+  return m;
+}
+MAIN_ROOMS.forEach(([, x0, z0, x1, z1, f]) => slab(x0, z0, x1, z1, 0.06, FLOORMAT[f]));
+UPPER_ROOMS.forEach(([n, x0, z0, x1, z1, f]) =>
+  slab(x0, z0, x1, z1, Y2 - .06, n === 'Upper Deck' ? M.deck : FLOORMAT[f]));
+
+// main-floor ceiling everywhere except the two-storey living room and the stairwell
+slab(0.2, 0.2, 14.5, 25.5, H1, M.ceil, false);
+slab(14.5, 0.2, 27.0, 13.4, H1, M.ceil, false);
+slab(20.8, 13.6, 27.0, 25.5, H1, M.ceil, false);
+slab(14.5, 22.6, 20.7, 25.5, H1, M.ceil, false);
+slab(27.0, 0.2, 42.6, 13.2, H1, M.ceil, false);           // dining ceiling
+slab(27.0, 13.2, 42.6, 25.5, H_WING, M.ceil, false);      // living room, vaulted to the 11'-5 3/8" plate
+slab(0.2, 25.9, 21.5, 60.8, HG, M.ceil, false);     // garage
+UPPER_ROOMS.forEach(([n, x0, z0, x1, z1]) => { if (n !== 'Upper Deck') slab(x0, z0, x1, z1, Y2 + H2, M.ceil, false); });
+
+/* --- stairs --- */
+const STEPS = 15, run = (ST.zBot - ST.zTop) / STEPS, rise = ST.rise / STEPS;
+for (let i = 0; i < STEPS; i++) {
+  const z = ST.zBot - run * (i + 0.5);
+  box(ST.x1 - ST.x0 - .1, rise, run, M.wood, (ST.x0 + ST.x1) / 2, rise * (i + .5), z);
+}
+
+/* --- stone wainscot skirt, 3' up the street-facing and side walls --- */
+function skirt(x0, z0, x1, z1) {
+  const w = Math.max(x1 - x0, .5), d = Math.max(z1 - z0, .5);
+  box(w, 3.0, d, M.stone, x0 + w / 2, 1.5, z0 + d / 2);
+}
+skirt(-0.4, D_BODY - .1, GAR_W, D_BODY + .35);
+skirt(GAR_W - .35, D_BODY, GAR_W + .35, GAR_Z1 + .35);
+skirt(-0.4, GAR_Z1 - .1, GAR_W + .35, GAR_Z1 + .35);
+skirt(W - .35, -0.4, W + .35, D_BODY);
+
+/* --- front door, garage doors, entry steps --- */
+box(3.0, 6.8, .28, M.door, 24.0, 3.4, D_BODY + .02);
+for (let i = 0; i < 3; i++) box(6.0, .55, 1.1, M.conc, 24.0, .27 + i * .55, D_BODY + 1.1 + i * 1.1, world, true, 0, .8);
+box(.3, 7.0, 9.0, M.garaged, GAR_W + .02, 3.6, 32.0);
+box(.3, 7.0, 16.0, M.garaged, GAR_W + .02, 3.6, 45.3);
+
+/* --- ground, driveway, yards --- */
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(420, 420), M.grass);
+ground.rotation.x = -Math.PI / 2; ground.position.set(W / 2, -0.06, 30); ground.receiveShadow = true;
+world.add(ground);
+slab(GAR_W + .4, 25.9, 42.6, 60.5, 0.02, M.drive);          // driveway, right of the garage
+slab(-16, -18, W + 16, -0.6, 0.03, M.turf);                  // backyard turf
+slab(27.5, -8.5, 40.5, -0.6, 0.06, M.conc);                  // concrete patio off the dining room
+slab(6.0, -13.5, 20.0, -6.0, 0.07, M.deck);                  // covered deck
+const tub = new THREE.Mesh(new THREE.CylinderGeometry(3.4, 3.4, 2.9, 24), M.deck);
+tub.position.set(10.5, 1.45, -10.5); tub.castShadow = true; world.add(tub);
+
+/* --- the three cars, noses west, tails to the doors --- */
+function car(L, Wd, x, z, tint, boxy) {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(L, boxy ? 4.6 : 2.9, Wd),
+    new THREE.MeshStandardMaterial({ color: tint, roughness: .3, metalness: .55 }));
+  body.position.y = boxy ? 2.6 : 1.7; body.castShadow = true; g.add(body);
+  if (!boxy) { const c = new THREE.Mesh(new THREE.BoxGeometry(L * .45, 1.9, Wd * .82), M.car); c.position.set(L * .04, 3.3, 0); g.add(c); }
+  for (const dx of [-L * .33, L * .33]) for (const dz of [-Wd * .48, Wd * .48]) {
+    const wl = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.15, .7, 18), M.trim);
+    wl.rotation.x = Math.PI / 2; wl.position.set(dx, 1.15, dz); g.add(wl);
+  }
+  g.position.set(x, 0, z); world.add(g);
+  colliders.push({ x0: x - L / 2, x1: x + L / 2, z0: z - Wd / 2, z1: z + Wd / 2, y0: 0, y1: 4.6 });
+}
+car(14.1, 5.4, 9.5, 31.2, 0xe8e4d8, false);   // 1983 911 SC
+car(14.8, 6.1, 9.2, 41.5, 0xf2f2f2, false);   // 2017 991.2 4S
+car(15.8, 6.3, 9.0, 49.5, 0x14161a, true);    // Mercedes G550
+
+/* --- roof --- */
+function plane(w, d, mat, rx, ry, rz, x, y, z) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat);
+  m.rotation.set(rx, ry, rz); m.position.set(x, y, z);
+  m.castShadow = m.receiveShadow = true; roofGrp.add(m); return m;
+}
+/* A. 6:12 gable over the two-storey block (x 0 -> 22.2, z 0 -> 46.7) */
+(() => {
+  const x0 = -1.5, x1 = UP_W + 1.5, z0 = -1.5, z1 = UP_Z1 + 1.5;
+  const plate = Y2 + H2, half = (x1 - x0) / 2, riseR = half * 0.5;
+  const slope = Math.hypot(half, riseR), ang = Math.atan2(riseR, half), len = z1 - z0;
+  const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
+  plane(slope, len, M.roof, -Math.PI / 2, 0, 0, 0, 0, 0).rotation.set(-Math.PI / 2, 0, 0);
+  roofGrp.remove(roofGrp.children[roofGrp.children.length - 1]);
+  const a = plane(slope, len, M.roof, 0, 0, 0, 0, 0, 0);
+  a.geometry.rotateX(-Math.PI / 2); a.rotation.set(0, 0, ang);
+  a.position.set(cx - half / 2, plate + riseR / 2, cz);
+  const b = plane(slope, len, M.roof, 0, 0, 0, 0, 0, 0);
+  b.geometry.rotateX(-Math.PI / 2); b.rotation.set(0, 0, -ang);
+  b.position.set(cx + half / 2, plate + riseR / 2, cz);
+  // gable end walls
+  const endGeo = new THREE.Shape();
+  endGeo.moveTo(x0, plate); endGeo.lineTo(x1, plate); endGeo.lineTo(cx, plate + riseR); endGeo.closePath();
+  for (const z of [z0, z1]) {
+    const m = new THREE.Mesh(new THREE.ShapeGeometry(endGeo), M.siding);
+    m.position.z = z; m.castShadow = true; roofGrp.add(m);
+  }
+})();
+/* B. hip over the single-storey wing (x 22.2 -> 42.8, z 0 -> 25.7) */
+(() => {
+  const x0 = UP_W - .6, x1 = W + 1.5, z0 = -1.5, z1 = D_BODY + 1.5;
+  const plate = 11.45, peak = plate + 4.6;                    // 11'-5 3/8" eave per the elevation
+  const cx = (x0 + x1) / 2;
+  const g = new THREE.BufferGeometry();
+  const rz0 = z0 + 5, rz1 = z1 - 5;
+  const v = new Float32Array([
+    x0,plate,z0,  x1,plate,z0,  cx,peak,rz0,
+    x1,plate,z1,  x0,plate,z1,  cx,peak,rz1,
+    x0,plate,z0,  cx,peak,rz0,  cx,peak,rz1,   x0,plate,z0, cx,peak,rz1, x0,plate,z1,
+    x1,plate,z1,  cx,peak,rz1,  cx,peak,rz0,   x1,plate,z1, cx,peak,rz0, x1,plate,z0,
+  ]);
+  g.setAttribute('position', new THREE.BufferAttribute(v, 3));
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, M.roof); m.castShadow = m.receiveShadow = true; roofGrp.add(m);
+})();
+/* C. hip over the garage tail (z 46.7 -> 61.0) */
+(() => {
+  const x0 = -1.5, x1 = GAR_W + 1.5, z0 = UP_Z1 - .5, z1 = GAR_Z1 + 1.5;
+  const plate = HG + .4, peak = plate + 4.2, cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
+  const g = new THREE.BufferGeometry();
+  const v = new Float32Array([
+    x0,plate,z0, x1,plate,z0, cx,peak,cz,
+    x1,plate,z1, x0,plate,z1, cx,peak,cz,
+    x0,plate,z1, x0,plate,z0, cx,peak,cz,
+    x1,plate,z0, x1,plate,z1, cx,peak,cz,
+  ]);
+  g.setAttribute('position', new THREE.BufferAttribute(v, 3));
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, M.roof); m.castShadow = m.receiveShadow = true; roofGrp.add(m);
+})();
+/* chimney, proud of the east face by the living room */
+box(3.2, 22, 3.6, M.stone, W + 2.4, 11, 19.5);
+
+
+/* --- a listing photo of the real room, hung in that room --- */
+const TL = new THREE.TextureLoader();
+const PLATES = [
+  // [photo, x, y, z, faceRotY, width]   faceRotY: 0=+z  PI=-z  PI/2=+x  -PI/2=-x
+  [16, 14.26,  5.2,  6.00, -Math.PI/2, 4.4],   // Bedroom 4
+  [17,  5.00,  5.2, 13.14,          0, 3.2],   // Bath 3
+  [18,  5.00,  5.2, 18.74,          0, 3.2],   // Laundry
+  [39, 14.26,  5.0, 24.50, -Math.PI/2, 2.4],   // Mud Room
+  [ 7, 14.74,  5.2,  7.00,  Math.PI/2, 4.8],   // Kitchen
+  [40, 20.94,  5.2, 22.00,  Math.PI/2, 3.6],   // Entry
+  [11, 42.45,  5.2,  8.00, -Math.PI/2, 4.8],   // Dining
+  [ 4, 27.26,  5.4, 20.00,  Math.PI/2, 5.2],   // Living
+  [20, 27.26,  9.4, 20.00,  Math.PI/2, 4.4],   // Living, from above
+  [39,  0.40,  5.2, 33.00,  Math.PI/2, 4.8],   // Garage
+  [19, 20.94,  5.2, 19.60,  Math.PI/2, 2.4],   // Upper hall, seen from the entry
+  [26, 12.76, Y2+5.0,  7.00, -Math.PI/2, 4.4], // Bedroom 3
+  [27, 20.30, Y2+5.0,  8.76,    Math.PI, 2.6], // Bath 2
+  [24, 21.76, Y2+5.0, 12.00, -Math.PI/2, 3.6], // Landing
+  [25, 12.76, Y2+5.0, 22.00, -Math.PI/2, 4.4], // Master Bath
+  [23, 21.76, Y2+5.0, 22.00, -Math.PI/2, 3.6], // Walk-in
+  [21, 12.50, Y2+5.0, 29.44,          0, 4.4], // Master Bedroom
+  [22,  4.00, Y2+5.0, 42.10,    Math.PI, 4.4], // Master, second view
+  [13, 18.00, Y2+5.0, 42.52,          0, 3.2], // Upper Deck
+  [14, 13.00,  6.0, -0.42,      Math.PI, 5.2], // Backyard
+  [12, 10.50,  5.4, -6.20,      Math.PI, 4.4], // Covered deck
+];
+
+for (const [n, x, y, z, ry, w] of PLATES) {
+  const h = w * 0.75;
+  const tex = TL.load('voelker-house-photos/photo-' + String(n).padStart(2, '0') + '.webp');
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const frame = new THREE.Mesh(new THREE.BoxGeometry(w + .22, h + .22, .09), M.trim);
+  frame.position.set(x, y, z); frame.rotation.y = ry; world.add(frame);
+  const img = new THREE.Mesh(new THREE.PlaneGeometry(w, h),
+    new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+  img.position.set(x + Math.sin(ry) * .06, y, z + Math.cos(ry) * .06);
+  img.rotation.y = ry; world.add(img);
+}
+
+/* --- a few interior lights so rooms are not black --- */
+for (const [x, y, z] of [[7,7.4,6],[7,7.4,16],[6,7.4,21],[12,7.4,22],[21,7.4,6],[21,7.4,11],
+                          [17,7.4,18],[24,7.4,16],[24,7.4,22],[35,7.4,5],[35,7.4,11],
+                          [31,10,17],[38,10,22],[10,8.4,30],[10,8.4,40],[10,8.4,50],[10,8.4,58],
+                          [7,Y2+6.5,7],[17,Y2+6.5,5],[17,Y2+6.5,12],[7,Y2+6.5,22],[17,Y2+6.5,22],
+                          [7,Y2+6.5,35],[16,Y2+6.5,35]]) {
+  const l = new THREE.PointLight(0xfff0dc, 90, 42, 2); l.position.set(x, y, z); world.add(l);
+}
+
+/* ============================================================
+   walking
+   ============================================================ */
+const EYE = 5.6, RAD = 0.85;
+const player = { x: 33.5, z: 50.0, y: 0, vx: 0, vz: 0, yaw: 0.55, pitch: -0.02, floorY: 0 };
+let aerial = false;
+const keys = new Set();
+
+const gate = document.getElementById('gate');
+const roomEl = document.getElementById('room'), flrEl = document.getElementById('flr');
+
+gate.addEventListener('click', () => renderer.domElement.requestPointerLock());
+document.addEventListener('pointerlockchange', () => {
+  gate.classList.toggle('hide', document.pointerLockElement === renderer.domElement);
+});
+document.addEventListener('mousemove', e => {
+  if (document.pointerLockElement !== renderer.domElement) return;
+  player.yaw   -= e.movementX * 0.0022;
+  player.pitch -= e.movementY * 0.0022;
+  player.pitch = Math.max(-1.35, Math.min(1.35, player.pitch));
+});
+addEventListener('keydown', e => { keys.add(e.code); if (e.code === 'Space') e.preventDefault(); });
+addEventListener('keyup',   e => keys.delete(e.code));
+
+let roofOn = true;
+const roofBtn = document.getElementById('bDoors');
+document.getElementById('bAerial').onclick = e => {
+  aerial = !aerial; e.target.classList.toggle('on', aerial);
+  roofOn = !aerial;                                  // aerial drops the roof, click Roof to put it back
+  roofBtn.classList.toggle('on', roofOn);
+  roofGrp.visible = roofOn;
+};
+roofBtn.onclick = e => {
+  roofOn = !roofOn; e.target.classList.toggle('on', roofOn);
+  roofGrp.visible = roofOn;
+};
+
+function inStairs(x, z) { return x > ST.x0 && x < ST.x1 && z > ST.zTop && z < ST.zBot; }
+function onUpperFootprint(x, z) { return x > -0.2 && x < UP_W + 0.2 && z > -0.2 && z < UP_Z1 + 0.2; }
+
+function floorHeight(x, z, prevY) {
+  if (inStairs(x, z)) return ST.rise * (ST.zBot - z) / (ST.zBot - ST.zTop);
+  if (prevY > Y2 - 1.2 && onUpperFootprint(x, z)) return Y2;
+  return 0;
+}
+
+function resolve(nx, nz, y) {
+  for (const c of colliders) {
+    if (y + EYE < c.y0 - 0.2 || y + 0.4 > c.y1) continue;      // walk under headers, over low sills
+    const cx = Math.max(c.x0, Math.min(nx, c.x1));
+    const cz = Math.max(c.z0, Math.min(nz, c.z1));
+    const dx = nx - cx, dz = nz - cz;
+    const d2 = dx * dx + dz * dz;
+    if (d2 >= RAD * RAD) continue;
+    if (d2 > 1e-6) { const d = Math.sqrt(d2); nx = cx + dx / d * RAD; nz = cz + dz / d * RAD; }
+    else {                                                     // centre inside the box: push out the short way
+      const l = nx - c.x0, r = c.x1 - nx, u = nz - c.z0, b = c.z1 - nz;
+      const m = Math.min(l, r, u, b);
+      if (m === l) nx = c.x0 - RAD; else if (m === r) nx = c.x1 + RAD;
+      else if (m === u) nz = c.z0 - RAD; else nz = c.z1 + RAD;
+    }
+  }
+  return [nx, nz];
+}
+
+function whereAmI(x, z, y) {
+  const list = y > Y2 - 1.5 ? UPPER_ROOMS : MAIN_ROOMS;
+  for (const [n, x0, z0, x1, z1] of list) if (x >= x0 && x <= x1 && z >= z0 && z <= z1) return n;
+  if (inStairs(x, z)) return 'Stairs';
+  if (x > GAR_W && z > GAR_Z0 && z < GAR_Z1) return 'Driveway';
+  if (z < 0) return 'Backyard';
+  return 'Outside';
+}
+
+let last = performance.now();
+function tick(now) {
+  requestAnimationFrame(tick);
+  const dt = Math.min((now - last) / 1000, 0.05); last = now;
+
+  const run = keys.has('ShiftLeft') || keys.has('ShiftRight');
+  const speed = (run ? 15 : 7.2) * (aerial ? 3 : 1);
+  let fwd = 0, str = 0;
+  if (keys.has('KeyW') || keys.has('ArrowUp')) fwd += 1;
+  if (keys.has('KeyS') || keys.has('ArrowDown')) fwd -= 1;
+  if (keys.has('KeyA') || keys.has('ArrowLeft')) str -= 1;
+  if (keys.has('KeyD') || keys.has('ArrowRight')) str += 1;
+  const len = Math.hypot(fwd, str) || 1;
+  const sin = Math.sin(player.yaw), cos = Math.cos(player.yaw);
+  const ax = (-sin * fwd / len + cos * str / len) * speed;
+  const az = (-cos * fwd / len - sin * str / len) * speed;
+
+  player.vx += (ax - player.vx) * Math.min(1, dt * 12);
+  player.vz += (az - player.vz) * Math.min(1, dt * 12);
+
+  let nx = player.x + player.vx * dt, nz = player.z + player.vz * dt;
+  if (!aerial) [nx, nz] = resolve(nx, nz, player.floorY);
+  player.x = nx; player.z = nz;
+
+  const target = aerial ? player.floorY : floorHeight(nx, nz, player.floorY);
+  player.floorY += (target - player.floorY) * Math.min(1, dt * 14);
+
+  if (aerial) {
+    player.y = 92;
+    camera.position.set(player.x, player.y, player.z);
+    camera.rotation.set(-Math.PI / 2 + 0.28, 0, 0, 'YXZ');
+    camera.rotation.y = player.yaw;
+  } else {
+    camera.position.set(player.x, player.floorY + EYE, player.z);
+    camera.rotation.set(player.pitch, player.yaw, 0, 'YXZ');
+  }
+
+  const room = whereAmI(player.x, player.z, player.floorY);
+  roomEl.textContent = aerial ? '' : room;
+  flrEl.textContent = aerial ? 'Aerial' :
+    (player.floorY > Y2 - 1.5 ? 'Upper Floor' : (['Driveway','Backyard','Outside'].includes(room) ? 'Exterior' : 'Main Floor'));
+
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(tick);
+
+window.__walk = { player, camera, colliders, whereAmI, resolve, floorHeight,
+                  MAIN_ROOMS, UPPER_ROOMS, ST, Y2, RAD, EYE,
+                  goto(x, z, y = 0, yaw = Math.PI) { player.x = x; player.z = z; player.floorY = y; player.yaw = yaw; player.vx = player.vz = 0; } };
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
