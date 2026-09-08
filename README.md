@@ -2,7 +2,7 @@
 
 Live site: **https://voelker.vercel.app**
 
-A static, single-page site for 3986 Voelker Ct, Park City, UT 84098. It renders an interactive main/upper floor plan, a render gallery, a listing-photo lightbox, and property/construction info. The next milestone is a self-contained Three.js 3D model (`3d.html`) driven by `SPEC-3D.md`.
+A static, single-page site for 3986 Voelker Ct, Park City, UT 84098. It renders an interactive main/upper floor plan, a render gallery, a listing-photo lightbox, and property/construction info.
 
 ## File map
 
@@ -10,8 +10,6 @@ A static, single-page site for 3986 Voelker Ct, Park City, UT 84098. It renders 
 |------|------------|
 | `index.html` | Main app: SVG floor plans, view toggles, photo/render lightbox, info panels. |
 | `garage-plan-v2.svg` | Main-floor plan SVG imported by `index.html`. |
-| `SPEC-3D.md` | Build spec for the upcoming `3d.html` Three.js model. |
-| `3d.html` | **Upcoming** interactive 3D model (not present yet). |
 | `renders/` | 4 marketing renders: `front.png`, `iso-br.png`, `iso-fr.png`, `top.png`. |
 | `voelker-house-photos/` | 40 listing photos (`photo-01.webp` … `photo-40.webp`). |
 | `car-911sc.png` | Blueprint-style 1983 911 SC car image for the 3D garage. |
@@ -20,7 +18,7 @@ A static, single-page site for 3986 Voelker Ct, Park City, UT 84098. It renders 
 | `README.md` | This file. |
 | `.gitignore` | Ignore patterns for macOS / Node / log artifacts. |
 
-## Locked plan rules (summarized from `SPEC-3D.md`)
+## Locked plan rules
 
 - **Footprint — L-shape, exact dims (10 px = 1 ft):**
   - Main body: X 4.0 → 46.8, Z 5.0 → 36.0 (42′-10″ × 31′), two stories.
