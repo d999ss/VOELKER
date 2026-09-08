@@ -51,6 +51,10 @@ svg text{user-select:none}
 .vh{stroke:#2a2a3a;stroke-width:.4}                                               /* void hatch */
 .cb{fill:#20202e;stroke:var(--fix);stroke-width:.9}                               /* car body */
 .cc{fill:#141420;stroke:var(--fix);stroke-width:.7}                               /* car cabin */
+.ftg{stroke:#6a5a3a;stroke-width:1;fill:none;stroke-dasharray:6,4}                 /* continuous footing */
+.bm{stroke:#6a5a3a;stroke-width:1.2;fill:none;stroke-dasharray:10,5}              /* beam over */
+.col{fill:#2a2418;stroke:#8a7440;stroke-width:1}                                  /* pipe column + pad */
+.sn{fill:#7a6838;font:6.5px 'Courier New',monospace;text-anchor:middle}           /* structural note */
 .dt{fill:var(--gold);font:7.5px 'Courier New',monospace;text-anchor:middle;opacity:.7}
 .dl{stroke:var(--gold);stroke-width:.4;opacity:.3}
 
@@ -128,6 +132,7 @@ svg text{user-select:none}
   <div class="sep"></div>
   <button data-layer="dims" class="on">Dimensions</button>
   <button data-layer="fix" class="on">Fixtures</button>
+  <button data-layer="struct">Structure</button>
   <button data-layer="pho">Photos</button>
 </div>
 
@@ -145,7 +150,7 @@ svg text{user-select:none}
      ============================================================ -->
 <div class="pw" id="fm">
 <div class="pl">Main Floor &bull; ~1,620 SF</div>
-<svg width="560" height="720" viewBox="0 0 560 720" role="img" aria-label="Main floor plan">
+<svg width="560" height="710" viewBox="0 0 560 710" role="img" aria-label="Main floor plan">
 
   <text x="254" y="9" class="rs">&uarr; BACKYARD &mdash; TURF &bull; COVERED DECK &bull; HOT TUB</text>
 
@@ -387,6 +392,29 @@ svg text{user-select:none}
     <text x="390" y="685" class="dt" fill="#444">10'-0"</text>
   </g>
 
+
+  <!-- ===== STRUCTURE (from blueprints/foundation.jpg + first-floor-garage.jpg) =====
+       Continuous footing wraps the exterior wall. The foundation sheet calls out
+       two 3" pipe columns on 3'-6" square pads; they are placed here at the two
+       points the door layout requires them - the post between the 9' and 16'
+       sectional doors, and the far end of the 16' opening. -->
+  <g class="struct">
+    <path d="M32,42 L476,42 L476,315 L269,315 L269,668 L32,668 Z" class="ftg"/>
+    <text x="254" y="700" class="sn">CONTINUOUS FOOTING 1'-8" MIN WIDE &bull; 12" INTO NATURAL GRADE &bull; 36" MIN BELOW FINISH GRADE</text>
+    <line x1="252" y1="320" x2="252" y2="588" class="bm"/>
+    <text x="236" y="470" class="sn" transform="rotate(-90,236,470)">GARAGE DOOR HEADER BEAM</text>
+    <g>
+      <rect x="234" y="401" width="36" height="36" class="col"/>
+      <circle cx="252" cy="419" r="5" class="col"/>
+      <rect x="234" y="565" width="36" height="36" class="col"/>
+      <circle cx="252" cy="583" r="5" class="col"/>
+      <text x="252" y="396" class="sn">3" PIPE COL</text>
+      <text x="252" y="560" class="sn">3" PIPE COL</text>
+    </g>
+    <text x="150" y="628" class="sn">(2) 3" PIPE COL ON 3'-6" x 3'-6" x 12" PADS &bull; (3) #4 BARS EACH WAY</text>
+    <text x="150" y="640" class="sn">4" SLAB &bull; 6 X 6 - #10/#10 WWM OVER 6" CRUSHED ROCK</text>
+  </g>
+
   <!-- compass: N = backyard = up -->
   <g transform="translate(520,90)">
     <circle cx="0" cy="0" r="22" fill="none" stroke="var(--gold)" stroke-width=".8" opacity=".5"/>
@@ -618,6 +646,36 @@ svg text{user-select:none}
     <tr><td>Trim</td><td>Dark Stained Wood Throughout</td></tr>
     <tr><td>Extras</td><td>Ski Storage, Hot Tub</td></tr>
   </table></div>
+  <div class="ic"><h3>Window Designation</h3><table>
+    <tr><td>OX / XO</td><td>Horizontal Slider &bull; Wood &bull; .50</td></tr>
+    <tr><td>SH</td><td>Single Hung &bull; Wood &bull; .50</td></tr>
+    <tr><td>FX</td><td>Picture Window &bull; Wood &bull; .49</td></tr>
+    <tr><td>CSMT</td><td>Casement &bull; Wood &bull; .50</td></tr>
+    <tr><td>AWN</td><td>Awning &bull; Wood &bull; .50</td></tr>
+    <tr><td>SGD</td><td>Patio Door &bull; Wood &bull; .48</td></tr>
+    <tr><td>Manufacturer</td><td>Norco or Equal</td></tr>
+  </table></div>
+  <div class="ic"><h3>Shear Wall Schedule</h3><table>
+    <tr><td>Panel</td><td>C-D or C-C Plywood 7/16"</td></tr>
+    <tr><td>Nail</td><td>8d Common</td></tr>
+    <tr><td>Mark 1</td><td>6" O.C. Perimeter</td></tr>
+    <tr><td>Mark 2</td><td>4" O.C. Perimeter</td></tr>
+    <tr><td>Mark 3</td><td>3" O.C. Perimeter</td></tr>
+    <tr><td>Mark 4</td><td>2" O.C. Perimeter</td></tr>
+    <tr><td>Field</td><td>12" O.C.</td></tr>
+    <tr><td>Holdowns</td><td>HPAHD22 at Marked Posts</td></tr>
+  </table></div>
+  <div class="ic"><h3>Foundation</h3><table>
+    <tr><td>Concrete</td><td>3000 PSI at 28 Days &bull; 5&frac12; Sacks/CY</td></tr>
+    <tr><td>Aggregate</td><td>&frac34;" &bull; 4" Max Slump</td></tr>
+    <tr><td>Rebar</td><td>A615-60 Grade 60 Min</td></tr>
+    <tr><td>Slab</td><td>4" &bull; 6x6 #10/#10 WWM Over 6" Rock</td></tr>
+    <tr><td>Cont. Footing</td><td>1'-8" Min Wide &bull; 12" Into Natural Grade</td></tr>
+    <tr><td>Frost Depth</td><td>36" Min Below Finish Grade</td></tr>
+    <tr><td>Stem Wall</td><td>8" Min &bull; 1-#4 Cont. Top and Bottom</td></tr>
+    <tr><td>Anchor Bolts</td><td>&frac58;" x 10" at 32" O.C.</td></tr>
+    <tr><td>Pad Footings</td><td>3'-6" and 4'-0" Sq. x 12" &bull; (3) #4 E.W.</td></tr>
+  </table></div>
 </div>
 
 <script>
@@ -724,11 +782,11 @@ document.querySelectorAll('[data-layer]').forEach(btn => {
     const on = btn.classList.contains('on');
     const layer = btn.dataset.layer;
     if (layer === 'pho') { strip.classList.toggle('show', on); return; }
-    document.querySelectorAll('.' + (layer === 'dims' ? 'dims' : 'fix'))
-      .forEach(g => g.style.display = on ? '' : 'none');
+    document.querySelectorAll('.' + layer).forEach(g => g.style.display = on ? '' : 'none');
   };
 });
 
+document.querySelectorAll('.struct').forEach(g => g.style.display = 'none');
 setFloor('main');
 </script>
 </body>
