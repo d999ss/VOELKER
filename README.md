@@ -8,8 +8,7 @@ A static, single-page site for 3986 Voelker Ct, Park City, UT 84098. It renders 
 
 | Path | What it is |
 |------|------------|
-| `index.html` | Main app: SVG floor plans, view toggles, photo/render lightbox, info panels. |
-| `garage-plan-v2.svg` | Main-floor plan SVG imported by `index.html`. |
+| `index.html` | The whole site: inline SVG main + upper floor plans, view/layer toggles, photo and render lightbox, info panels. |
 | `renders/` | 4 marketing renders: `front.png`, `iso-br.png`, `iso-fr.png`, `top.png`. |
 | `voelker-house-photos/` | 40 listing photos (`photo-01.webp` … `photo-40.webp`). |
 | `car-911sc.png` | Blueprint-style 1983 911 SC car image for the 3D garage. |

@@ -5,48 +5,70 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3986 Voelker Ct — Floor Plans</title>
 <style>
-:root { --gold:#D2A62C; --bg:#111119; --panel:#1a1a28; --room:#181826; --wall:#8090a0; --wext:#a0aab4; --fix:#4a5a6a; --txt:#c0c0c0; --dim:#666; --lbl:#909090; }
+:root{
+  --gold:#D2A62C; --bg:#111119; --panel:#1a1a28; --room:#181826;
+  --wall:#8090a0; --wext:#a0aab4; --fix:#4a5a6a;
+  --txt:#c0c0c0; --dim:#666; --lbl:#909090; --line:#2a2a3a;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--txt);font-family:'Courier New',monospace}
+
+/* ---------- header ---------- */
 header{text-align:center;padding:32px 20px 8px}
 header h1{font-size:20px;letter-spacing:5px;text-transform:uppercase;color:var(--gold)}
-header h2{font-size:12px;color:var(--dim);letter-spacing:2px;font-weight:normal;margin-top:4px}
+header h2{font-size:12px;color:var(--dim);letter-spacing:2px;font-weight:400;margin-top:4px}
 .addr{font-size:10px;color:#555;letter-spacing:1px;margin-top:5px}
+
+/* ---------- controls ---------- */
 .ctrls{display:flex;justify-content:center;gap:8px;padding:16px;flex-wrap:wrap}
-.ctrls button{background:0;border:1px solid #333;color:#888;padding:5px 14px;font:10px/1 'Courier New',monospace;letter-spacing:1px;cursor:pointer;transition:.15s}
+.ctrls .sep{width:1px;background:var(--line);margin:0 4px}
+.ctrls button{background:0;border:1px solid #333;color:#888;padding:5px 14px;
+  font:10px/1 'Courier New',monospace;letter-spacing:1px;cursor:pointer;transition:.15s}
 .ctrls button:hover{border-color:#666;color:#ccc}
 .ctrls button.on{border-color:var(--gold);color:var(--gold)}
-.plans{display:flex;justify-content:center;gap:40px;padding:0 20px 24px;flex-wrap:wrap}
+
+/* ---------- plans ---------- */
+.plans{display:flex;justify-content:center;align-items:flex-start;gap:40px;padding:0 20px 24px;flex-wrap:wrap}
 .pw{text-align:center}
 .pl{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.rg{cursor:pointer} .rg:hover .rb{fill:#222238} .rg:hover .rn{fill:var(--gold)}
+.pw svg{max-width:100%;height:auto}
+
+/* ---------- svg vocabulary ---------- */
 svg text{user-select:none}
-.rb{fill:var(--room);transition:fill .15s}
+.rg{cursor:pointer}
+.rg:hover .rb{fill:#222238}
+.rg:hover .rn{fill:var(--gold)}
+.rb{fill:var(--room);stroke:var(--wall);stroke-width:1.5;transition:fill .15s}   /* room body + interior wall */
 .rn{fill:var(--lbl);font:bold 9px 'Courier New',monospace;text-anchor:middle;letter-spacing:1px;transition:fill .15s}
-.rs{fill:#555;font:7px 'Courier New',monospace;text-anchor:middle}
+.rs{fill:#555;font:7px 'Courier New',monospace;text-anchor:middle}               /* small annotation */
+.ew{stroke:var(--wext);stroke-width:4.5;fill:var(--panel)}                        /* exterior wall */
+.fl{stroke:var(--fix);stroke-width:1;fill:none}                                   /* fixture outline */
+.ff{fill:#1e1e30;stroke:var(--fix);stroke-width:.8}                               /* fixture filled */
+.wn{stroke:#5a7a8a;stroke-width:2.2;fill:none}                                    /* window */
+.dr{stroke:#4a6a5a;stroke-width:2.2;fill:none}                                    /* door / slider */
+.dk{fill:#14141f;stroke:#555;stroke-width:1.2;stroke-dasharray:5,3}               /* deck / yard */
+.dv{fill:#15151f;stroke:#3a3a4a;stroke-width:1}                                   /* driveway */
+.vh{stroke:#2a2a3a;stroke-width:.4}                                               /* void hatch */
+.cb{fill:#20202e;stroke:var(--fix);stroke-width:.9}                               /* car body */
+.cc{fill:#141420;stroke:var(--fix);stroke-width:.7}                               /* car cabin */
 .dt{fill:var(--gold);font:7.5px 'Courier New',monospace;text-anchor:middle;opacity:.7}
 .dl{stroke:var(--gold);stroke-width:.4;opacity:.3}
-.ew{stroke:var(--wext);stroke-width:4.5;fill:none}
-.iw{stroke:var(--wall);stroke-width:1.5}
-.fl{stroke:var(--fix);stroke-width:1;fill:none}
-.ff{fill:#1e1e30;stroke:var(--fix);stroke-width:.8}
-.sl{stroke:var(--fix);stroke-width:.7}
-.pl2{stroke:#444;stroke-width:1.2;stroke-dasharray:5,3;fill:none}
-.dk{fill:#14141f;stroke:#555;stroke-width:1.2;stroke-dasharray:5,3}
-.wn{stroke:#5a7a8a;stroke-width:2.2;fill:none}
-.vh{stroke:#2a2a3a;stroke-width:.4}
-.fp{fill:#2a2a38;stroke:var(--fix);stroke-width:1.2}
-.photo-strip{display:flex;justify-content:center;gap:5px;padding:0 20px 16px;flex-wrap:wrap;max-width:960px;margin:0 auto}
-.photo-strip img{width:72px;height:54px;object-fit:cover;border:1px solid #333;cursor:pointer;opacity:.6;transition:.15s}
-.photo-strip img:hover{opacity:1;border-color:var(--gold);transform:scale(1.06)}
+
+/* ---------- renders ---------- */
 .renders{display:none;grid-template-columns:repeat(2,1fr);gap:14px;padding:0 24px 24px;max-width:1080px;margin:0 auto}
 .renders.show{display:grid}
-.rd{cursor:pointer;border:1px solid #2a2a3a;background:#0c0c14;transition:.15s;position:relative}
+.rd{cursor:pointer;border:1px solid var(--line);background:#0c0c14;transition:.15s}
 .rd:hover{border-color:var(--gold);transform:translateY(-2px)}
 .rd img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
-.rd .cap2{font:9px/1 'Courier New',monospace;letter-spacing:2px;color:#777;padding:8px 10px;text-transform:uppercase;border-top:1px solid #2a2a3a}
+.rd .cap2{font:9px/1 'Courier New',monospace;letter-spacing:2px;color:#777;padding:8px 10px;
+  text-transform:uppercase;border-top:1px solid var(--line)}
 .rd:hover .cap2{color:var(--gold)}
-@media (max-width:640px){.renders{grid-template-columns:1fr}}
+
+/* ---------- photo strip + lightbox ---------- */
+.photo-strip{display:none;justify-content:center;gap:5px;padding:0 20px 16px;flex-wrap:wrap;max-width:960px;margin:0 auto}
+.photo-strip.show{display:flex}
+.photo-strip img{width:72px;height:54px;object-fit:cover;border:1px solid #333;cursor:pointer;opacity:.6;transition:.15s}
+.photo-strip img:hover{opacity:1;border-color:var(--gold);transform:scale(1.06)}
 .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:100;justify-content:center;align-items:center;cursor:pointer}
 .lb.show{display:flex}
 .lb img{max-width:90vw;max-height:85vh;border:1px solid #333}
@@ -56,300 +78,612 @@ svg text{user-select:none}
 .lb .pr{left:8px} .lb .nx{right:8px}
 .lb .cx{position:fixed;top:12px;right:20px;font-size:22px;color:#555;cursor:pointer}
 .lb .cx:hover{color:var(--gold)}
-.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:960px;margin:16px auto;padding:0 20px}
+
+/* ---------- info ---------- */
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:960px;margin:16px auto 40px;padding:0 20px}
 .ic{border:1px solid #222;padding:14px}
 .ic h3{color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
 .ic table{width:100%;border-collapse:collapse;font-size:9px}
-.ic td{padding:2px 5px;border-bottom:1px solid #1a1a28}
+.ic td{padding:2px 5px;border-bottom:1px solid var(--panel)}
+.ic td:last-child{text-align:right;color:var(--gold)}
 
-/* ===== MOBILE RESPONSIVE ===== */
+/* ---------- responsive ---------- */
 @media(max-width:768px){
   header{padding:20px 12px 6px}
   header h1{font-size:16px;letter-spacing:3px}
   header h2{font-size:10px}
   .ctrls{gap:5px;padding:10px 8px}
   .ctrls button{padding:4px 10px;font-size:9px}
+  .ctrls .sep{display:none}
   .plans{flex-direction:column;align-items:center;gap:24px;padding:0 8px 16px}
-  .pw{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .pw svg{max-width:100%;height:auto}
+  .pw{width:100%}
   .photo-strip{gap:3px;padding:0 8px 12px}
   .photo-strip img{width:56px;height:42px}
   .ig{grid-template-columns:1fr;padding:0 8px;gap:10px}
   .ic{padding:10px}
+  .renders{grid-template-columns:1fr}
   .lb .nv{font-size:24px;padding:10px}
-  .lb .cap{font-size:8px}
 }
 @media(max-width:480px){
   header h1{font-size:13px;letter-spacing:2px}
   .ctrls button{padding:3px 8px;font-size:8px}
   .photo-strip img{width:48px;height:36px}
 }
-.ic td:last-child{text-align:right;color:var(--gold)}
-.sl2{text-align:center;font-size:10px;letter-spacing:3px;color:#444;text-transform:uppercase;margin:24px 0 12px}
 </style>
 </head>
 <body>
+
 <header>
-<h1>3986 Voelker Ct</h1>
-<h2>Park City, UT 84098</h2>
-<div class="addr">4 Bed &bull; 3 Bath &bull; 2,601 SF &bull; 3-Car Garage &bull; Built 1998 &bull; 7,405 SF Lot</div>
+  <h1>3986 Voelker Ct</h1>
+  <h2>Park City, UT 84098</h2>
+  <div class="addr">4 Bed &bull; 3 Bath &bull; 2,601 SF &bull; 3-Car Garage &bull; Built 1998 &bull; 7,405 SF Lot</div>
 </header>
+
 <div class="ctrls">
-<button onclick="sf('both',this)">Both Floors</button>
-<button class="on" onclick="sf('main',this)">Main Floor</button>
-<button onclick="sf('upper',this)">Upper Floor</button>
-<button onclick="sf('renders',this)">Renders</button>
-<button class="on" id="bd" onclick="tg('dims',this)">Dimensions</button>
-<button class="on" id="bf" onclick="tg('fix',this)">Fixtures</button>
-<button id="bp" onclick="tg('pho',this)">Photos</button>
+  <button data-floor="both">Both Floors</button>
+  <button data-floor="main" class="on">Main Floor</button>
+  <button data-floor="upper">Upper Floor</button>
+  <button data-floor="renders">Renders</button>
+  <div class="sep"></div>
+  <button data-layer="dims" class="on">Dimensions</button>
+  <button data-layer="fix" class="on">Fixtures</button>
+  <button data-layer="pho">Photos</button>
 </div>
 
 <div class="plans">
-<!-- ======================================================== -->
-<!-- MAIN FLOOR — L-SHAPED FOOTPRINT                          -->
-<!-- Garage extends DOWN from LEFT side of main house body    -->
-<!-- Scale: ~10px = 1 foot                                    -->
-<!-- LEFT=garage/bedroom side                                  -->
-<!-- RIGHT=living room side                                    -->
-<!-- TOP=backyard, BOTTOM=street/driveway                      -->
-<!-- ======================================================== -->
+
+<!-- ============================================================
+     MAIN FLOOR — L-shaped footprint. Scale 10px = 1 foot.
+     TOP = backyard   BOTTOM = street
+     LEFT = bedroom 4 / garage side   RIGHT = dining / living side
+     Garage extends DOWN from the LEFT of the main body.
+     Garage doors face RIGHT; driveway is RIGHT of the garage.
+     ============================================================ -->
 <div class="pw" id="fm">
 <div class="pl">Main Floor &bull; ~1,620 SF</div>
-<img src="garage-plan-v2.svg" alt="Main Floor Plan" style="width:100%;max-width:725px;filter:invert(1) hue-rotate(180deg) brightness(0.8) contrast(1.2);">
-</div>
+<svg width="560" height="700" viewBox="0 0 560 700" role="img" aria-label="Main floor plan">
 
-<!-- ======================================================== -->
-<!-- UPPER FLOOR                                               -->
-<!-- Over main house body only — NOT over garage projection    -->
-<!-- 2-story void over living room (right side)                -->
-<!-- ======================================================== -->
-<div class="pw" id="fu">
-<div class="pl">Upper Floor &bull; ~980 SF</div>
-<svg width="520" height="560" viewBox="0 0 520 560">
-<rect width="520" height="560" fill="var(--bg)"/>
+  <!-- backyard -->
+  <g class="rg" onclick="sp(14)">
+    <rect x="40" y="2" width="428" height="16" class="dk"/>
+    <text x="254" y="14" class="rs">BACKYARD &mdash; TURF &bull; COVERED DECK &bull; HOT TUB</text>
+  </g>
 
-<!-- Upper floor exterior walls (rooms area: x=40, w=224) -->
-<rect x="40" y="50" width="224" height="412" class="ew" fill="var(--panel)"/>
+  <!-- dimensions: top -->
+  <g class="dims">
+    <line x1="40" y1="28" x2="468" y2="28" class="dl"/>
+    <line x1="40" y1="24" x2="40" y2="32" class="dl"/>
+    <line x1="468" y1="24" x2="468" y2="32" class="dl"/>
+    <text x="254" y="25" class="dt">42'-10"</text>
+    <line x1="40" y1="40" x2="468" y2="40" class="dl"/>
+    <line x1="40"  y1="36" x2="40"  y2="44" class="dl"/>
+    <line x1="80"  y1="36" x2="80"  y2="44" class="dl"/>
+    <line x1="130" y1="36" x2="130" y2="44" class="dl"/>
+    <line x1="185" y1="36" x2="185" y2="44" class="dl"/>
+    <line x1="310" y1="36" x2="310" y2="44" class="dl"/>
+    <line x1="468" y1="36" x2="468" y2="44" class="dl"/>
+    <text x="60"  y="37" class="dt">4'-0"</text>
+    <text x="105" y="37" class="dt">5'-0"</text>
+    <text x="157" y="37" class="dt">5'-3&frac14;"</text>
+    <text x="247" y="37" class="dt">12'-6&frac14;"</text>
+    <text x="389" y="37" class="dt">15'-6&frac14;"</text>
+  </g>
 
-<!-- ===== BEDROOM 3 / GYM (top-left, backyard side) ===== -->
-<g class="rg" onclick="sp(26)">
-<rect x="42" y="52" width="130" height="120" class="rb iw"/>
-<text x="107" y="105" class="rn">BEDROOM 3</text>
-<g class="fix">
-<!-- Closet -->
-<rect x="48" y="148" width="50" height="20" class="ff" rx="1"/>
-<text x="73" y="162" class="rs">CLOSET</text>
-<!-- Window on left wall -->
-<line x1="40" y1="80" x2="40" y2="115" class="wn"/>
-</g></g>
+  <!-- exterior wall, L-shape -->
+  <path d="M40,50 L468,50 L468,360 L290,360 L290,630 L40,630 Z" class="ew"/>
 
-<!-- ===== BATH 2 (top-right) ===== -->
-<g class="rg" onclick="sp(27)">
-<rect x="172" y="52" width="90" height="90" class="rb iw"/>
-<text x="217" y="92" class="rn">BATH 2</text>
-<g class="fix">
-<rect x="178" y="58" width="50" height="16" class="fl" rx="3"/>
-<text x="203" y="69" class="rs">TUB/SHW</text>
-<ellipse cx="248" cy="80" rx="5" ry="6" class="fl"/>
-<rect x="240" y="110" width="16" height="20" class="ff" rx="2"/>
-</g></g>
+  <!-- ===== BEDROOM 4 ===== -->
+  <g class="rg" onclick="sp(16)">
+    <rect x="42" y="52" width="143" height="121" class="rb"/>
+    <text x="113" y="112" class="rn">BEDROOM 4</text>
+    <text x="113" y="124" class="rs">CARPET &bull; 9'-1" CLG</text>
+    <g class="fix">
+      <rect x="48" y="58" width="46" height="14" class="ff" rx="1"/>
+      <text x="71" y="68" class="rs">CLOSET</text>
+      <line x1="120" y1="50" x2="170" y2="50" class="dr"/>
+      <text x="145" y="62" class="rs">SLIDER</text>
+      <line x1="40" y1="95" x2="40" y2="145" class="wn"/>
+      <text x="60" y="152" class="rs">6050 XO</text>
+    </g>
+  </g>
 
-<!-- ===== MASTER BATH (center-left, below master bedroom) ===== -->
-<g class="rg" onclick="sp(25)">
-<rect x="42" y="202" width="130" height="110" class="rb iw"/>
-<text x="107" y="255" class="rn">MASTER BATH</text>
-<g class="fix">
-<!-- Glass shower (upper-left) with X -->
-<rect x="48" y="208" width="40" height="36" class="fl" rx="2"/>
-<line x1="50" y1="210" x2="86" y2="242" stroke="#2a2a3a" stroke-width=".3"/>
-<line x1="86" y1="210" x2="50" y2="242" stroke="#2a2a3a" stroke-width=".3"/>
-<text x="68" y="229" class="rs">SHW</text>
-<!-- Freestanding soaking tub (bottom-left) -->
-<ellipse cx="75" cy="285" rx="22" ry="14" class="fl"/>
-<text x="75" y="288" class="rs">TUB</text>
-<!-- Dual vanity along right wall -->
-<rect x="152" y="215" width="16" height="80" class="ff" rx="2"/>
-<circle cx="160" cy="238" r="5" class="fl"/>
-<circle cx="160" cy="272" r="5" class="fl"/>
-<text x="160" y="255" fill="#3a4a5a" font-size="4" font-family="Courier New" text-anchor="middle" transform="rotate(90,160,255)">DUAL VANITY</text>
-<!-- Toilet -->
-<ellipse cx="120" cy="215" rx="5" ry="7" class="fl"/>
-<!-- Window on left wall -->
-<line x1="40" y1="235" x2="40" y2="270" class="wn"/>
-</g></g>
+  <!-- ===== BATH 3 ===== -->
+  <g class="rg" onclick="sp(17)">
+    <rect x="42" y="173" width="90" height="52" class="rb"/>
+    <text x="87" y="196" class="rn">BATH 3</text>
+    <g class="fix">
+      <rect x="48" y="179" width="34" height="15" class="fl" rx="2"/>
+      <text x="65" y="190" class="rs">TUB</text>
+      <ellipse cx="98" cy="186" rx="5" ry="6.5" class="fl"/>
+      <rect x="110" y="205" width="18" height="14" class="ff" rx="1"/>
+      <line x1="40" y1="188" x2="40" y2="212" class="wn"/>
+      <text x="70" y="219" class="rs">4050 XO</text>
+    </g>
+  </g>
 
+  <!-- ===== LAUNDRY ===== -->
+  <g class="rg" onclick="sp(18)">
+    <rect x="42" y="225" width="90" height="55" class="rb"/>
+    <text x="87" y="249" class="rn">LAUNDRY</text>
+    <g class="fix">
+      <rect x="48" y="256" width="20" height="18" class="ff" rx="1"/>
+      <rect x="70" y="256" width="20" height="18" class="ff" rx="1"/>
+      <text x="79" y="268" class="rs">W / D</text>
+      <line x1="118" y1="231" x2="118" y2="253" class="dr" stroke-dasharray="3,2"/>
+      <text x="112" y="277" class="rs">2466 PKT</text>
+    </g>
+  </g>
 
-<!-- ===== LINEN CLOSET ===== -->
-<rect x="178" y="202" width="30" height="35" fill="var(--room)" stroke="var(--wall)" stroke-width="1"/>
-<text x="193" y="223" class="rs">LIN</text>
+  <!-- ===== MUD ROOM ===== -->
+  <g class="rg" onclick="sp(39)">
+    <rect x="42" y="280" width="100" height="60" class="rb"/>
+    <text x="92" y="304" class="rn">MUD</text>
+    <g class="fix">
+      <rect x="48" y="312" width="40" height="14" class="ff" rx="1"/>
+      <text x="68" y="322" class="rs">CLOSETS</text>
+      <line x1="60" y1="340" x2="90" y2="340" class="dr"/>
+      <text x="75" y="336" class="rs">3060 &rarr; GAR</text>
+    </g>
+  </g>
 
-<!-- ===== MASTER WALK-IN CLOSET ===== -->
-<rect x="172" y="237" width="50" height="40" class="ff" rx="1"/>
-<text x="197" y="256" class="rs">WALK-IN</text>
-<text x="197" y="265" class="rs">CLOSET</text>
+  <!-- ===== HALL ===== -->
+  <rect x="132" y="173" width="53" height="107" class="rb"/>
+  <rect x="142" y="280" width="43" height="78" class="rb"/>
+  <text x="160" y="230" class="rs">HALL</text>
 
-<!-- ===== HALL / LANDING (between stairs and void) ===== -->
-<g class="rg" onclick="sp(19)">
-<rect x="178" y="282" width="102" height="30" class="rb iw"/>
-<text x="229" y="298" class="rs">OVERLOOK RAILING</text>
-<g class="fix">
-<!-- Railing indicator toward void -->
-<line x1="280" y1="285" x2="280" y2="309" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
-</g></g>
+  <!-- ===== KITCHEN ===== -->
+  <g class="rg" onclick="sp(7)">
+    <rect x="185" y="52" width="125" height="158" class="rb"/>
+    <text x="247" y="126" class="rn">KITCHEN</text>
+    <text x="247" y="138" class="rs">TILE &bull; QUARTZ ISLAND</text>
+    <g class="fix">
+      <path d="M215,52 L215,40 L285,40 L285,52" class="fl"/>
+      <line x1="220" y1="40" x2="280" y2="40" class="wn"/>
+      <text x="250" y="62" class="rs">BAY WINDOW</text>
+      <rect x="189" y="70" width="14" height="26" class="ff"/>
+      <rect x="189" y="100" width="14" height="26" class="ff"/>
+      <rect x="189" y="130" width="14" height="20" class="ff"/>
+      <text x="196" y="160" class="rs" transform="rotate(90,196,160)">APPLIANCES</text>
+      <rect x="222" y="150" width="66" height="26" class="ff" rx="2"/>
+      <text x="255" y="166" class="rs">ISLAND</text>
+    </g>
+  </g>
 
-<!-- ===== MASTER BEDROOM (bottom, full width, toward street) ===== -->
-<g class="rg" onclick="sp(21)">
-<rect x="42" y="312" width="220" height="148" class="rb iw"/>
-<text x="152" y="380" class="rn">MASTER BEDROOM</text>
-<g class="fix">
-<!-- Dashed vault lines -->
-<line x1="62" y1="332" x2="62" y2="440" stroke="var(--fix)" stroke-width=".5" stroke-dasharray="4,3"/>
-<line x1="242" y1="332" x2="242" y2="440" stroke="var(--fix)" stroke-width=".5" stroke-dasharray="4,3"/>
-<!-- Windows on right wall -->
-<line x1="260" y1="340" x2="260" y2="375" class="wn"/>
-<line x1="260" y1="385" x2="260" y2="420" class="wn"/>
-<!-- Slider to deck at bottom -->
-<rect x="100" y="457" width="64" height="3" fill="#4a6a5a" opacity=".6"/>
-<text x="132" y="454" class="rs" fill="#5a7a6a">8000 66D SLIDER</text>
-</g></g>
+  <!-- ===== STAIRS ===== -->
+  <g class="rg" onclick="sp(19)">
+    <rect x="195" y="210" width="50" height="95" class="rb"/>
+    <g class="fix">
+      <line x1="195" y1="222" x2="245" y2="222" class="fl"/>
+      <line x1="195" y1="234" x2="245" y2="234" class="fl"/>
+      <line x1="195" y1="246" x2="245" y2="246" class="fl"/>
+      <line x1="195" y1="258" x2="245" y2="258" class="fl"/>
+      <line x1="195" y1="270" x2="245" y2="270" class="fl"/>
+      <line x1="195" y1="282" x2="245" y2="282" class="fl"/>
+      <line x1="195" y1="294" x2="245" y2="294" class="fl"/>
+    </g>
+    <text x="220" y="217" class="rs">UP &uarr;</text>
+    <text x="220" y="303" class="rs">STAIRS</text>
+  </g>
 
-<!-- ===== UPPER DECK (below master bedroom, street side) ===== -->
-<g onclick="sp(15)">
-<rect x="42" y="462" width="220" height="58" class="dk"/>
-<text x="152" y="493" fill="#555" font-size="9" font-family="Courier New" text-anchor="middle">UPPER DECK</text>
-</g>
+  <!-- ===== SERVICE ROW: HALF BATH / FAU / ENTRY ===== -->
+  <g class="rg" onclick="sp(28)">
+    <rect x="185" y="306" width="40" height="38" class="rb"/>
+    <text x="205" y="322" class="rs">HALF</text>
+    <text x="205" y="331" class="rs">BATH</text>
+    <g class="fix"><ellipse cx="216" cy="338" rx="4" ry="5" class="fl"/></g>
+  </g>
+  <rect x="227" y="306" width="32" height="30" class="rb"/>
+  <text x="243" y="324" class="rs">FAU</text>
+  <g class="rg" onclick="sp(40)">
+    <rect x="261" y="306" width="49" height="52" class="rb"/>
+    <text x="285" y="328" class="rs">ENTRY</text>
+    <text x="285" y="337" class="rs">TILE</text>
+    <g class="fix">
+      <line x1="268" y1="358" x2="302" y2="358" class="dr" stroke-width="3"/>
+      <text x="285" y="352" class="rs">FRONT DOOR</text>
+    </g>
+  </g>
 
-<!-- ===== 2-STORY VOID (far right, bottom half, over living room) ===== -->
-<g class="rg" onclick="sp(20)">
-<rect x="280" y="142" width="130" height="238" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
-<!-- Hatching -->
-<line x1="285" y1="207" x2="405" y2="375" class="vh"/>
-<line x1="285" y1="237" x2="385" y2="375" class="vh"/>
-<line x1="285" y1="267" x2="365" y2="375" class="vh"/>
-<line x1="285" y1="297" x2="345" y2="375" class="vh"/>
-<line x1="285" y1="327" x2="325" y2="375" class="vh"/>
-<line x1="305" y1="207" x2="405" y2="345" class="vh"/>
-<line x1="325" y1="207" x2="405" y2="315" class="vh"/>
-<line x1="345" y1="207" x2="405" y2="285" class="vh"/>
-<line x1="365" y1="207" x2="405" y2="255" class="vh"/>
-<line x1="385" y1="207" x2="405" y2="230" class="vh"/>
-<text x="345" y="286" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">OPEN TO</text>
-<text x="345" y="298" fill="#3a3a4a" font-size="8" font-family="Courier New" text-anchor="middle">BELOW</text>
-</g>
+  <!-- ===== DINING ROOM ===== -->
+  <g class="rg" onclick="sp(11)">
+    <rect x="310" y="52" width="156" height="130" class="rb"/>
+    <text x="388" y="112" class="rn">DINING ROOM</text>
+    <text x="388" y="124" class="rs">CARPET</text>
+    <g class="fix">
+      <line x1="350" y1="50" x2="426" y2="50" class="wn"/>
+      <text x="388" y="64" class="rs">6014 TRANSOM &rarr; PATIO</text>
+    </g>
+  </g>
 
-<!-- ===== DIMENSIONS ===== -->
-<g class="dims">
-<!-- Overall width -->
-<line x1="40" y1="425" x2="264" y2="425" class="dl"/>
-<line x1="40" y1="421" x2="40" y2="429" class="dl"/>
-<line x1="264" y1="421" x2="264" y2="429" class="dl"/>
-<text x="152" y="438" class="dt">22'-4"</text>
-<!-- Scale bar -->
-<line x1="340" y1="435" x2="440" y2="435" stroke="#444" stroke-width="1.2"/>
-<line x1="340" y1="431" x2="340" y2="439" stroke="#444" stroke-width="1.2"/>
-<line x1="440" y1="431" x2="440" y2="439" stroke="#444" stroke-width="1.2"/>
-<text x="390" y="430" class="dt" fill="#444">10'-0"</text>
-</g>
+  <!-- ===== LIVING ROOM ===== -->
+  <g class="rg" onclick="sp(4)">
+    <rect x="310" y="182" width="156" height="176" class="rb"/>
+    <text x="388" y="262" class="rn">LIVING ROOM</text>
+    <text x="388" y="274" class="rs">HARDWOOD &bull; 2-STORY VAULT</text>
+    <g class="fix">
+      <rect x="310" y="230" width="10" height="46" class="ff"/>
+      <text x="332" y="256" class="rs">STONE FP</text>
+      <line x1="468" y1="230" x2="468" y2="300" class="wn"/>
+      <text x="440" y="312" class="rs">PICTURE WINDOW</text>
+    </g>
+  </g>
 
-<!-- ===== COMPASS ROSE ===== -->
-<g transform="translate(480,500)">
-<circle cx="0" cy="0" r="22" fill="none" stroke="var(--gold)" stroke-width=".8" opacity=".5"/>
-<circle cx="0" cy="0" r="2" fill="var(--gold)" opacity=".5"/>
-<!-- Crosshairs -->
-<line x1="0" y1="-20" x2="0" y2="20" stroke="var(--gold)" stroke-width=".5" opacity=".3"/>
-<line x1="-20" y1="0" x2="20" y2="0" stroke="var(--gold)" stroke-width=".5" opacity=".3"/>
-<!-- N arrow (prominent, pointing up = backyard) -->
-<polygon points="0,-20 -4,-10 0,-12 4,-10" fill="var(--gold)" opacity=".7"/>
-<!-- S arrow -->
-<polygon points="0,20 -3,12 0,14 3,12" fill="var(--gold)" opacity=".3"/>
-<!-- Labels -->
-<text x="0" y="-24" fill="var(--gold)" font-size="8" font-family="Courier New" text-anchor="middle" font-weight="bold" opacity=".8">N</text>
-<text x="0" y="32" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">S</text>
-<text x="28" y="3" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">E</text>
-<text x="-28" y="3" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">W</text>
-</g>
+  <!-- ============ GARAGE ============ -->
+  <g class="rg" onclick="sp(39)">
+    <rect x="42" y="362" width="246" height="266" class="rb"/>
+    <text x="165" y="378" class="rn">3-CAR GARAGE</text>
+    <line x1="42" y1="455" x2="288" y2="455" stroke="var(--wall)" stroke-width="1.5"/>
+  </g>
+
+  <!-- garage doors on the RIGHT wall, facing the driveway -->
+  <g class="fix">
+    <line x1="290" y1="365" x2="290" y2="453" stroke="var(--gold)" stroke-width="3" opacity=".55"/>
+    <text x="303" y="412" class="rs" transform="rotate(90,303,412)">9' DOOR</text>
+    <rect x="287" y="453" width="6" height="8" fill="var(--wext)"/>
+    <line x1="290" y1="461" x2="290" y2="619" stroke="var(--gold)" stroke-width="3" opacity=".55"/>
+    <text x="303" y="540" class="rs" transform="rotate(90,303,540)">16' DOOR</text>
+  </g>
+
+  <!-- vehicles: noses LEFT, tails toward the doors on the right -->
+  <g class="fix">
+    <g transform="translate(75,380)">
+      <rect x="0" y="0" width="141" height="54" rx="12" class="cb"/>
+      <rect x="42" y="8" width="62" height="38" rx="9" class="cc"/>
+      <text x="70" y="70" class="rs">1983 PORSCHE 911 SC &bull; 14'-1"</text>
+    </g>
+    <g transform="translate(70,475)">
+      <rect x="0" y="0" width="148" height="61" rx="13" class="cb"/>
+      <rect x="44" y="9" width="66" height="43" rx="10" class="cc"/>
+      <text x="74" y="77" class="rs">2017 PORSCHE 991.2 4S &bull; 14'-9"</text>
+    </g>
+    <g transform="translate(65,550)">
+      <rect x="0" y="0" width="158" height="63" rx="5" class="cb"/>
+      <rect x="40" y="8" width="86" height="47" rx="4" class="cc"/>
+      <text x="79" y="79" class="rs">MERCEDES G550 &bull; 15'-10"</text>
+    </g>
+  </g>
+
+  <!-- driveway, RIGHT of the garage -->
+  <rect x="296" y="362" width="200" height="262" class="dv"/>
+  <text x="396" y="496" class="rs">DRIVEWAY</text>
+  <text x="254" y="656" class="rs" fill="#444">&darr; STREET</text>
+
+  <!-- dimensions: left depths + garage -->
+  <g class="dims">
+    <line x1="30" y1="52" x2="30" y2="280" class="dl"/>
+    <line x1="26" y1="52"  x2="34" y2="52"  class="dl"/>
+    <line x1="26" y1="173" x2="34" y2="173" class="dl"/>
+    <line x1="26" y1="225" x2="34" y2="225" class="dl"/>
+    <line x1="26" y1="280" x2="34" y2="280" class="dl"/>
+    <text x="22" y="112" class="dt" transform="rotate(-90,22,112)">12'-1&frac14;"</text>
+    <text x="22" y="199" class="dt" transform="rotate(-90,22,199)">5'-2&frac14;"</text>
+    <text x="22" y="252" class="dt" transform="rotate(-90,22,252)">5'-4"</text>
+    <line x1="40" y1="644" x2="290" y2="644" class="dl"/>
+    <line x1="40"  y1="640" x2="40"  y2="648" class="dl"/>
+    <line x1="290" y1="640" x2="290" y2="648" class="dl"/>
+    <text x="165" y="641" class="dt">25'-1"</text>
+    <line x1="360" y1="660" x2="460" y2="660" stroke="#444" stroke-width="1.2"/>
+    <line x1="360" y1="656" x2="360" y2="664" stroke="#444" stroke-width="1.2"/>
+    <line x1="460" y1="656" x2="460" y2="664" stroke="#444" stroke-width="1.2"/>
+    <text x="410" y="655" class="dt" fill="#444">10'-0"</text>
+  </g>
+
+  <!-- compass: N = backyard = up -->
+  <g transform="translate(520,90)">
+    <circle cx="0" cy="0" r="22" fill="none" stroke="var(--gold)" stroke-width=".8" opacity=".5"/>
+    <circle cx="0" cy="0" r="2" fill="var(--gold)" opacity=".5"/>
+    <line x1="0" y1="-20" x2="0" y2="20" stroke="var(--gold)" stroke-width=".5" opacity=".3"/>
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="var(--gold)" stroke-width=".5" opacity=".3"/>
+    <polygon points="0,-20 -4,-10 0,-12 4,-10" fill="var(--gold)" opacity=".7"/>
+    <polygon points="0,20 -3,12 0,14 3,12" fill="var(--gold)" opacity=".3"/>
+    <text x="0" y="-24" fill="var(--gold)" font-size="8" font-family="Courier New" text-anchor="middle" font-weight="bold" opacity=".8">N</text>
+    <text x="0" y="32" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">S</text>
+    <text x="30" y="3" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">E</text>
+    <text x="-30" y="3" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">W</text>
+  </g>
 </svg>
 </div>
+
+<!-- ============================================================
+     UPPER FLOOR — over the main body only, never over the garage.
+     2-story void over the living room (right side).
+     ============================================================ -->
+<div class="pw" id="fu">
+<div class="pl">Upper Floor &bull; ~980 SF</div>
+<svg width="520" height="560" viewBox="0 0 520 560" role="img" aria-label="Upper floor plan">
+
+  <rect x="40" y="50" width="224" height="412" class="ew"/>
+
+  <!-- ===== BEDROOM 3 ===== -->
+  <g class="rg" onclick="sp(26)">
+    <rect x="42" y="52" width="130" height="120" class="rb"/>
+    <text x="107" y="105" class="rn">BEDROOM 3</text>
+    <g class="fix">
+      <rect x="48" y="148" width="50" height="20" class="ff" rx="1"/>
+      <text x="73" y="162" class="rs">CLOSET</text>
+      <line x1="40" y1="80" x2="40" y2="115" class="wn"/>
+    </g>
+  </g>
+
+  <!-- ===== BATH 2 ===== -->
+  <g class="rg" onclick="sp(27)">
+    <rect x="172" y="52" width="90" height="90" class="rb"/>
+    <text x="217" y="92" class="rn">BATH 2</text>
+    <g class="fix">
+      <rect x="178" y="58" width="50" height="16" class="fl" rx="3"/>
+      <text x="203" y="69" class="rs">TUB/SHW</text>
+      <ellipse cx="248" cy="80" rx="5" ry="6" class="fl"/>
+      <rect x="240" y="110" width="16" height="20" class="ff" rx="2"/>
+    </g>
+  </g>
+
+  <!-- ===== MASTER BATH ===== -->
+  <g class="rg" onclick="sp(25)">
+    <rect x="42" y="202" width="130" height="110" class="rb"/>
+    <text x="107" y="255" class="rn">MASTER BATH</text>
+    <g class="fix">
+      <rect x="48" y="208" width="40" height="36" class="fl" rx="2"/>
+      <line x1="50" y1="210" x2="86" y2="242" stroke="#2a2a3a" stroke-width=".3"/>
+      <line x1="86" y1="210" x2="50" y2="242" stroke="#2a2a3a" stroke-width=".3"/>
+      <text x="68" y="229" class="rs">SHW</text>
+      <ellipse cx="75" cy="285" rx="22" ry="14" class="fl"/>
+      <text x="75" y="288" class="rs">TUB</text>
+      <rect x="152" y="215" width="16" height="80" class="ff" rx="2"/>
+      <circle cx="160" cy="238" r="5" class="fl"/>
+      <circle cx="160" cy="272" r="5" class="fl"/>
+      <text x="160" y="255" class="rs" transform="rotate(90,160,255)">DUAL VANITY</text>
+      <ellipse cx="120" cy="215" rx="5" ry="7" class="fl"/>
+      <line x1="40" y1="235" x2="40" y2="270" class="wn"/>
+    </g>
+  </g>
+
+  <rect x="178" y="202" width="30" height="35" class="rb"/>
+  <text x="193" y="223" class="rs">LIN</text>
+
+  <rect x="172" y="237" width="50" height="40" class="ff" rx="1"/>
+  <text x="197" y="256" class="rs">WALK-IN</text>
+  <text x="197" y="265" class="rs">CLOSET</text>
+
+  <!-- ===== LANDING ===== -->
+  <g class="rg" onclick="sp(19)">
+    <rect x="178" y="282" width="102" height="30" class="rb"/>
+    <text x="229" y="300" class="rs">OVERLOOK RAILING</text>
+    <g class="fix">
+      <line x1="280" y1="285" x2="280" y2="309" stroke="var(--fix)" stroke-width=".8" stroke-dasharray="2,2"/>
+    </g>
+  </g>
+
+  <!-- ===== MASTER BEDROOM ===== -->
+  <g class="rg" onclick="sp(21)">
+    <rect x="42" y="312" width="220" height="148" class="rb"/>
+    <text x="152" y="380" class="rn">MASTER BEDROOM</text>
+    <text x="152" y="392" class="rs">VAULTED SHIPLAP</text>
+    <g class="fix">
+      <line x1="62" y1="332" x2="62" y2="440" stroke="var(--fix)" stroke-width=".5" stroke-dasharray="4,3"/>
+      <line x1="242" y1="332" x2="242" y2="440" stroke="var(--fix)" stroke-width=".5" stroke-dasharray="4,3"/>
+      <line x1="260" y1="340" x2="260" y2="375" class="wn"/>
+      <line x1="260" y1="385" x2="260" y2="420" class="wn"/>
+      <line x1="100" y1="460" x2="164" y2="460" class="dr" stroke-width="3"/>
+      <text x="132" y="454" class="rs">8000 66D SLIDER</text>
+    </g>
+  </g>
+
+  <!-- ===== UPPER DECK ===== -->
+  <g class="rg" onclick="sp(15)">
+    <rect x="42" y="462" width="220" height="58" class="dk"/>
+    <text x="152" y="493" class="rs">UPPER DECK</text>
+  </g>
+
+  <!-- ===== 2-STORY VOID ===== -->
+  <g class="rg" onclick="sp(20)">
+    <rect x="280" y="142" width="130" height="238" fill="none" stroke="var(--wall)" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="285" y1="207" x2="405" y2="375" class="vh"/>
+    <line x1="285" y1="237" x2="385" y2="375" class="vh"/>
+    <line x1="285" y1="267" x2="365" y2="375" class="vh"/>
+    <line x1="285" y1="297" x2="345" y2="375" class="vh"/>
+    <line x1="285" y1="327" x2="325" y2="375" class="vh"/>
+    <line x1="305" y1="207" x2="405" y2="345" class="vh"/>
+    <line x1="325" y1="207" x2="405" y2="315" class="vh"/>
+    <line x1="345" y1="207" x2="405" y2="285" class="vh"/>
+    <line x1="365" y1="207" x2="405" y2="255" class="vh"/>
+    <line x1="385" y1="207" x2="405" y2="230" class="vh"/>
+    <text x="345" y="286" class="rs" fill="#3a3a4a">OPEN TO</text>
+    <text x="345" y="298" class="rs" fill="#3a3a4a">BELOW</text>
+  </g>
+
+  <!-- dimensions -->
+  <g class="dims">
+    <line x1="40" y1="530" x2="264" y2="530" class="dl"/>
+    <line x1="40"  y1="526" x2="40"  y2="534" class="dl"/>
+    <line x1="264" y1="526" x2="264" y2="534" class="dl"/>
+    <text x="152" y="527" class="dt">22'-4"</text>
+    <line x1="340" y1="530" x2="440" y2="530" stroke="#444" stroke-width="1.2"/>
+    <line x1="340" y1="526" x2="340" y2="534" stroke="#444" stroke-width="1.2"/>
+    <line x1="440" y1="526" x2="440" y2="534" stroke="#444" stroke-width="1.2"/>
+    <text x="390" y="525" class="dt" fill="#444">10'-0"</text>
+  </g>
+
+  <!-- compass -->
+  <g transform="translate(470,80)">
+    <circle cx="0" cy="0" r="22" fill="none" stroke="var(--gold)" stroke-width=".8" opacity=".5"/>
+    <circle cx="0" cy="0" r="2" fill="var(--gold)" opacity=".5"/>
+    <line x1="0" y1="-20" x2="0" y2="20" stroke="var(--gold)" stroke-width=".5" opacity=".3"/>
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="var(--gold)" stroke-width=".5" opacity=".3"/>
+    <polygon points="0,-20 -4,-10 0,-12 4,-10" fill="var(--gold)" opacity=".7"/>
+    <polygon points="0,20 -3,12 0,14 3,12" fill="var(--gold)" opacity=".3"/>
+    <text x="0" y="-24" fill="var(--gold)" font-size="8" font-family="Courier New" text-anchor="middle" font-weight="bold" opacity=".8">N</text>
+    <text x="0" y="32" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">S</text>
+    <text x="30" y="3" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">E</text>
+    <text x="-30" y="3" fill="var(--gold)" font-size="6" font-family="Courier New" text-anchor="middle" opacity=".5">W</text>
+  </g>
+</svg>
 </div>
 
-<!-- RENDERS GRID -->
+</div><!-- /plans -->
+
+<!-- RENDERS -->
 <div class="renders" id="rd">
-<div class="rd" onclick="sr('iso-fr','Front-Right Iso')"><img src="renders/iso-fr.png" alt="Front-Right Iso"><div class="cap2">Front-Right Iso</div></div>
-<div class="rd" onclick="sr('front','Front Street View')"><img src="renders/front.png" alt="Front Street View"><div class="cap2">Front Street View</div></div>
-<div class="rd" onclick="sr('iso-br','Rear-Right Iso')"><img src="renders/iso-br.png" alt="Rear-Right Iso"><div class="cap2">Rear-Right Iso</div></div>
-<div class="rd" onclick="sr('top','Aerial Top-Down')"><img src="renders/top.png" alt="Aerial Top-Down"><div class="cap2">Aerial Top-Down</div></div>
+  <div class="rd" onclick="sr('iso-fr','Front-Right Iso')"><img src="renders/iso-fr.png" alt="Front-Right Iso"><div class="cap2">Front-Right Iso</div></div>
+  <div class="rd" onclick="sr('front','Front Street View')"><img src="renders/front.png" alt="Front Street View"><div class="cap2">Front Street View</div></div>
+  <div class="rd" onclick="sr('iso-br','Rear-Right Iso')"><img src="renders/iso-br.png" alt="Rear-Right Iso"><div class="cap2">Rear-Right Iso</div></div>
+  <div class="rd" onclick="sr('top','Aerial Top-Down')"><img src="renders/top.png" alt="Aerial Top-Down"><div class="cap2">Aerial Top-Down</div></div>
 </div>
 
-<!-- PHOTO STRIP -->
+<!-- PHOTOS -->
 <div class="photo-strip" id="ps"></div>
 <div class="lb" id="lb" onclick="cl(event)">
-<div class="cx" onclick="cl()">&times;</div>
-<div class="nv pr" onclick="nv(-1,event)">&lsaquo;</div>
-<img id="li" src="" alt=""/>
-<div class="nv nx" onclick="nv(1,event)">&rsaquo;</div>
-<div class="cap" id="lc"></div>
+  <div class="cx" onclick="cl()">&times;</div>
+  <div class="nv pr" onclick="nv(-1,event)">&lsaquo;</div>
+  <img id="li" src="" alt=""/>
+  <div class="nv nx" onclick="nv(1,event)">&rsaquo;</div>
+  <div class="cap" id="lc"></div>
 </div>
 
 <!-- INFO -->
 <div class="ig">
-<div class="ic"><h3>Property</h3><table>
-<tr><td>Type</td><td>Single Family</td></tr>
-<tr><td>Living Area</td><td>2,601 SF</td></tr>
-<tr><td>Lot</td><td>7,405 SF</td></tr>
-<tr><td>Built</td><td>1998</td></tr>
-<tr><td>Beds / Baths</td><td>4 / 3</td></tr>
-<tr><td>Garage</td><td>3-Car (16'+9')</td></tr>
-<tr><td>Fireplace</td><td>1 Gas (Stone)</td></tr>
-<tr><td>Foundation</td><td>Crawl Space</td></tr>
-<tr><td>Est. Value</td><td>~$2.29M</td></tr>
-<tr><td>2025 Taxes</td><td>$5,929</td></tr>
-</table></div>
-<div class="ic"><h3>Rooms</h3><table>
-<tr><td>Living Room</td><td>2-Story Vaulted, Stone FP, Hardwood</td></tr>
-<tr><td>Kitchen</td><td>Bay Window, Quartz Island, Tile</td></tr>
-<tr><td>Dining</td><td>Open Plan, Slider to Deck</td></tr>
-<tr><td>Bedroom 4</td><td>Main Floor, Slider to Yard</td></tr>
-<tr><td>Master</td><td>Vaulted Shiplap, Deck Access</td></tr>
-<tr><td>Master Bath</td><td>Freestanding Tub, Glass Shower</td></tr>
-<tr><td>Bedroom 3</td><td>Upper, Barn Door Closet</td></tr>
-<tr><td>Exterior</td><td>Hot Tub, Turf Yard, Upper Deck</td></tr>
-</table></div>
-<div class="ic"><h3>Construction</h3><table>
-<tr><td>Framing</td><td>2x6 Ext / 2x4 Int</td></tr>
-<tr><td>Sheathing</td><td>C-D Plywood 7/16"</td></tr>
-<tr><td>Roof</td><td>12:6 Pitch</td></tr>
-<tr><td>Siding</td><td>Lap, Dark Gray</td></tr>
-<tr><td>Wainscot</td><td>Natural Stone</td></tr>
-<tr><td>Windows</td><td>Dual Glazed Vinyl Low-E</td></tr>
-<tr><td>HVAC</td><td>Forced Air + Central A/C</td></tr>
-<tr><td>Hardware</td><td>Simpson MST60 / HPAHD22</td></tr>
-</table></div>
-<div class="ic"><h3>Finishes</h3><table>
-<tr><td>Cabinets</td><td>White Shaker + Gray Island</td></tr>
-<tr><td>Counters</td><td>Quartz / Marble</td></tr>
-<tr><td>Appliances</td><td>SS Range, Fridge, DW, Micro</td></tr>
-<tr><td>Master Vanity</td><td>Navy Blue, Gold Fixtures</td></tr>
-<tr><td>Flooring</td><td>Hardwood, Tile, Carpet</td></tr>
-<tr><td>Ceilings</td><td>T&G Wood (Living), Shiplap (Master)</td></tr>
-<tr><td>Trim</td><td>Dark Stained Wood Throughout</td></tr>
-<tr><td>Extras</td><td>Ski Storage, Hot Tub</td></tr>
-</table></div>
+  <div class="ic"><h3>Property</h3><table>
+    <tr><td>Type</td><td>Single Family</td></tr>
+    <tr><td>Living Area</td><td>2,601 SF</td></tr>
+    <tr><td>Lot</td><td>7,405 SF</td></tr>
+    <tr><td>Built</td><td>1998</td></tr>
+    <tr><td>Beds / Baths</td><td>4 / 3</td></tr>
+    <tr><td>Garage</td><td>3-Car (16' + 9')</td></tr>
+    <tr><td>Fireplace</td><td>1 Gas (Stone)</td></tr>
+    <tr><td>Foundation</td><td>Crawl Space</td></tr>
+    <tr><td>2025 Taxes</td><td>$5,929</td></tr>
+  </table></div>
+  <div class="ic"><h3>Rooms</h3><table>
+    <tr><td>Living Room</td><td>2-Story Vaulted, Stone FP, Hardwood</td></tr>
+    <tr><td>Kitchen</td><td>Bay Window, Quartz Island, Tile</td></tr>
+    <tr><td>Dining</td><td>Open Plan, Transom to Patio</td></tr>
+    <tr><td>Bedroom 4</td><td>Main Floor, Slider to Yard</td></tr>
+    <tr><td>Master</td><td>Vaulted Shiplap, Deck Access</td></tr>
+    <tr><td>Master Bath</td><td>Freestanding Tub, Glass Shower</td></tr>
+    <tr><td>Bedroom 3</td><td>Upper, Barn Door Closet</td></tr>
+    <tr><td>Exterior</td><td>Hot Tub, Turf Yard, Upper Deck</td></tr>
+  </table></div>
+  <div class="ic"><h3>Construction</h3><table>
+    <tr><td>Framing</td><td>2x6 Ext / 2x4 Int</td></tr>
+    <tr><td>Sheathing</td><td>C-D Plywood 7/16"</td></tr>
+    <tr><td>Roof Pitch</td><td>6:12</td></tr>
+    <tr><td>Siding</td><td>Lap, Near-Black</td></tr>
+    <tr><td>Wainscot</td><td>Tan Fieldstone</td></tr>
+    <tr><td>Front Door</td><td>Red</td></tr>
+    <tr><td>Windows</td><td>Dual Glazed Vinyl Low-E, Black Frames</td></tr>
+    <tr><td>HVAC</td><td>Forced Air + Central A/C</td></tr>
+    <tr><td>Hardware</td><td>Simpson MST60 / HPAHD22</td></tr>
+  </table></div>
+  <div class="ic"><h3>Finishes</h3><table>
+    <tr><td>Cabinets</td><td>White Shaker + Gray Island</td></tr>
+    <tr><td>Counters</td><td>Quartz / Marble</td></tr>
+    <tr><td>Appliances</td><td>SS Range, Fridge, DW, Micro</td></tr>
+    <tr><td>Master Vanity</td><td>Navy Blue, Gold Fixtures</td></tr>
+    <tr><td>Flooring</td><td>Hardwood, Tile, Carpet</td></tr>
+    <tr><td>Ceilings</td><td>T&amp;G Wood (Living), Shiplap (Master)</td></tr>
+    <tr><td>Trim</td><td>Dark Stained Wood Throughout</td></tr>
+    <tr><td>Extras</td><td>Ski Storage, Hot Tub</td></tr>
+  </table></div>
 </div>
 
 <script>
-const D='voelker-house-photos/',T=40,L={1:'Front Exterior',2:'Aerial Front',3:'Front Wide',4:'Living Room',5:'Living Room Open',6:'Kitchen Entry View',7:'Kitchen Island',8:'Kitchen Bay',9:'Kitchen Bay Window',10:'Open Plan',11:'Dining Room',12:'Deck Hot Tub',13:'Covered Deck',14:'Backyard',15:'Back Exterior',16:'Bedroom 4 Office',17:'Bath 3',18:'Laundry',19:'Upper Hall',20:'Living from Above',21:'Master Bedroom',22:'Master Bed 2',23:'Master Bed 3',24:'Master Bath Vanity',25:'Master Bath Tub',26:'Bedroom 3',27:'Bath 2',28:'Half Bath',29:'Bedroom Detail',30:'Bedroom Detail 2',31:'Bath Detail',32:'Aerial',33:'Aerial Mountains',34:'Aerial Canyons',35:'Aerial Property',36:'Overhead Drone',37:'Aerial Summer',38:'Aerial Summer 2',39:'Front Garage',40:'Front Entry'};
-let cp=1;const ps=document.getElementById('ps');
-for(let i=1;i<=T;i++){const m=document.createElement('img');m.src=D+'photo-'+String(i).padStart(2,'0')+'.webp';m.alt=L[i]||'';m.title=L[i]||'';m.onclick=()=>sp(i);m.id='t'+i;ps.appendChild(m)}
-function sp(n){cp=n;document.getElementById('li').src=D+'photo-'+String(n).padStart(2,'0')+'.webp';document.getElementById('lc').textContent=(L[n]||'Photo '+n)+' ('+n+'/'+T+')';document.getElementById('lb').classList.add('show');document.querySelectorAll('.photo-strip img').forEach(i=>i.style.borderColor='#333');const t=document.getElementById('t'+n);if(t){t.style.borderColor='var(--gold)';t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})}}
-function cl(e){if(e&&(e.target.classList.contains('nv')||e.target.classList.contains('cx')))return;document.getElementById('lb').classList.remove('show')}
-function nv(d,e){if(e)e.stopPropagation();cp+=d;if(cp<1)cp=T;if(cp>T)cp=1;sp(cp)}
-document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='ArrowRight')nv(1);if(e.key==='ArrowLeft')nv(-1);if(e.key==='Escape')cl()});
-function sf(f,b){document.querySelectorAll('.ctrls button').forEach(x=>{if(['Both Floors','Main Floor','Upper Floor','Renders'].includes(x.textContent))x.classList.remove('on')});b.classList.add('on');const isR=f==='renders';document.querySelector('.plans').style.display=isR?'none':'';document.getElementById('rd').classList.toggle('show',isR);if(!isR){document.getElementById('fm').style.display=f==='upper'?'none':'';document.getElementById('fu').style.display=f==='main'?'none':''}}
-function sr(name,label){document.getElementById('li').src='renders/'+name+'.png';document.getElementById('lc').textContent=label;document.getElementById('lb').classList.add('show')}
-function tg(l,b){b.classList.toggle('on');const s=b.classList.contains('on');if(l==='pho'){ps.style.display=s?'flex':'none'}else{document.querySelectorAll(l==='dims'?'.dims':'.fix').forEach(g=>g.style.display=s?'':'none')}}
-ps.style.display='none';
-// Default to main floor only
-document.getElementById('fu').style.display='none';
+'use strict';
+const DIR = 'voelker-house-photos/', TOTAL = 40;
+const CAPTION = {
+  1:'Front Exterior', 2:'Aerial Front', 3:'Front Wide', 4:'Living Room', 5:'Living Room Open',
+  6:'Kitchen Entry View', 7:'Kitchen Island', 8:'Kitchen Bay', 9:'Kitchen Bay Window', 10:'Open Plan',
+  11:'Dining Room', 12:'Deck Hot Tub', 13:'Covered Deck', 14:'Backyard', 15:'Back Exterior',
+  16:'Bedroom 4 Office', 17:'Bath 3', 18:'Laundry', 19:'Upper Hall', 20:'Living from Above',
+  21:'Master Bedroom', 22:'Master Bed 2', 23:'Master Bed 3', 24:'Master Bath Vanity', 25:'Master Bath Tub',
+  26:'Bedroom 3', 27:'Bath 2', 28:'Half Bath', 29:'Bedroom Detail', 30:'Bedroom Detail 2',
+  31:'Bath Detail', 32:'Aerial', 33:'Aerial Mountains', 34:'Aerial Canyons', 35:'Aerial Property',
+  36:'Overhead Drone', 37:'Aerial Summer', 38:'Aerial Summer 2', 39:'Front Garage', 40:'Front Entry'
+};
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, '0');
+const src = n => DIR + 'photo-' + pad(n) + '.webp';
+
+const strip = $('ps'), lightbox = $('lb'), lbImg = $('li'), lbCap = $('lc');
+let current = 1;
+
+for (let i = 1; i <= TOTAL; i++) {
+  const thumb = document.createElement('img');
+  thumb.src = src(i);
+  thumb.alt = thumb.title = CAPTION[i] || 'Photo ' + i;
+  thumb.id = 't' + i;
+  thumb.loading = 'lazy';
+  thumb.onclick = () => sp(i);
+  strip.appendChild(thumb);
+}
+
+/* open a listing photo */
+function sp(n) {
+  current = n;
+  lbImg.src = src(n);
+  lbImg.alt = CAPTION[n] || 'Photo ' + n;
+  lbCap.textContent = (CAPTION[n] || 'Photo ' + n) + ' (' + n + '/' + TOTAL + ')';
+  lightbox.classList.add('show');
+  strip.querySelectorAll('img').forEach(i => i.style.borderColor = '#333');
+  const thumb = $('t' + n);
+  if (thumb) {
+    thumb.style.borderColor = 'var(--gold)';
+    thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+}
+
+/* open a render */
+function sr(name, label) {
+  lbImg.src = 'renders/' + name + '.png';
+  lbImg.alt = label;
+  lbCap.textContent = label;
+  lightbox.classList.add('show');
+}
+
+function cl(e) {
+  if (e && (e.target.classList.contains('nv') || e.target.classList.contains('cx'))) return;
+  lightbox.classList.remove('show');
+}
+
+function nv(step, e) {
+  if (e) e.stopPropagation();
+  current = ((current - 1 + step + TOTAL) % TOTAL) + 1;
+  sp(current);
+}
+
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('show')) return;
+  if (e.key === 'ArrowRight') nv(1);
+  if (e.key === 'ArrowLeft') nv(-1);
+  if (e.key === 'Escape') cl();
+});
+
+/* floor selection */
+const floorBtns = [...document.querySelectorAll('[data-floor]')];
+function setFloor(which) {
+  floorBtns.forEach(b => b.classList.toggle('on', b.dataset.floor === which));
+  const isRenders = which === 'renders';
+  document.querySelector('.plans').style.display = isRenders ? 'none' : '';
+  $('rd').classList.toggle('show', isRenders);
+  if (!isRenders) {
+    $('fm').style.display = which === 'upper' ? 'none' : '';
+    $('fu').style.display = which === 'main' ? 'none' : '';
+  }
+}
+floorBtns.forEach(b => b.onclick = () => setFloor(b.dataset.floor));
+
+/* layer toggles */
+document.querySelectorAll('[data-layer]').forEach(btn => {
+  btn.onclick = () => {
+    btn.classList.toggle('on');
+    const on = btn.classList.contains('on');
+    const layer = btn.dataset.layer;
+    if (layer === 'pho') { strip.classList.toggle('show', on); return; }
+    document.querySelectorAll('.' + (layer === 'dims' ? 'dims' : 'fix'))
+      .forEach(g => g.style.display = on ? '' : 'none');
+  };
+});
+
+setFloor('main');
 </script>
 </body>
 </html>
